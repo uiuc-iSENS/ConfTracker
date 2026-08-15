@@ -11,8 +11,8 @@
     id: mobicom27
     link: https://www.sigmobile.org/mobicom/2027/
     timeline:
-    - abstract_deadline: '2026-08-26 23:59:59'
-      deadline: '2026-09-02 23:59:59'
+    - abstract_deadline: '2026-08-26 23:59:00'
+      deadline: '2026-09-02 23:59:00'
       comment: Summer deadlines
     timezone: AoE
     date: Oct 18-22, 2027
