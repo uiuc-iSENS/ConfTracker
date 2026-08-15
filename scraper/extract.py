@@ -99,6 +99,11 @@ def _backend() -> str:
     return "api"  # will fail gracefully with an auth error in the log
 
 
+def active_backend() -> str:
+    """Which backend this run will use ("api" or "cli"). For run records."""
+    return _backend()
+
+
 # ---------- backend: Anthropic SDK ----------
 
 def _extract_api(prompt: str) -> Extraction | None:

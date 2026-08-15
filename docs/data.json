@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-15T06:07:08+00:00",
+  "generated_at": "2026-08-15T06:19:26+00:00",
   "conferences": [
     {
       "title": "CoNEXT",
@@ -470,7 +470,45 @@
         "thcpl": "A"
       },
       "dblp": "huc",
-      "confs": [],
+      "confs": [
+        {
+          "year": 2026,
+          "id": "ubicomp-iswc26",
+          "link": "https://dl.acm.org/journal/imwut/how-to-submit",
+          "timeline": [
+            {
+              "deadline": "2026-11-01 23:59:59",
+              "comment": "IMWUT new submissions"
+            }
+          ],
+          "timezone": "AoE",
+          "date": "TBD",
+          "place": "TBD"
+        },
+        {
+          "year": 2027,
+          "id": "ubicomp-iswc27",
+          "link": "https://dl.acm.org/journal/imwut/how-to-submit",
+          "timeline": [
+            {
+              "deadline": "2027-02-01 23:59:59",
+              "comment": "IMWUT new submissions"
+            },
+            {
+              "deadline": "2027-05-01 23:59:59",
+              "comment": "IMWUT new submissions"
+            },
+            {
+              "deadline": "2027-08-01 23:59:59",
+              "track": "Resubmission",
+              "comment": "IMWUT major revisions only"
+            }
+          ],
+          "timezone": "AoE",
+          "date": "TBD",
+          "place": "TBD"
+        }
+      ],
       "isens": {
         "tier": 1,
         "tags": [
@@ -482,6 +520,29 @@
           "url": "https://www.ubicomp.org/",
           "templates": [
             "https://www.ubicomp.org/ubicomp-iswc-{year}/"
+          ]
+        },
+        "recurring": {
+          "source": "https://dl.acm.org/journal/imwut/how-to-submit",
+          "timezone": "AoE",
+          "deadlines": [
+            {
+              "date": "02-01",
+              "comment": "IMWUT new submissions"
+            },
+            {
+              "date": "05-01",
+              "comment": "IMWUT new submissions"
+            },
+            {
+              "date": "08-01",
+              "track": "Resubmission",
+              "comment": "IMWUT major revisions only"
+            },
+            {
+              "date": "11-01",
+              "comment": "IMWUT new submissions"
+            }
           ]
         }
       }

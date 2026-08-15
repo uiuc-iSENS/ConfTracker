@@ -1,5 +1,5 @@
 /* iSENS ConfTracker frontend — renders data.json into the deadline list
-   and the 12-month "deadline spectrum" strip. No dependencies. */
+   and the "deadline spectrum" strip. No dependencies. */
 
 (async function () {
   const data = await fetch("data.json?_=" + Date.now()).then((r) => r.json());
@@ -24,33 +24,61 @@
     return utc - tzOffsetHours(tz) * 3600 * 1000; // wall clock in UTC±o → epoch
   }
 
-  // All upcoming deadline events for one conference, soonest first.
-  function upcomingEvents(conf) {
-    const now = Date.now();
-    const events = [];
+  function dateInfo(raw, tz) {
+    if (!raw) return null;
+    const t = toEpoch(raw, tz);
+    if (!t) return null;
+    return { t, raw, past: t <= Date.now() };
+  }
+
+  // Upcoming submission rounds for one conference, soonest first. A round is
+  // one timeline entry, so its abstract and paper deadlines stay together --
+  // they are two dates for the same submission, not two separate events.
+  function upcomingRounds(conf) {
+    const rounds = [];
     for (const cycle of conf.confs || []) {
       for (const entry of cycle.timeline || []) {
-        const candidates = [
-          ["Abstract", entry.abstract_deadline],
-          ["Paper", entry.deadline],
-        ];
-        for (const [kind, value] of candidates) {
-          if (!value) continue;
-          const t = toEpoch(value, cycle.timezone);
-          if (t && t > now) {
-            events.push({
-              t,
-              kind,
-              value,
-              cycle,
-              comment: entry.comment || null,
-              track: entry.track || null, // null = main paper track
-            });
-          }
-        }
+        const abstract = dateInfo(entry.abstract_deadline, cycle.timezone);
+        const paper = dateInfo(entry.deadline, cycle.timezone);
+        // Keep the round while either date is still ahead; a passed abstract
+        // is still worth showing next to a live paper deadline, since most
+        // venues will not accept a paper whose abstract was never registered.
+        const live = [abstract, paper].filter((d) => d && !d.past);
+        if (!live.length) continue;
+        rounds.push({
+          cycle,
+          abstract,
+          paper,
+          comment: entry.comment || null,
+          track: entry.track || null, // null = main paper track
+          t: Math.min(...live.map((d) => d.t)),
+        });
       }
     }
-    return events.sort((a, b) => a.t - b.t);
+    return rounds.sort((a, b) => a.t - b.t);
+  }
+
+  // The next date actually facing you in a round, and which kind it is.
+  function soonest(round) {
+    const live = [
+      ["Paper", round.paper],
+      ["Abstract", round.abstract],
+    ].filter(([, d]) => d && !d.past);
+    if (!live.length) return null;
+    live.sort((a, b) => a[1].t - b[1].t);
+    return { kind: live[0][0], t: live[0][1].t, raw: live[0][1].raw };
+  }
+
+  // Label a deadline by the date the venue states, not the reader's local
+  // rendering of it: an AoE deadline converted to local time lands a day
+  // later, so "Feb 1" would show as "Feb 2" and contradict every CFP.
+  function statedDay(raw) {
+    const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(raw));
+    if (!m) return "";
+    return new Date(+m[1], +m[2] - 1, +m[3]).toLocaleDateString(undefined, {
+      month: "short",
+      day: "numeric",
+    });
   }
 
   function urgency(t) {
@@ -63,20 +91,21 @@
   // ---------- prepare model ----------
 
   const confs = data.conferences.map((c) => {
-    const events = upcomingEvents(c);
+    const rounds = upcomingRounds(c);
     // Main paper track leads; workshops/posters/demos become secondary rows.
-    const next = events.find((e) => !e.track) || events[0] || null;
+    const main = rounds.find((r) => !r.track) || rounds[0] || null;
     return {
       ...c,
       tier: (c.isens && c.isens.tier) || 3,
       tags: (c.isens && c.isens.tags) || [],
-      next,
-      extras: events.filter((e) => e !== next).slice(0, 4),
+      main,
+      soon: main ? soonest(main) : null,
+      extras: rounds.filter((r) => r !== main).slice(0, 4),
     };
   });
 
-  const upcoming = confs.filter((c) => c.next).sort((a, b) => a.next.t - b.next.t);
-  const awaiting = confs.filter((c) => !c.next);
+  const upcoming = confs.filter((c) => c.main).sort((a, b) => a.soon.t - b.soon.t);
+  const awaiting = confs.filter((c) => !c.main);
 
   // ---------- header ----------
 
@@ -137,49 +166,93 @@
     return `<span class="${cls}" title="CORE rank">CORE ${core}</span>`;
   }
 
+  // Long extractor comments go to a tooltip, not the label.
+  const brief = (s) => (s && s.length <= 48 ? s : null);
+  // "UbiComp/ISWC" -> "ubicomp-iswc": a raw title breaks both the id and the
+  // spectrum's "#conf-…" anchor as soon as it contains a slash or a space.
+  const slug = (title) => "conf-" + title.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+  const attr = (s) => String(s || "").replace(/"/g, "&quot;");
+  // "2026-09-02 23:59:59" -> "2026-09-02 23:59"; a bare date is left alone.
+  const fmtStamp = (raw) => String(raw).replace(/:\d{2}$/, "");
+
+  // One deadline. `primary` is the paper deadline, which gets the weight:
+  // it is the date that decides whether you submit at all.
+  function dlCell(label, info, tz, primary) {
+    const cls = "dl-cell" + (primary ? " primary" : "");
+    const stamp = `<div class="dl-date">${fmtStamp(info.raw)} ${tz}</div>`;
+    if (info.past) {
+      return `<div class="${cls} closed" title="${attr(new Date(info.t).toLocaleString())} local">
+          <div class="dl-label">${label}</div>
+          <div class="dl-closed">closed</div>
+          ${stamp}
+        </div>`;
+    }
+    return `<div class="${cls} ${urgency(info.t)}" title="${attr(new Date(info.t).toLocaleString())} local">
+        <div class="dl-label">${label}</div>
+        <div class="countdown ${urgency(info.t)}" data-t="${info.t}"></div>
+        ${stamp}
+      </div>`;
+  }
+
+  // Abstract and paper side by side, in time order, paper emphasised. On a
+  // workshop/poster/demo round the full-submission deadline is that track's,
+  // so it takes the track's name rather than a misleading "Paper".
+  function deadlinePair(r) {
+    const tz = r.cycle.timezone || "AoE";
+    const mainLabel = r.track || "Paper";
+    const cells = [];
+    if (r.abstract) cells.push(dlCell("Abstract", r.abstract, tz, false));
+    if (r.paper) {
+      cells.push(dlCell(mainLabel, r.paper, tz, true));
+    } else {
+      // An announced abstract deadline with no paper date yet is common and
+      // worth stating outright, rather than leaving a gap.
+      cells.push(`<div class="dl-cell primary pending">
+          <div class="dl-label">${mainLabel}</div>
+          <div class="dl-pending">not announced</div>
+        </div>`);
+    }
+    const head = brief(r.comment);
+    return `${head ? `<div class="dl-kind" title="${attr(r.comment)}">${head}</div>` : ""}
+      <div class="dl-pair">${cells.join("")}</div>`;
+  }
+
   function confRow(c) {
     const li = document.createElement("li");
-    li.className = "conf " + (c.next ? urgency(c.next.t) : "");
-    li.id = "conf-" + c.title.toLowerCase();
+    li.className = "conf " + (c.soon ? urgency(c.soon.t) : "");
+    li.id = slug(c.title);
 
-    const link = c.next && c.next.cycle.link ? c.next.cycle.link : null;
+    const link = c.main && c.main.cycle.link ? c.main.cycle.link : null;
     const acr = link
       ? `<a class="acr" href="${link}" rel="noopener">${c.title}</a>`
       : `<span class="acr">${c.title}</span>`;
 
-    const venue = c.next
-      ? `${c.next.cycle.date || "TBD"} · ${c.next.cycle.place || "TBD"}`
-      : "";
+    // A recurring-deadline venue has no edition info to show; "TBD · TBD" is
+    // noise, so drop the line entirely when neither half is known.
+    const cDate = c.main && c.main.cycle.date;
+    const cPlace = c.main && c.main.cycle.place;
+    const known = (v) => v && v !== "TBD";
+    const venue =
+      known(cDate) || known(cPlace)
+        ? `${cDate || "TBD"} · ${cPlace || "TBD"}`
+        : "";
 
-    // Long extractor comments go to a tooltip, not the label.
-    const brief = (s) => (s && s.length <= 48 ? s : null);
-
-    const kindLabel = c.next
-      ? [c.next.track, c.next.kind + " deadline", brief(c.next.comment)]
-          .filter(Boolean)
-          .join(" · ")
-      : "";
-
-    const when = c.next
-      ? `<div class="dl-kind" title="${(c.next.comment || "").replace(/"/g, "&quot;")}">${kindLabel}</div>
-         <div class="countdown ${urgency(c.next.t)}" data-t="${c.next.t}"></div>
-         <p class="dl-date">${c.next.value} ${c.next.cycle.timezone || "AoE"}<br>
-           ${new Date(c.next.t).toLocaleString()} local</p>`
+    const when = c.main
+      ? deadlinePair(c.main)
       : `<span class="tbd">CFP not announced</span>`;
 
     const extras = c.extras.length
       ? `<p class="tracks">${c.extras
-          .map((e) => {
-            const label = [e.track || e.kind, brief(e.comment)]
+          .map((r) => {
+            const s = soonest(r);
+            if (!s) return "";
+            const kind = s.kind === "Abstract" ? "abstract" : null;
+            const label = [r.track || "Paper", kind, brief(r.comment)]
               .filter(Boolean)
               .join(" · ");
-            const d = new Date(e.t).toLocaleDateString(undefined, {
-              month: "short",
-              day: "numeric",
-            });
-            const days = Math.ceil((e.t - Date.now()) / 86400000);
-            const tip = (e.comment || "").replace(/"/g, "&quot;");
-            return `<span class="track ${urgency(e.t)}" title="${tip}">${label} · ${d} (${days}d)</span>`;
+            const d = statedDay(s.raw);
+            const days = Math.ceil((s.t - Date.now()) / 86400000);
+            return `<span class="track ${urgency(s.t)}" title="${attr(r.comment)}">${label} · ${d} (${days}d)</span>`;
           })
           .join("")}</p>`
       : "";
@@ -222,34 +295,73 @@
 
   // ---------- spectrum strip ----------
 
+  const MONTH_MS = 30.44 * 86400000;
+
   function renderSpectrum(list) {
     const axis = document.getElementById("spectrum-axis");
+    const note = document.getElementById("spectrum-note");
     axis.textContent = "";
-    const now = Date.now();
-    const span = 365 * 86400000;
 
-    // month ticks
+    const now = Date.now();
+    const points = list.map((c) => ({ c, s: c.soon })).filter((p) => p.s);
+    if (!points.length) {
+      note.textContent = "no upcoming deadlines";
+      return;
+    }
+
+    // Span what the data actually covers, not a fixed year: conferences
+    // announce roughly a cycle ahead, so a hard 12-month axis leaves most of
+    // the strip empty and squeezes every real deadline into the left edge.
+    // Round up to the start of the month after the furthest deadline, with a
+    // floor so one imminent deadline cannot zoom the axis down to days.
+    const far = Math.max(...points.map((p) => p.s.t));
+    const end = new Date(far);
+    end.setDate(1);
+    end.setHours(0, 0, 0, 0);
+    end.setMonth(end.getMonth() + 1);
+    const span = Math.min(
+      Math.max(end.getTime() - now, 70 * 86400000),
+      400 * 86400000
+    );
+
+    const months = Math.max(1, Math.round(span / MONTH_MS));
+    const through = new Date(now + span).toLocaleString("en-US", {
+      month: "short",
+      year: "numeric",
+    });
+    note.textContent = `next ${months} month${months === 1 ? "" : "s"} · through ${through}`;
+
+    // month ticks, as many as the span actually holds
     const cursor = new Date();
     cursor.setDate(1);
-    for (let i = 1; i <= 12; i++) {
+    cursor.setHours(0, 0, 0, 0);
+    while (true) {
       cursor.setMonth(cursor.getMonth() + 1);
       const x = ((cursor.getTime() - now) / span) * 100;
-      if (x < 0 || x > 99) continue;
+      if (x > 99) break;
+      if (x < 0) continue;
       const tick = document.createElement("div");
       tick.className = "month-tick";
       tick.style.left = x + "%";
-      tick.textContent = cursor.toLocaleString("en-US", { month: "short" });
+      tick.textContent = cursor.toLocaleString("en-US", {
+        month: "short",
+        ...(cursor.getMonth() === 0 ? { year: "2-digit" } : {}),
+      });
       axis.appendChild(tick);
     }
 
-    list.forEach((c, i) => {
-      const x = ((c.next.t - now) / span) * 100;
+    points.forEach((p, i) => {
+      const x = ((p.s.t - now) / span) * 100;
       if (x > 99) return;
       const a = document.createElement("a");
-      a.className = `dl-tick ${urgency(c.next.t)} ${i % 2 ? "row-odd" : ""}`;
+      a.className = `dl-tick ${urgency(p.s.t)} ${i % 2 ? "row-odd" : ""}`;
       a.style.left = Math.max(x, 0.5) + "%";
-      a.href = "#conf-" + c.title.toLowerCase();
-      a.innerHTML = `<span class="lbl">${c.title}</span><span class="stem"></span><span class="dot"></span>`;
+      a.href = "#" + slug(p.c.title);
+      a.title = `${p.c.title} — ${p.s.kind.toLowerCase()} deadline ${statedDay(p.s.raw)}`;
+      // Hollow dot = abstract deadline, solid = paper deadline.
+      a.innerHTML =
+        `<span class="lbl">${p.c.title}</span><span class="stem"></span>` +
+        `<span class="dot${p.s.kind === "Abstract" ? " hollow" : ""}"></span>`;
       axis.appendChild(a);
     });
   }

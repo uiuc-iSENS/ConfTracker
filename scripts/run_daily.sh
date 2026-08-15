@@ -8,6 +8,15 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
 mkdir -p logs
 
+# cron's PATH is bare (/usr/bin:/bin), which hides the `claude` CLI installed
+# under ~/.local/bin -- without this the extractor silently falls back to the
+# API backend and every extraction fails on a missing key.
+export PATH="$HOME/.local/bin:$PATH"
+
+# Only one run at a time: a slow scrape must not overlap the next day's.
+exec 9>logs/.daily.lock
+flock -n 9 || { echo "Another run is in progress; exiting."; exit 0; }
+
 # Load ANTHROPIC_API_KEY (and any overrides) from .env if present.
 if [[ -f .env ]]; then
   set -a

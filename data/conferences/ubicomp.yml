@@ -17,3 +17,22 @@
       url: https://www.ubicomp.org/
       templates:
       - https://www.ubicomp.org/ubicomp-iswc-{year}/
+    # UbiComp/ISWC has no per-edition CFP: its technical track is papers
+    # published in IMWUT, which takes submissions on the same dates every
+    # year. Nothing to scrape, so the rule is declared here and projected
+    # onto the calendar at build time.
+    recurring:
+      source: https://dl.acm.org/journal/imwut/how-to-submit
+      timezone: AoE
+      deadlines:
+      - date: '02-01'
+        comment: IMWUT new submissions
+      - date: '05-01'
+        comment: IMWUT new submissions
+      # August takes major-revision resubmissions only -- not new papers --
+      # so it is tracked separately rather than as a submission deadline.
+      - date: '08-01'
+        track: Resubmission
+        comment: IMWUT major revisions only
+      - date: '11-01'
+        comment: IMWUT new submissions
