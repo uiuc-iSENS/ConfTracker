@@ -1,5 +1,8 @@
 - title: SenSys
-  description: ACM Conference on Embedded Networked Sensor Systems
+  # SenSys, IPSN and IoTDI merged into this single venue in 2026; the old
+  # names stay in the description so a search for either still finds it.
+  description: ACM/IEEE International Conference on Embedded Artificial Intelligence
+    and Sensing Systems (SenSys + IPSN + IoTDI, merged 2026)
   sub: NW
   rank:
     ccf: B

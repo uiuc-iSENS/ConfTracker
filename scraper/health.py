@@ -180,10 +180,16 @@ def conference_health(runs: list[dict]) -> tuple[list[tuple[str, str, str]], int
         return [], 0
 
     # Per conference, statuses across the window, most recent run last.
+    # Restricted to venues still configured: a retired one (IPSN and IoTDI
+    # were absorbed by SenSys in 2026) stays in the history window for days
+    # after its YAML is deleted, and would be reported as broken the whole
+    # time even though dropping it was deliberate.
+    tracked = {path.stem for path in config.CONF_DIR.glob("*.yml")}
     per_conf: dict[str, list[str]] = {}
     for run in runs:
         for rec in run.get("results") or []:
-            per_conf.setdefault(rec["conf"], []).append(rec.get("status", "?"))
+            if rec["conf"] in tracked:
+                per_conf.setdefault(rec["conf"], []).append(rec.get("status", "?"))
 
     # A conference with a deadline already on record and in the future is
     # fine even if recent runs found nothing new -- the data is captured.

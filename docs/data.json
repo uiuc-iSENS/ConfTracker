@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-15T06:31:34+00:00",
+  "generated_at": "2026-08-15T06:41:02+00:00",
   "conferences": [
     {
       "title": "CoNEXT",
@@ -147,51 +147,6 @@
           "url": "https://www.ieee-infocom.org/",
           "templates": [
             "https://infocom{year}.ieee-infocom.org/"
-          ]
-        }
-      }
-    },
-    {
-      "title": "IoTDI",
-      "description": "ACM/IEEE International Conference on Internet-of-Things Design and Implementation",
-      "sub": "NW",
-      "rank": {
-        "ccf": "N",
-        "core": "B"
-      },
-      "dblp": "iotdi",
-      "confs": [],
-      "isens": {
-        "tier": 3,
-        "tags": [
-          "iot"
-        ],
-        "scrape": {
-          "url": "http://www.wikicfp.com/cfp/servlet/tool.search?q=IoTDI&year=f"
-        }
-      }
-    },
-    {
-      "title": "IPSN",
-      "description": "ACM/IEEE International Conference on Information Processing in Sensor Networks",
-      "sub": "NW",
-      "rank": {
-        "ccf": "B",
-        "core": "A*",
-        "thcpl": "A"
-      },
-      "dblp": "ipsn",
-      "confs": [],
-      "isens": {
-        "tier": 1,
-        "tags": [
-          "sensing",
-          "iot"
-        ],
-        "scrape": {
-          "url": "https://ipsn.acm.org/",
-          "templates": [
-            "https://ipsn.acm.org/{year}/"
           ]
         }
       }
@@ -413,7 +368,7 @@
     },
     {
       "title": "SenSys",
-      "description": "ACM Conference on Embedded Networked Sensor Systems",
+      "description": "ACM/IEEE International Conference on Embedded Artificial Intelligence and Sensing Systems (SenSys + IPSN + IoTDI, merged 2026)",
       "sub": "NW",
       "rank": {
         "ccf": "B",
