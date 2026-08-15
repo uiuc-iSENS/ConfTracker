@@ -1,0 +1,18 @@
+- title: SenSys
+  description: ACM Conference on Embedded Networked Sensor Systems
+  sub: NW
+  rank:
+    ccf: B
+    core: A*
+    thcpl: A
+  dblp: sensys
+  confs: []
+  isens:
+    tier: 1
+    tags:
+    - sensing
+    - iot
+    scrape:
+      url: https://sensys.acm.org/
+      templates:
+      - https://sensys.acm.org/{year}/

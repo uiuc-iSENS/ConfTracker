@@ -1,0 +1,26 @@
+- title: HotMobile
+  description: International Workshop on Mobile Computing Systems and Applications
+  sub: NW
+  rank:
+    ccf: N
+    core: B
+  dblp: hotmobile
+  confs:
+  - year: 2027
+    id: hotmobile27
+    link: https://www.hotmobile.org/2027
+    timeline:
+    - deadline: '2026-10-09 23:59:59'
+      comment: Paper submission (hard deadline); acceptance notification December
+        16, 2026
+    timezone: AoE
+    date: February 24-25, 2027
+    place: Tucson, AZ, USA
+  isens:
+    tier: 2
+    tags:
+    - mobile
+    scrape:
+      url: https://www.hotmobile.org/
+      templates:
+      - https://www.hotmobile.org/{year}

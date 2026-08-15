@@ -1,0 +1,16 @@
+- title: WiSec
+  description: ACM Conference on Security and Privacy in Wireless and Mobile Networks
+  sub: SC
+  rank:
+    ccf: C
+    core: B
+    thcpl: B
+  dblp: wisec
+  confs: []
+  isens:
+    tier: 3
+    tags:
+    - security
+    - mobile
+    scrape:
+      url: http://www.wikicfp.com/cfp/servlet/tool.search?q=WiSec&year=f

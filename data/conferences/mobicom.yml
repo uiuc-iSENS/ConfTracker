@@ -1,0 +1,28 @@
+- title: MobiCom
+  description: ACM Annual International Conference On Mobile Computing And Networking
+  sub: NW
+  rank:
+    ccf: A
+    core: A*
+    thcpl: A
+  dblp: mobicom
+  confs:
+  - year: 2027
+    id: mobicom27
+    link: https://www.sigmobile.org/mobicom/2027/
+    timeline:
+    - abstract_deadline: '2026-08-26 23:59:59'
+      deadline: '2026-09-02 23:59:59'
+      comment: Summer deadlines
+    timezone: AoE
+    date: Oct 18-22, 2027
+    place: TBD
+  isens:
+    tier: 1
+    tags:
+    - mobile
+    - networking
+    scrape:
+      url: https://www.sigmobile.org/mobicom/
+      templates:
+      - https://www.sigmobile.org/mobicom/{year}/

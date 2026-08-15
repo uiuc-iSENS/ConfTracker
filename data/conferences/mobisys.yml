@@ -1,0 +1,18 @@
+- title: MobiSys
+  description: ACM International Conference on Mobile Systems, Applications, and Services
+  sub: NW
+  rank:
+    ccf: B
+    core: A
+    thcpl: A
+  dblp: mobisys
+  confs: []
+  isens:
+    tier: 1
+    tags:
+    - mobile
+    - systems
+    scrape:
+      url: https://www.sigmobile.org/mobisys/
+      templates:
+      - https://www.sigmobile.org/mobisys/{year}/

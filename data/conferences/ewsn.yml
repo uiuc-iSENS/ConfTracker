@@ -1,0 +1,17 @@
+- title: EWSN
+  description: International Conference on Embedded Wireless Systems and Networks
+  sub: NW
+  rank:
+    ccf: N
+    core: B
+  dblp: ewsn
+  confs: []
+  isens:
+    tier: 2
+    tags:
+    - sensing
+    - iot
+    scrape:
+      url: https://ewsn.org/
+      templates:
+      - https://ewsn.org/{year}

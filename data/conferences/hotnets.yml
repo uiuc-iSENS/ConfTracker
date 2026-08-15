@@ -1,0 +1,17 @@
+- title: HotNets
+  description: ACM Workshop on Hot Topics in Networks
+  sub: NW
+  rank:
+    ccf: C
+    core: A
+    thcpl: B
+  dblp: hotnets
+  confs: []
+  isens:
+    tier: 3
+    tags:
+    - networking
+    scrape:
+      url: https://conferences.sigcomm.org/hotnets/
+      templates:
+      - https://conferences.sigcomm.org/hotnets/{year}/

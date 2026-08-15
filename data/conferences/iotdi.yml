@@ -1,0 +1,15 @@
+- title: IoTDI
+  description: ACM/IEEE International Conference on Internet-of-Things Design and
+    Implementation
+  sub: NW
+  rank:
+    ccf: N
+    core: B
+  dblp: iotdi
+  confs: []
+  isens:
+    tier: 3
+    tags:
+    - iot
+    scrape:
+      url: http://www.wikicfp.com/cfp/servlet/tool.search?q=IoTDI&year=f

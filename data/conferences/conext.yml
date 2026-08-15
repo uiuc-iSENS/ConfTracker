@@ -1,0 +1,28 @@
+- title: CoNEXT
+  description: International Conference on Emerging Networking Experiments and Technologies
+  sub: NW
+  rank:
+    ccf: B
+    core: A
+    thcpl: A
+  dblp: conext
+  confs:
+  - year: 2026
+    id: conext26
+    link: https://conferences.sigcomm.org/co-next/2026/#!/posters
+    timeline:
+    - deadline: '2026-09-18 23:59:59'
+      comment: 'Call for Posters: two-page extended abstracts, submitted via https://conext26posters.hotcrp.com/.
+        Notification Oct 2, 2026; camera-ready Oct 9, 2026.'
+      track: Poster
+    timezone: AoE
+    date: TBD
+    place: TBD
+  isens:
+    tier: 2
+    tags:
+    - networking
+    scrape:
+      url: https://conferences.sigcomm.org/co-next/
+      templates:
+      - https://conferences.sigcomm.org/co-next/{year}/

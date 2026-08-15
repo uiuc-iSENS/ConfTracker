@@ -1,0 +1,299 @@
+/* iSENS ConfTracker — "engineering graph paper" theme
+   Palette:
+     paper   #FAFBFC   page background
+     grid    #E8EDF2   graph-paper lines
+     ink     #16263D   primary navy ink
+     muted   #5C6B80   secondary text
+     orange  #FF552E   Illinois orange (accent / brand)
+     ok      #1F7A4D   distant deadline
+     warn    #B36A00   approaching deadline
+     urgent  #C0362C   imminent deadline
+*/
+
+:root {
+  --paper: #FAFBFC;
+  --grid: #E8EDF2;
+  --ink: #16263D;
+  --muted: #5C6B80;
+  --orange: #FF552E;
+  --ok: #1F7A4D;
+  --warn: #B36A00;
+  --urgent: #C0362C;
+  --card: #FFFFFF;
+  --line: #D5DDE6;
+  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--sans);
+  color: var(--ink);
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 24px 24px;
+  line-height: 1.5;
+}
+
+a { color: var(--ink); text-decoration-color: var(--orange); text-decoration-thickness: 2px; }
+a:hover { color: var(--orange); }
+
+:focus-visible { outline: 3px solid var(--orange); outline-offset: 2px; border-radius: 2px; }
+
+/* ---------- Top bar ---------- */
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 2rem clamp(1rem, 4vw, 3rem) 1.25rem;
+  border-bottom: 2px solid var(--ink);
+  background: var(--paper);
+}
+
+.brand { display: flex; align-items: center; gap: 0.9rem; }
+
+.brand-mark {
+  width: 14px;
+  height: 44px;
+  background: repeating-linear-gradient(
+    to top, var(--orange) 0 6px, transparent 6px 10px);
+}
+
+.topbar h1 {
+  margin: 0;
+  font-size: clamp(1.4rem, 3vw, 1.9rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.topbar h1 span { color: var(--orange); }
+
+.tagline { margin: 0.1rem 0 0; color: var(--muted); font-size: 0.85rem; }
+
+.meta { text-align: right; font-size: 0.8rem; }
+.lab-link { font-family: var(--mono); }
+.updated { margin: 0.25rem 0 0; color: var(--muted); font-family: var(--mono); }
+
+/* ---------- Spectrum strip ---------- */
+
+.spectrum {
+  padding: 1.25rem clamp(1rem, 4vw, 3rem) 0.5rem;
+}
+
+.spectrum-head { display: flex; align-items: baseline; gap: 0.75rem; }
+.spectrum-head h2 {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+.spectrum-note { color: var(--muted); font-size: 0.75rem; font-family: var(--mono); }
+
+.spectrum-axis {
+  position: relative;
+  height: 96px;
+  margin-top: 0.6rem;
+  border-bottom: 2px solid var(--ink);
+  overflow: hidden;
+}
+
+.month-tick {
+  position: absolute;
+  bottom: 0;
+  height: 10px;
+  border-left: 1px solid var(--line);
+  padding-left: 4px;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  color: var(--muted);
+  line-height: 0.6;
+  white-space: nowrap;
+}
+
+.dl-tick {
+  position: absolute;
+  bottom: 0;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  text-decoration: none;
+  color: var(--ink);
+}
+.dl-tick .stem { width: 2px; height: 22px; background: currentColor; }
+.dl-tick .dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+.dl-tick .lbl {
+  margin-bottom: 2px;
+  padding: 0 3px;
+  background: var(--card);
+  border: 1px solid currentColor;
+}
+.dl-tick.u-ok { color: var(--ok); }
+.dl-tick.u-warn { color: var(--warn); }
+.dl-tick.u-urgent { color: var(--urgent); }
+.dl-tick:hover .lbl, .dl-tick:focus-visible .lbl { background: var(--ink); color: var(--paper); }
+.dl-tick.row-odd { padding-bottom: 26px; }
+.dl-tick.row-odd .stem { height: 40px; }
+
+@media (max-width: 560px) {
+  .dl-tick .lbl { display: none; }  /* dots only; labels collide on phones */
+}
+
+/* ---------- Filters ---------- */
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.25rem clamp(1rem, 4vw, 3rem);
+}
+
+.tier-tabs { display: flex; border: 1.5px solid var(--ink); }
+.tab {
+  padding: 0.4rem 0.9rem;
+  border: none;
+  background: var(--card);
+  font: 600 0.8rem var(--sans);
+  color: var(--ink);
+  cursor: pointer;
+}
+.tab + .tab { border-left: 1.5px solid var(--ink); }
+.tab.active { background: var(--ink); color: var(--paper); }
+
+.tag-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.chip {
+  padding: 0.3rem 0.7rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--card);
+  font: 500 0.75rem var(--mono);
+  color: var(--muted);
+  cursor: pointer;
+}
+.chip.active { border-color: var(--orange); color: var(--orange); }
+
+.search {
+  margin-left: auto;
+  padding: 0.45rem 0.75rem;
+  min-width: 180px;
+  border: 1.5px solid var(--line);
+  background: var(--card);
+  font: 400 0.85rem var(--mono);
+  color: var(--ink);
+}
+.search:focus { border-color: var(--ink); }
+
+/* ---------- Conference list ---------- */
+
+main { padding: 0 clamp(1rem, 4vw, 3rem) 3rem; }
+
+.section-label {
+  margin: 2.5rem 0 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+
+.conf-list { list-style: none; margin: 0; padding: 0; }
+
+.conf {
+  display: grid;
+  grid-template-columns: minmax(180px, 1.2fr) 2fr minmax(230px, 1fr);
+  gap: 0.5rem 1.5rem;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  margin-bottom: 0.6rem;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--ink);
+}
+.conf.u-ok { border-left-color: var(--ok); }
+.conf.u-warn { border-left-color: var(--warn); }
+.conf.u-urgent { border-left-color: var(--urgent); }
+
+.conf-id { display: flex; align-items: baseline; gap: 0.5rem; flex-wrap: wrap; }
+.acr {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+}
+.badge {
+  font: 600 0.66rem var(--mono);
+  padding: 0.1rem 0.35rem;
+  border: 1.5px solid var(--ink);
+}
+.badge.astar { background: var(--ink); color: var(--paper); }
+.tier-dot { font: 500 0.66rem var(--mono); color: var(--muted); }
+
+.conf-body .full-name { margin: 0; font-size: 0.85rem; color: var(--muted); }
+.conf-body .venue { margin: 0.15rem 0 0; font-size: 0.78rem; font-family: var(--mono); color: var(--ink); }
+
+/* Secondary tracks: workshops, posters, demos, extra rounds */
+.tracks { margin: 0.4rem 0 0; display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.track {
+  font: 500 0.68rem var(--mono);
+  padding: 0.12rem 0.45rem;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--muted);
+}
+.track.u-warn { border-color: var(--warn); color: var(--warn); }
+.track.u-urgent { border-color: var(--urgent); color: var(--urgent); }
+
+.conf-when { text-align: right; }
+.countdown {
+  font: 600 1.15rem var(--mono);
+  font-variant-numeric: tabular-nums;
+}
+.countdown.u-ok { color: var(--ok); }
+.countdown.u-warn { color: var(--warn); }
+.countdown.u-urgent { color: var(--urgent); }
+.dl-date { margin: 0.1rem 0 0; font: 400 0.72rem var(--mono); color: var(--muted); }
+.dl-kind { font: 500 0.7rem var(--sans); color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+
+.dimmed .conf { border-left-color: var(--line); }
+.dimmed .acr { color: var(--muted); }
+.tbd { font: 500 0.85rem var(--mono); color: var(--muted); }
+
+.empty {
+  padding: 2rem 1rem;
+  font-family: var(--mono);
+  color: var(--muted);
+}
+
+/* ---------- Footer ---------- */
+
+footer {
+  padding: 1.5rem clamp(1rem, 4vw, 3rem) 2.5rem;
+  border-top: 1px solid var(--line);
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+footer a { color: var(--muted); }
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 760px) {
+  .conf { grid-template-columns: 1fr; }
+  .conf-when { text-align: left; }
+  .meta { text-align: left; }
+  .search { margin-left: 0; width: 100%; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .conf { transition: transform 120ms ease; }
+  .conf:hover { transform: translateX(3px); }
+}

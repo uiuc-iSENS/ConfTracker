@@ -1,0 +1,19 @@
+- title: UbiComp/ISWC
+  description: ACM International Joint Conference on Pervasive and Ubiquitous Computing
+  sub: HI
+  rank:
+    ccf: A
+    core: A*
+    thcpl: A
+  dblp: huc
+  confs: []
+  isens:
+    tier: 1
+    tags:
+    - mobile
+    - sensing
+    - hci
+    scrape:
+      url: https://www.ubicomp.org/
+      templates:
+      - https://www.ubicomp.org/ubicomp-iswc-{year}/

@@ -1,0 +1,17 @@
+- title: INFOCOM
+  description: IEEE International Conference on Computer Communications
+  sub: NW
+  rank:
+    ccf: A
+    core: A*
+    thcpl: A
+  dblp: infocom
+  confs: []
+  isens:
+    tier: 2
+    tags:
+    - networking
+    scrape:
+      url: https://www.ieee-infocom.org/
+      templates:
+      - https://infocom{year}.ieee-infocom.org/

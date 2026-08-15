@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>iSENS ConfTracker</title>
+<meta name="description" content="Conference deadline tracker for the iSENS lab at UIUC — wireless, sensing, and embedded networked systems venues.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark" aria-hidden="true"></span>
+    <div>
+      <h1>iSENS <span>ConfTracker</span></h1>
+      <p class="tagline">Wireless · Sensing · Embedded Networked Systems — UIUC</p>
+    </div>
+  </div>
+  <div class="meta">
+    <a href="https://isens.cs.illinois.edu/" class="lab-link">isens.cs.illinois.edu</a>
+    <p id="updated" class="updated"></p>
+  </div>
+</header>
+
+<section class="spectrum" aria-label="Deadline timeline, next 12 months">
+  <div class="spectrum-head">
+    <h2>Deadline spectrum</h2>
+    <span class="spectrum-note">next 12 months</span>
+  </div>
+  <div id="spectrum-axis" class="spectrum-axis"></div>
+</section>
+
+<nav class="filters" aria-label="Filters">
+  <div class="tier-tabs" role="tablist" id="tier-tabs">
+    <button class="tab active" data-tier="all">All venues</button>
+    <button class="tab" data-tier="1">Tier 1</button>
+    <button class="tab" data-tier="2">Tier 2</button>
+    <button class="tab" data-tier="3">Tier 3</button>
+  </div>
+  <div class="tag-chips" id="tag-chips"></div>
+  <input id="search" class="search" type="search" placeholder="Filter by name…" aria-label="Filter conferences by name">
+</nav>
+
+<main>
+  <section aria-label="Upcoming deadlines">
+    <ol id="upcoming" class="conf-list"></ol>
+  </section>
+  <section aria-label="Venues awaiting a call for papers">
+    <h2 class="section-label" id="awaiting-label" hidden>Awaiting CFP</h2>
+    <ol id="awaiting" class="conf-list dimmed"></ol>
+  </section>
+</main>
+
+<footer>
+  <p>
+    Deadlines are gathered daily from official conference pages — verify on
+    the official site before submitting.
+    Ranks: <a href="https://portal.core.edu.au/conf-ranks/">CORE</a>.
+  </p>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

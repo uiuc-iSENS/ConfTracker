@@ -1,0 +1,513 @@
+{
+  "generated_at": "2026-08-15T05:44:25+00:00",
+  "conferences": [
+    {
+      "title": "CoNEXT",
+      "description": "International Conference on Emerging Networking Experiments and Technologies",
+      "sub": "NW",
+      "rank": {
+        "ccf": "B",
+        "core": "A",
+        "thcpl": "A"
+      },
+      "dblp": "conext",
+      "confs": [
+        {
+          "year": 2026,
+          "id": "conext26",
+          "link": "https://conferences.sigcomm.org/co-next/2026/#!/posters",
+          "timeline": [
+            {
+              "deadline": "2026-09-18 23:59:59",
+              "comment": "Call for Posters: two-page extended abstracts, submitted via https://conext26posters.hotcrp.com/. Notification Oct 2, 2026; camera-ready Oct 9, 2026.",
+              "track": "Poster"
+            }
+          ],
+          "timezone": "AoE",
+          "date": "TBD",
+          "place": "TBD"
+        }
+      ],
+      "isens": {
+        "tier": 2,
+        "tags": [
+          "networking"
+        ],
+        "scrape": {
+          "url": "https://conferences.sigcomm.org/co-next/",
+          "templates": [
+            "https://conferences.sigcomm.org/co-next/{year}/"
+          ]
+        }
+      }
+    },
+    {
+      "title": "EWSN",
+      "description": "International Conference on Embedded Wireless Systems and Networks",
+      "sub": "NW",
+      "rank": {
+        "ccf": "N",
+        "core": "B"
+      },
+      "dblp": "ewsn",
+      "confs": [],
+      "isens": {
+        "tier": 2,
+        "tags": [
+          "sensing",
+          "iot"
+        ],
+        "scrape": {
+          "url": "https://ewsn.org/",
+          "templates": [
+            "https://ewsn.org/{year}"
+          ]
+        }
+      }
+    },
+    {
+      "title": "HotMobile",
+      "description": "International Workshop on Mobile Computing Systems and Applications",
+      "sub": "NW",
+      "rank": {
+        "ccf": "N",
+        "core": "B"
+      },
+      "dblp": "hotmobile",
+      "confs": [
+        {
+          "year": 2027,
+          "id": "hotmobile27",
+          "link": "https://www.hotmobile.org/2027",
+          "timeline": [
+            {
+              "deadline": "2026-10-09 23:59:59",
+              "comment": "Paper submission (hard deadline); acceptance notification December 16, 2026"
+            }
+          ],
+          "timezone": "AoE",
+          "date": "February 24-25, 2027",
+          "place": "Tucson, AZ, USA"
+        }
+      ],
+      "isens": {
+        "tier": 2,
+        "tags": [
+          "mobile"
+        ],
+        "scrape": {
+          "url": "https://www.hotmobile.org/",
+          "templates": [
+            "https://www.hotmobile.org/{year}"
+          ]
+        }
+      }
+    },
+    {
+      "title": "HotNets",
+      "description": "ACM Workshop on Hot Topics in Networks",
+      "sub": "NW",
+      "rank": {
+        "ccf": "C",
+        "core": "A",
+        "thcpl": "B"
+      },
+      "dblp": "hotnets",
+      "confs": [],
+      "isens": {
+        "tier": 3,
+        "tags": [
+          "networking"
+        ],
+        "scrape": {
+          "url": "https://conferences.sigcomm.org/hotnets/",
+          "templates": [
+            "https://conferences.sigcomm.org/hotnets/{year}/"
+          ]
+        }
+      }
+    },
+    {
+      "title": "INFOCOM",
+      "description": "IEEE International Conference on Computer Communications",
+      "sub": "NW",
+      "rank": {
+        "ccf": "A",
+        "core": "A*",
+        "thcpl": "A"
+      },
+      "dblp": "infocom",
+      "confs": [],
+      "isens": {
+        "tier": 2,
+        "tags": [
+          "networking"
+        ],
+        "scrape": {
+          "url": "https://www.ieee-infocom.org/",
+          "templates": [
+            "https://infocom{year}.ieee-infocom.org/"
+          ]
+        }
+      }
+    },
+    {
+      "title": "IoTDI",
+      "description": "ACM/IEEE International Conference on Internet-of-Things Design and Implementation",
+      "sub": "NW",
+      "rank": {
+        "ccf": "N",
+        "core": "B"
+      },
+      "dblp": "iotdi",
+      "confs": [],
+      "isens": {
+        "tier": 3,
+        "tags": [
+          "iot"
+        ],
+        "scrape": {
+          "url": "http://www.wikicfp.com/cfp/servlet/tool.search?q=IoTDI&year=f"
+        }
+      }
+    },
+    {
+      "title": "IPSN",
+      "description": "ACM/IEEE International Conference on Information Processing in Sensor Networks",
+      "sub": "NW",
+      "rank": {
+        "ccf": "B",
+        "core": "A*",
+        "thcpl": "A"
+      },
+      "dblp": "ipsn",
+      "confs": [],
+      "isens": {
+        "tier": 1,
+        "tags": [
+          "sensing",
+          "iot"
+        ],
+        "scrape": {
+          "url": "https://ipsn.acm.org/",
+          "templates": [
+            "https://ipsn.acm.org/{year}/"
+          ]
+        }
+      }
+    },
+    {
+      "title": "ISMAR",
+      "description": "International Symposium on Mixed and Augmented Reality",
+      "sub": "CG",
+      "rank": {
+        "ccf": "B",
+        "core": "A*",
+        "thcpl": "B"
+      },
+      "dblp": "ismar",
+      "confs": [],
+      "isens": {
+        "tier": 2,
+        "tags": [
+          "mr",
+          "hci"
+        ],
+        "scrape": {
+          "url": "https://www.ismar.net/",
+          "templates": [
+            "https://www.ieeeismar.net/{year}/"
+          ]
+        }
+      }
+    },
+    {
+      "title": "MobiCom",
+      "description": "ACM Annual International Conference On Mobile Computing And Networking",
+      "sub": "NW",
+      "rank": {
+        "ccf": "A",
+        "core": "A*",
+        "thcpl": "A"
+      },
+      "dblp": "mobicom",
+      "confs": [
+        {
+          "year": 2027,
+          "id": "mobicom27",
+          "link": "https://www.sigmobile.org/mobicom/2027/",
+          "timeline": [
+            {
+              "abstract_deadline": "2026-08-26 23:59:59",
+              "deadline": "2026-09-02 23:59:59",
+              "comment": "Summer deadlines"
+            }
+          ],
+          "timezone": "AoE",
+          "date": "Oct 18-22, 2027",
+          "place": "TBD"
+        }
+      ],
+      "isens": {
+        "tier": 1,
+        "tags": [
+          "mobile",
+          "networking"
+        ],
+        "scrape": {
+          "url": "https://www.sigmobile.org/mobicom/",
+          "templates": [
+            "https://www.sigmobile.org/mobicom/{year}/"
+          ]
+        }
+      }
+    },
+    {
+      "title": "MobiHoc",
+      "description": "International Symposium on Mobile Ad Hoc Networking and Computing",
+      "sub": "NW",
+      "rank": {
+        "ccf": "B",
+        "core": "A",
+        "thcpl": "B"
+      },
+      "dblp": "mobihoc",
+      "confs": [
+        {
+          "year": 2026,
+          "id": "mobihoc26",
+          "link": "https://www.sigmobile.org/mobihoc/2026/",
+          "timeline": [
+            {
+              "abstract_deadline": "2026-04-13 23:59:59",
+              "deadline": "2026-04-20 23:59:59",
+              "comment": "Paper Registration Deadline Apr 13 (11:59pm AoE); Paper Submission Deadline Apr 20 (11:59pm AoE). Both already passed as of 2026-08-15."
+            },
+            {
+              "deadline": "2026-08-31 23:59:59",
+              "comment": "Poster/Demo Submission Deadline; notification Sep 21, 2026; camera-ready Sep 30, 2026. No time of day stated.",
+              "track": "Poster/Demo"
+            },
+            {
+              "deadline": "2026-08-31 23:59:59",
+              "comment": "Common Workshop Paper Submission Deadline for the six workshops (AI-RAN, AIoT, FIDTA, CyberNet, ML4NxtGNet, Beyond AoI); notification Sep 21, 2026; camera-ready Sep 30, 2026. No time of day stated.",
+              "track": "Workshop"
+            }
+          ],
+          "timezone": "AoE",
+          "date": "November 23-26, 2026",
+          "place": "Tokyo, Japan"
+        }
+      ],
+      "isens": {
+        "tier": 2,
+        "tags": [
+          "networking",
+          "mobile"
+        ],
+        "scrape": {
+          "url": "https://www.sigmobile.org/mobihoc/",
+          "templates": [
+            "https://www.sigmobile.org/mobihoc/{year}/"
+          ]
+        }
+      }
+    },
+    {
+      "title": "MobiSys",
+      "description": "ACM International Conference on Mobile Systems, Applications, and Services",
+      "sub": "NW",
+      "rank": {
+        "ccf": "B",
+        "core": "A",
+        "thcpl": "A"
+      },
+      "dblp": "mobisys",
+      "confs": [],
+      "isens": {
+        "tier": 1,
+        "tags": [
+          "mobile",
+          "systems"
+        ],
+        "scrape": {
+          "url": "https://www.sigmobile.org/mobisys/",
+          "templates": [
+            "https://www.sigmobile.org/mobisys/{year}/"
+          ]
+        }
+      }
+    },
+    {
+      "title": "NSDI",
+      "description": "USENIX Symposium on Networked Systems Design and Implementation",
+      "sub": "NW",
+      "rank": {
+        "ccf": "A",
+        "core": "A*",
+        "thcpl": "A"
+      },
+      "dblp": "nsdi",
+      "confs": [
+        {
+          "year": 2027,
+          "id": "nsdi27",
+          "link": "https://www.usenix.org/conference/nsdi27",
+          "timeline": [
+            {
+              "abstract_deadline": "2026-09-10 20:59:00",
+              "comment": "Fall submission cycle: paper titles and abstracts due. Full-paper deadline not stated on this page; see the CFP."
+            }
+          ],
+          "timezone": "UTC-7",
+          "date": "May 11-13, 2027",
+          "place": "Providence, RI, United States"
+        }
+      ],
+      "isens": {
+        "tier": 1,
+        "tags": [
+          "networking",
+          "systems"
+        ],
+        "scrape": {
+          "url": "https://www.usenix.org/conferences"
+        }
+      }
+    },
+    {
+      "title": "SECON",
+      "description": "IEEE International Conference on Sensing, Communication, and Networking",
+      "sub": "NW",
+      "rank": {
+        "ccf": "B",
+        "core": "B",
+        "thcpl": "B"
+      },
+      "dblp": "secon",
+      "confs": [
+        {
+          "year": 2027,
+          "id": "secon27",
+          "link": "https://ieee-secon.org/",
+          "timeline": [
+            {
+              "deadline": "2026-11-30 23:59:59",
+              "comment": "Paper Submission Deadline listed under Important Dates; no time of day or timezone stated on the page."
+            }
+          ],
+          "timezone": "AoE",
+          "date": "2027-05-05",
+          "place": "Lisbon, Portugal"
+        }
+      ],
+      "isens": {
+        "tier": 2,
+        "tags": [
+          "sensing",
+          "networking"
+        ],
+        "scrape": {
+          "url": "https://ieee-secon.org/"
+        }
+      }
+    },
+    {
+      "title": "SenSys",
+      "description": "ACM Conference on Embedded Networked Sensor Systems",
+      "sub": "NW",
+      "rank": {
+        "ccf": "B",
+        "core": "A*",
+        "thcpl": "A"
+      },
+      "dblp": "sensys",
+      "confs": [],
+      "isens": {
+        "tier": 1,
+        "tags": [
+          "sensing",
+          "iot"
+        ],
+        "scrape": {
+          "url": "https://sensys.acm.org/",
+          "templates": [
+            "https://sensys.acm.org/{year}/"
+          ]
+        }
+      }
+    },
+    {
+      "title": "SIGCOMM",
+      "description": "ACM International Conference on Applications, Technologies, Architectures, and Protocols for Computer Communication",
+      "sub": "NW",
+      "rank": {
+        "ccf": "A",
+        "core": "A*",
+        "thcpl": "A"
+      },
+      "dblp": "sigcomm",
+      "confs": [],
+      "isens": {
+        "tier": 1,
+        "tags": [
+          "networking"
+        ],
+        "scrape": {
+          "url": "https://conferences.sigcomm.org/",
+          "templates": [
+            "https://conferences.sigcomm.org/sigcomm/{year}/"
+          ]
+        }
+      }
+    },
+    {
+      "title": "UbiComp/ISWC",
+      "description": "ACM International Joint Conference on Pervasive and Ubiquitous Computing",
+      "sub": "HI",
+      "rank": {
+        "ccf": "A",
+        "core": "A*",
+        "thcpl": "A"
+      },
+      "dblp": "huc",
+      "confs": [],
+      "isens": {
+        "tier": 1,
+        "tags": [
+          "mobile",
+          "sensing",
+          "hci"
+        ],
+        "scrape": {
+          "url": "https://www.ubicomp.org/",
+          "templates": [
+            "https://www.ubicomp.org/ubicomp-iswc-{year}/"
+          ]
+        }
+      }
+    },
+    {
+      "title": "WiSec",
+      "description": "ACM Conference on Security and Privacy in Wireless and Mobile Networks",
+      "sub": "SC",
+      "rank": {
+        "ccf": "C",
+        "core": "B",
+        "thcpl": "B"
+      },
+      "dblp": "wisec",
+      "confs": [],
+      "isens": {
+        "tier": 3,
+        "tags": [
+          "security",
+          "mobile"
+        ],
+        "scrape": {
+          "url": "http://www.wikicfp.com/cfp/servlet/tool.search?q=WiSec&year=f"
+        }
+      }
+    }
+  ]
+}

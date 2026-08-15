@@ -1,0 +1,26 @@
+- title: NSDI
+  description: USENIX Symposium on Networked Systems Design and Implementation
+  sub: NW
+  rank:
+    ccf: A
+    core: A*
+    thcpl: A
+  dblp: nsdi
+  confs:
+  - year: 2027
+    id: nsdi27
+    link: https://www.usenix.org/conference/nsdi27
+    timeline:
+    - abstract_deadline: '2026-09-10 20:59:00'
+      comment: 'Fall submission cycle: paper titles and abstracts due. Full-paper
+        deadline not stated on this page; see the CFP.'
+    timezone: UTC-7
+    date: May 11-13, 2027
+    place: Providence, RI, United States
+  isens:
+    tier: 1
+    tags:
+    - networking
+    - systems
+    scrape:
+      url: https://www.usenix.org/conferences
