@@ -260,17 +260,60 @@ main { padding: 0 clamp(1rem, 4vw, 3rem) 3rem; }
 .conf-body .full-name { margin: 0; font-size: 0.85rem; color: var(--muted); }
 .conf-body .venue { margin: 0.15rem 0 0; font-size: 0.78rem; font-family: var(--mono); color: var(--ink); }
 
-/* Secondary tracks: workshops, posters, demos, extra rounds */
-.tracks { margin: 0.4rem 0 0; display: flex; flex-wrap: wrap; gap: 0.35rem; }
-.track {
-  font: 500 0.68rem var(--mono);
-  padding: 0.12rem 0.45rem;
-  border: 1px solid var(--line);
-  background: var(--paper);
+/* Secondary rounds — workshops, posters, demos, later cycles — listed one
+   per line under the venue, since each carries its own deadline. */
+.subtracks {
+  grid-column: 1 / -1;
+  list-style: none;
+  margin: 0.85rem 0 0;
+  padding: 0.6rem 0 0;
+  border-top: 1px dashed var(--line);
+}
+
+.subtracks-head {
+  font: 600 0.6rem var(--sans);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  margin-bottom: 0.35rem;
+}
+
+.subtrack {
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr) auto;
+  gap: 0.85rem;
+  align-items: baseline;
+  padding: 0.18rem 0;
+  font: 400 0.76rem var(--mono);
   color: var(--muted);
 }
-.track.u-warn { border-color: var(--warn); color: var(--warn); }
-.track.u-urgent { border-color: var(--urgent); color: var(--urgent); }
+.subtrack + .subtrack { border-top: 1px solid var(--grid); }
+
+.st-track {
+  justify-self: start;
+  padding: 0.05rem 0.4rem;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  font: 600 0.62rem var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+}
+.subtrack.u-warn .st-track { border-color: var(--warn); color: var(--warn); }
+.subtrack.u-urgent .st-track { border-color: var(--urgent); color: var(--urgent); }
+
+.st-name {
+  font-family: var(--sans);
+  color: var(--ink);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.st-when { white-space: nowrap; font-variant-numeric: tabular-nums; }
+.st-days { margin-left: 0.6rem; font-weight: 600; }
+.subtrack.u-ok .st-days { color: var(--ok); }
+.subtrack.u-warn .st-days { color: var(--warn); }
+.subtrack.u-urgent .st-days { color: var(--urgent); }
 
 .conf-when { text-align: right; }
 .dl-kind {
@@ -353,6 +396,8 @@ footer a { color: var(--muted); }
   .conf { grid-template-columns: 1fr; }
   .conf-when { text-align: left; }
   .dl-pair { justify-content: flex-start; text-align: left; }
+  .subtrack { grid-template-columns: minmax(0, 1fr) auto; gap: 0.4rem 0.6rem; }
+  .st-track { grid-column: 1 / -1; }
   .meta { text-align: left; }
   .search { margin-left: 0; width: 100%; }
   .spectrum-legend { margin-left: 0; width: 100%; }

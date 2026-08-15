@@ -52,6 +52,10 @@ class Extraction(BaseModel):
     # CFP deadlines (a "Call for Papers" subpage, the current edition's own
     # site), its absolute URL. The pipeline follows it exactly one hop.
     follow_url: str | None = None
+    # A page listing the individual workshop / poster / demo / tutorial calls
+    # with their own deadlines. Followed once, in addition to the main
+    # result, because those dates rarely appear on the main CFP page.
+    tracks_url: str | None = None
 
 
 SYSTEM = """\
@@ -75,7 +79,14 @@ confidence to "low" whenever dates are ambiguous, refer to \
 a past edition, or might not be the paper-submission deadline. Link targets \
 appear in the text as [absolute URLs]; if the page itself has no deadlines \
 but links to a page that likely does (a Call for Papers subpage, or the \
-current edition's dedicated site), put that one URL in follow_url."""
+current edition's dedicated site), put that one URL in follow_url. \
+Separately, if the page links to a page listing the individual workshops \
+(or posters/demos/tutorials) and their own submission deadlines, put that \
+URL in tracks_url -- individual workshops usually have separate deadlines \
+from the main track and from each other. When the page you are reading is \
+itself such a listing, return every workshop as its own timeline entry: \
+one entry per workshop, track set to "Workshop" (or "Poster"/"Demo"/\
+"Tutorial"), and the workshop's own name or acronym in comment."""
 
 
 def _prompt(conf_title: str, url: str, page_text: str) -> str:

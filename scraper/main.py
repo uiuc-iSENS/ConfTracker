@@ -49,6 +49,24 @@ def _merge_cycle(conf: dict, cycle: extract.ConfCycle) -> None:
         "date": cycle.date or "TBD",
         "place": cycle.place or "TBD",
     }
+
+    previous = next(
+        (c for c in conf.get("confs") or [] if c.get("year") == cycle.year), None
+    )
+    # Workshop and poster deadlines come from a separate listing page, so a
+    # day when that page is unreachable would otherwise wipe every one of
+    # them and put them back tomorrow. Keep what we already had whenever this
+    # run produced no track entries of its own.
+    if previous and not any(t.get("track") for t in entry["timeline"]):
+        carried = [t for t in previous.get("timeline") or [] if t.get("track")]
+        if carried:
+            log.info(
+                "%s: carrying %d previously-known track deadline(s) forward",
+                conf["title"],
+                len(carried),
+            )
+            entry["timeline"].extend(carried)
+
     confs = [c for c in conf.get("confs") or [] if c.get("year") != cycle.year]
     confs.append(entry)
     conf["confs"] = sorted(confs, key=lambda c: c["year"])
@@ -100,6 +118,56 @@ def _try_url(
             break
         result = extract.extract_cycle(title, result.follow_url, follow_text)
     return result, ("ok" if result is not None else "extract_failed")
+
+
+def _augment_tracks(title: str, result: extract.Extraction, visited: set[str]) -> int:
+    """Follow a workshops/posters listing page and merge its own deadlines.
+
+    Individual workshops at one conference routinely close weeks apart, and
+    those dates almost never appear on the main CFP page -- they live on a
+    "Workshops" listing of their own. Merging them keeps each workshop's
+    deadline attached to its parent venue instead of losing all of them.
+
+    Only entries carrying a track are taken: the listing page's view of the
+    main paper deadline is second-hand, and the main CFP already gave us it.
+    """
+    url = result.tracks_url
+    if (
+        not url
+        or not url.startswith(("http://", "https://"))
+        or url in visited
+        or result.cycle is None
+    ):
+        return 0
+    visited.add(url)
+    log.info("%s: reading track listing %s", title, url)
+
+    text = fetch.fetch_page_text(url)
+    if not text:
+        return 0
+    listing = extract.extract_cycle(title, url, text)
+    if listing is None or not listing.found or listing.cycle is None:
+        return 0
+
+    known = {
+        (t.track, t.comment, t.deadline, t.abstract_deadline)
+        for t in result.cycle.timeline
+    }
+    added = 0
+    for entry in listing.cycle.timeline:
+        if not entry.track:
+            continue
+        if not (entry.deadline or entry.abstract_deadline):
+            continue
+        key = (entry.track, entry.comment, entry.deadline, entry.abstract_deadline)
+        if key in known:
+            continue
+        known.add(key)
+        result.cycle.timeline.append(entry)
+        added += 1
+    if added:
+        log.info("%s: +%d track deadline(s) from listing", title, added)
+    return added
 
 
 def scrape_all() -> list[dict]:
@@ -161,6 +229,10 @@ def scrape_all() -> list[dict]:
             )
             continue
 
+        # Individual workshop deadlines live on their own listing page; pull
+        # them in before validating so they get the same checks.
+        tracks_added = _augment_tracks(conf["title"], result, visited)
+
         # Drop dateless entries (e.g. an announced-but-unscheduled round)
         # instead of rejecting the whole cycle because of them.
         result.cycle.timeline = [
@@ -190,6 +262,7 @@ def scrape_all() -> list[dict]:
                 "urls_tried": len(visited),
                 "confidence": result.confidence,
                 "year": result.cycle.year,
+                "tracks_added": tracks_added,
             }
         )
     return records

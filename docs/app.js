@@ -100,7 +100,10 @@
       tags: (c.isens && c.isens.tags) || [],
       main,
       soon: main ? soonest(main) : null,
-      extras: rounds.filter((r) => r !== main).slice(0, 4),
+      // Every other round gets its own sub-row: workshops, posters, demos
+      // and extra submission cycles each carry their own deadline, so they
+      // are listed rather than summarised.
+      extras: rounds.filter((r) => r !== main),
     };
   });
 
@@ -217,6 +220,32 @@
       <div class="dl-pair">${cells.join("")}</div>`;
   }
 
+  // One non-headline round: a named workshop, a poster/demo track, or a
+  // later submission cycle. Each keeps its own deadline, which is the point
+  // of listing them separately -- two workshops at the same conference
+  // routinely close weeks apart.
+  function subtrackRow(r) {
+    const s = soonest(r);
+    if (!s) return "";
+    const days = Math.ceil((s.t - Date.now()) / 86400000);
+    const name = r.comment || "";
+    const shown = name.length > 62 ? name.slice(0, 59).trimEnd() + "…" : name;
+
+    const dates = [];
+    if (r.abstract) {
+      dates.push(
+        `${r.abstract.past ? "abstract closed" : "abstract"} ${statedDay(r.abstract.raw)}`
+      );
+    }
+    if (r.paper) dates.push(statedDay(r.paper.raw));
+
+    return `<li class="subtrack ${urgency(s.t)}">
+        <span class="st-track">${r.track || "Paper"}</span>
+        <span class="st-name" title="${attr(name)}">${shown}</span>
+        <span class="st-when">${dates.join(" · ")}<span class="st-days">${days}d</span></span>
+      </li>`;
+  }
+
   function confRow(c) {
     const li = document.createElement("li");
     li.className = "conf " + (c.soon ? urgency(c.soon.t) : "");
@@ -242,19 +271,10 @@
       : `<span class="tbd">CFP not announced</span>`;
 
     const extras = c.extras.length
-      ? `<p class="tracks">${c.extras
-          .map((r) => {
-            const s = soonest(r);
-            if (!s) return "";
-            const kind = s.kind === "Abstract" ? "abstract" : null;
-            const label = [r.track || "Paper", kind, brief(r.comment)]
-              .filter(Boolean)
-              .join(" · ");
-            const d = statedDay(s.raw);
-            const days = Math.ceil((s.t - Date.now()) / 86400000);
-            return `<span class="track ${urgency(s.t)}" title="${attr(r.comment)}">${label} · ${d} (${days}d)</span>`;
-          })
-          .join("")}</p>`
+      ? `<ul class="subtracks">
+          <li class="subtracks-head">Also open</li>
+          ${c.extras.map(subtrackRow).join("")}
+        </ul>`
       : "";
 
     li.innerHTML = `
@@ -266,9 +286,9 @@
       <div class="conf-body">
         <p class="full-name">${c.description || ""}</p>
         ${venue ? `<p class="venue">${venue}</p>` : ""}
-        ${extras}
       </div>
-      <div class="conf-when">${when}</div>`;
+      <div class="conf-when">${when}</div>
+      ${extras}`;
     return li;
   }
 

@@ -17,7 +17,9 @@ scraper/                   Python pipeline, for every conference:
                               fallback for JS-rendered sites)
   extract.py               2. extract the upcoming CFP cycle with Claude
                               (schema-validated structured output; follows
-                              one link when deadlines live on a subpage)
+                              one link when deadlines live on a subpage, and
+                              one more to the workshop/poster listing, whose
+                              deadlines differ per workshop)
   validate.py              3. reject anything failing sanity checks
   build.py                 4. write docs/data.json
         │
@@ -166,6 +168,13 @@ Notes:
   URL works: `http://www.wikicfp.com/cfp/servlet/tool.search?q=NAME&year=f`.
 - `confs:` (the deadline history) is machine-maintained; manual edits are
   fine and survive until the scraper finds a newer cycle for that year.
+- Workshops, posters and demos are tracked individually: the extractor is
+  asked for a link to the venue's workshop listing and follows it once,
+  returning one timeline entry per workshop with its own deadline and the
+  workshop's name in `comment`. The site renders those as sub-rows under
+  the parent venue. If that listing page is unreachable on a given day, the
+  previously-known track deadlines are carried forward rather than
+  disappearing until the page comes back.
 - Check `logs/daily.log` occasionally: venues repeatedly logging
   "could not fetch" need their `scrape.url` updated.
 - Extraction backend is auto-selected: `ANTHROPIC_API_KEY` set → Anthropic
