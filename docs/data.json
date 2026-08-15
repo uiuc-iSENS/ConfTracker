@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-15T05:44:25+00:00",
+  "generated_at": "2026-08-15T06:07:08+00:00",
   "conferences": [
     {
       "title": "CoNEXT",
@@ -15,11 +15,11 @@
         {
           "year": 2026,
           "id": "conext26",
-          "link": "https://conferences.sigcomm.org/co-next/2026/#!/posters",
+          "link": "https://conferences.sigcomm.org/co-next/2026/",
           "timeline": [
             {
               "deadline": "2026-09-18 23:59:59",
-              "comment": "Call for Posters: two-page extended abstracts, submitted via https://conext26posters.hotcrp.com/. Notification Oct 2, 2026; camera-ready Oct 9, 2026.",
+              "comment": "Call for Posters",
               "track": "Poster"
             }
           ],
@@ -82,12 +82,12 @@
           "timeline": [
             {
               "deadline": "2026-10-09 23:59:59",
-              "comment": "Paper submission (hard deadline); acceptance notification December 16, 2026"
+              "comment": "Hard deadline"
             }
           ],
           "timezone": "AoE",
           "date": "February 24-25, 2027",
-          "place": "Tucson, AZ, USA"
+          "place": "Tucson, AZ"
         }
       ],
       "isens": {
@@ -281,21 +281,21 @@
             {
               "abstract_deadline": "2026-04-13 23:59:59",
               "deadline": "2026-04-20 23:59:59",
-              "comment": "Paper Registration Deadline Apr 13 (11:59pm AoE); Paper Submission Deadline Apr 20 (11:59pm AoE). Both already passed as of 2026-08-15."
+              "comment": "Main track"
             },
             {
               "deadline": "2026-08-31 23:59:59",
-              "comment": "Poster/Demo Submission Deadline; notification Sep 21, 2026; camera-ready Sep 30, 2026. No time of day stated.",
-              "track": "Poster/Demo"
+              "comment": "Poster/Demo",
+              "track": "Poster"
             },
             {
               "deadline": "2026-08-31 23:59:59",
-              "comment": "Common Workshop Paper Submission Deadline for the six workshops (AI-RAN, AIoT, FIDTA, CyberNet, ML4NxtGNet, Beyond AoI); notification Sep 21, 2026; camera-ready Sep 30, 2026. No time of day stated.",
+              "comment": "Workshop papers",
               "track": "Workshop"
             }
           ],
           "timezone": "AoE",
-          "date": "November 23-26, 2026",
+          "date": "2026-11-23",
           "place": "Tokyo, Japan"
         }
       ],
@@ -356,7 +356,7 @@
           "timeline": [
             {
               "abstract_deadline": "2026-09-10 20:59:00",
-              "comment": "Fall submission cycle: paper titles and abstracts due. Full-paper deadline not stated on this page; see the CFP."
+              "comment": "Fall deadline"
             }
           ],
           "timezone": "UTC-7",
@@ -392,12 +392,11 @@
           "link": "https://ieee-secon.org/",
           "timeline": [
             {
-              "deadline": "2026-11-30 23:59:59",
-              "comment": "Paper Submission Deadline listed under Important Dates; no time of day or timezone stated on the page."
+              "deadline": "2026-11-30 23:59:59"
             }
           ],
           "timezone": "AoE",
-          "date": "2027-05-05",
+          "date": "5 - 7 May 2027",
           "place": "Lisbon, Portugal"
         }
       ],

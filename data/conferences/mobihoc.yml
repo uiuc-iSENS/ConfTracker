@@ -13,19 +13,15 @@
     timeline:
     - abstract_deadline: '2026-04-13 23:59:59'
       deadline: '2026-04-20 23:59:59'
-      comment: Paper Registration Deadline Apr 13 (11:59pm AoE); Paper Submission
-        Deadline Apr 20 (11:59pm AoE). Both already passed as of 2026-08-15.
+      comment: Main track
     - deadline: '2026-08-31 23:59:59'
-      comment: Poster/Demo Submission Deadline; notification Sep 21, 2026; camera-ready
-        Sep 30, 2026. No time of day stated.
-      track: Poster/Demo
+      comment: Poster/Demo
+      track: Poster
     - deadline: '2026-08-31 23:59:59'
-      comment: Common Workshop Paper Submission Deadline for the six workshops (AI-RAN,
-        AIoT, FIDTA, CyberNet, ML4NxtGNet, Beyond AoI); notification Sep 21, 2026;
-        camera-ready Sep 30, 2026. No time of day stated.
+      comment: Workshop papers
       track: Workshop
     timezone: AoE
-    date: November 23-26, 2026
+    date: '2026-11-23'
     place: Tokyo, Japan
   isens:
     tier: 2
