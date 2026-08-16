@@ -282,6 +282,66 @@ scripts/install_cron.sh --apply          # schedule everything
 scripts/preflight.sh                     # verify it can actually run
 ```
 
+## Finding workshop deadlines
+
+A workshop is where a lot of lab work actually goes, and its deadline is the
+hardest kind to find: it is set by the workshop's own organisers, announced
+on the workshop's own site, and usually weeks away from the parent
+conference's dates. Three layers, each catching what the one before missed:
+
+1. **The parent's CFP page.** Whatever the main call already states —
+   "Poster/Demo: Aug 31" — comes back as a timeline entry with a `track`.
+2. **The workshop listing.** The extractor is asked for a link to the venue's
+   workshops page and follows it once, returning one entry per workshop with
+   its own name in `comment`. This is where most venues put them.
+3. **Each workshop's own site.** Listings very often give a name and a link
+   and *no date* — the date lives on the workshop's own page. Any entry that
+   comes back with a link but no deadline is fetched and extracted directly.
+
+Layer 3 is by far the most expensive thing the pipeline does — one fetch and
+one extraction *per workshop*, where the rest of a venue costs two or three
+in total — so it does not run daily. `--deep` turns it on, and cron does that
+once a week:
+
+```bash
+python -m scraper.main          # daily: layers 1 and 2
+python -m scraper.main --deep   # weekly: all three
+```
+
+It is bounded further at `CONFTRACKER_MAX_TRACK_FOLLOWS` (default 8) fetches
+per venue, and never re-fetches a workshop the listing already dated, so a
+venue with forty workshops cannot become forty extractions.
+
+Between deep runs the dates found by the last one are carried forward, per
+track, matched on (track, name) — so workshops do not flicker on and off the
+site between Sundays. A date a run *does* find always wins over the carried
+one, which is how an extended deadline replaces the old one instead of being
+shadowed by it. The same mechanism covers a listing page that is simply
+unreachable on a given day. Workshops still undated after all three layers
+are dropped rather than shown blank.
+
+Where a workshop's own page was found, the site links its row to it.
+
+### Workshops the crawler cannot reach
+
+The layers above all start from the parent venue. A workshop that exists
+only on its own site, with no mention anywhere on the conference's pages,
+cannot be discovered — so name it explicitly:
+
+```yaml
+  isens:
+    extra_sources:
+      - url: https://hotwireless.example.org/2027/
+        name: HotWireless        # what the row is called on the site
+        track: Workshop          # optional, defaults to Workshop
+```
+
+Each is scraped like a small venue and merged as a sub-row under the parent,
+with `name` winning over whatever the page calls itself. Use it for the long
+tail, not as the normal path — anything the conference links to is found on
+its own, and a pinned URL goes stale when the workshop moves to next year's
+domain.
+
 ## Unattended operation
 
 The point of ConfTracker is that nobody has to remember it exists. Four jobs
@@ -299,7 +359,8 @@ block instead of stacking a second copy of every job.
 
 | When (machine local time) | What | Log |
 |---|---|---|
-| 02:00 daily | scrape every venue, rebuild `docs/data.json`, commit, push | `logs/daily.log` |
+| 02:00 Mon–Sat | scrape every venue, rebuild `docs/data.json`, commit, push | `logs/daily.log` |
+| 02:00 Sundays | the same, plus `--deep` (each workshop's own site) | `logs/daily.log` |
 | every 30 min | read the signup mailbox, apply and acknowledge commands | `logs/reminders.log` |
 | 08:15 daily | mail each subscriber the deadlines now due | `logs/reminders.log` |
 | 03:00 Mondays | health report: is any of this still working? | `logs/weekly.log` |
@@ -431,13 +492,8 @@ Notes:
   URL works: `http://www.wikicfp.com/cfp/servlet/tool.search?q=NAME&year=f`.
 - `confs:` (the deadline history) is machine-maintained; manual edits are
   fine and survive until the scraper finds a newer cycle for that year.
-- Workshops, posters and demos are tracked individually: the extractor is
-  asked for a link to the venue's workshop listing and follows it once,
-  returning one timeline entry per workshop with its own deadline and the
-  workshop's name in `comment`. The site renders those as sub-rows under
-  the parent venue. If that listing page is unreachable on a given day, the
-  previously-known track deadlines are carried forward rather than
-  disappearing until the page comes back.
+- Workshops, posters and demos are tracked individually — see
+  [Finding workshop deadlines](#finding-workshop-deadlines) below.
 - Check `logs/daily.log` occasionally: venues repeatedly logging
   "could not fetch" need their `scrape.url` updated.
 - Extraction backend is auto-selected: `ANTHROPIC_API_KEY` set → Anthropic

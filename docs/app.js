@@ -51,6 +51,7 @@
           paper,
           comment: entry.comment || null,
           track: entry.track || null, // null = main paper track
+          url: entry.url || null, // a workshop's own CFP, when we found one
           t: Math.min(...live.map((d) => d.t)),
         });
       }
@@ -376,9 +377,15 @@
     }
     if (r.paper) dates.push(statedDay(r.paper.raw));
 
+    // A workshop with its own site gets linked to it: that page is where the
+    // deadline came from and where the submission instructions live.
+    const label = r.url
+      ? `<a href="${attr(r.url)}" rel="noopener">${shown}</a>`
+      : shown;
+
     return `<li class="subtrack ${urgency(s.t)}">
         <span class="st-track">${r.track || "Paper"}</span>
-        <span class="st-name" title="${attr(name)}">${shown}</span>
+        <span class="st-name" title="${attr(name)}">${label}</span>
         <span class="st-when">${dates.join(" · ")}<span class="st-days">${days}d</span></span>
       </li>`;
   }

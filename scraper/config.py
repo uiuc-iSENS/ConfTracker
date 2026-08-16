@@ -20,6 +20,12 @@ USER_AGENT = (
 # Cap on page text handed to the LLM (characters)
 MAX_PAGE_TEXT = 30_000
 
+# A venue's workshop listing gives names and links but often no dates; each
+# undated workshop then costs one more fetch + extraction on its own site.
+# This bounds that per venue -- a listing with forty workshops should not
+# turn one venue into forty extractions.
+MAX_TRACK_FOLLOWS = int(os.environ.get("CONFTRACKER_MAX_TRACK_FOLLOWS", "8"))
+
 # ---- run history + weekly health report ----
 
 LOG_DIR = ROOT / "logs"

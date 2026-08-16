@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-16T00:26:18+00:00",
+  "generated_at": "2026-08-16T00:53:33+00:00",
   "conferences": [
     {
       "title": "CoNEXT",
@@ -15,12 +15,13 @@
         {
           "year": 2026,
           "id": "conext26",
-          "link": "https://conferences.sigcomm.org/co-next/2026/",
+          "link": "https://conferences.sigcomm.org/co-next/2026/#!/posters",
           "timeline": [
             {
               "deadline": "2026-09-18 23:59:59",
               "comment": "Call for Posters",
-              "track": "Poster"
+              "track": "Poster",
+              "url": "https://conferences.sigcomm.org/co-next/2026/#!/posters"
             }
           ],
           "timezone": "AoE",
@@ -81,7 +82,9 @@
           "link": "https://www.hotmobile.org/2027",
           "timeline": [
             {
-              "deadline": "2026-10-09 23:59:00"
+              "deadline": "2026-10-09 23:59:59",
+              "comment": "Hard deadline",
+              "url": "https://www.hotmobile.org/index.php?id=cfp"
             }
           ],
           "timezone": "AoE",
@@ -208,7 +211,8 @@
             {
               "abstract_deadline": "2026-08-26 23:59:00",
               "deadline": "2026-09-02 23:59:00",
-              "comment": "Summer deadlines"
+              "comment": "Summer deadlines",
+              "url": "https://www.sigmobile.org/mobicom/2027/cfp.html"
             }
           ],
           "timezone": "AoE",
@@ -249,17 +253,61 @@
             {
               "abstract_deadline": "2026-04-13 23:59:59",
               "deadline": "2026-04-20 23:59:59",
-              "comment": "Main track"
+              "comment": "Main track",
+              "url": "https://www.sigmobile.org/mobihoc/2026/cfp.html"
             },
             {
               "deadline": "2026-08-31 23:59:59",
-              "comment": "Poster/Demo",
-              "track": "Poster"
+              "comment": "Posters and Demos",
+              "track": "Poster",
+              "url": "https://www.sigmobile.org/mobihoc/2026/cf-posters-demos.html"
+            },
+            {
+              "deadline": "2026-08-31 23:59:59",
+              "comment": "All workshops",
+              "track": "Workshop"
+            },
+            {
+              "deadline": "2026-08-31 23:59:59",
+              "comment": "AI-RAN",
+              "track": "Workshop",
+              "url": "https://www.sigmobile.org/mobihoc/2026/workshop-ai-ran.html"
+            },
+            {
+              "deadline": "2026-08-31 23:59:59",
+              "comment": "AIoT",
+              "track": "Workshop",
+              "url": "https://www.sigmobile.org/mobihoc/2026/workshop-aiot.html"
+            },
+            {
+              "deadline": "2026-08-31 23:59:59",
+              "comment": "FIDTA",
+              "track": "Workshop",
+              "url": "https://www.sigmobile.org/mobihoc/2026/workshop-fidta.html"
+            },
+            {
+              "deadline": "2026-08-31 23:59:59",
+              "comment": "CyberNet",
+              "track": "Workshop",
+              "url": "https://www.sigmobile.org/mobihoc/2026/workshop-cybernet.html"
+            },
+            {
+              "deadline": "2026-08-31 23:59:59",
+              "comment": "ML4NxtGNet",
+              "track": "Workshop",
+              "url": "https://www.sigmobile.org/mobihoc/2026/workshop-ml4nxtgnet.html"
+            },
+            {
+              "deadline": "2026-08-31 23:59:59",
+              "comment": "Beyond AoI",
+              "track": "Workshop",
+              "url": "https://www.sigmobile.org/mobihoc/2026/workshop-beyond-aoi.html"
             },
             {
               "deadline": "2026-08-31 23:59:59",
               "comment": "Workshop papers",
-              "track": "Workshop"
+              "track": "Workshop",
+              "url": "https://www.sigmobile.org/mobihoc/2026/cfw.html"
             }
           ],
           "timezone": "AoE",
@@ -324,7 +372,8 @@
           "timeline": [
             {
               "abstract_deadline": "2026-09-10 20:59:00",
-              "comment": "Fall deadline"
+              "comment": "Fall deadline",
+              "url": "https://www.usenix.org/conference/nsdi27/call-for-papers"
             }
           ],
           "timezone": "UTC-7",
@@ -360,11 +409,12 @@
           "link": "https://ieee-secon.org/",
           "timeline": [
             {
-              "deadline": "2026-11-30 23:59:59"
+              "deadline": "2026-11-30 23:59:59",
+              "url": "https://ieee-secon.org/call-papers"
             }
           ],
           "timezone": "AoE",
-          "date": "5 - 7 May 2027",
+          "date": "May 5-7, 2027",
           "place": "Lisbon, Portugal"
         }
       ],

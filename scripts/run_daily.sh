@@ -37,7 +37,10 @@ if git remote get-url origin &>/dev/null; then
     || echo "warning: pull failed; continuing with the local checkout"
 fi
 
-python -m scraper.main
+# Arguments pass through to the scraper, so the weekly cron entry can add
+# --deep (follow every linked workshop to its own site) without a second
+# script that would drift out of sync with this one.
+python -m scraper.main "$@"
 
 # Commit data changes for an audit trail (rollback = git revert).
 if [[ -n "$(git status --porcelain data docs/data.json)" ]]; then

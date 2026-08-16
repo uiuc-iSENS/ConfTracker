@@ -13,6 +13,7 @@ Run from cron on the lab machine; run_daily.sh wraps this with git commit
 and deployment.
 """
 
+import argparse
 import json
 import logging
 import sys
@@ -24,6 +25,48 @@ import yaml
 from . import build, config, extract, fetch, validate
 
 log = logging.getLogger("scraper")
+
+
+def _carry_forward_tracks(title: str, previous: dict, entry: dict) -> int:
+    """Keep track deadlines we already knew but did not re-find this run.
+
+    Matched per track, on (track, name), rather than all-or-nothing. Workshop
+    dates are the fragile ones: they come from pages that are frequently
+    unreachable, and from the deep pass, which does not run every day. Losing
+    them on an ordinary run would make workshops flicker on and off the site
+    between Sundays.
+
+    A date the run *did* find always wins -- that is how an extended deadline
+    replaces the old one instead of being shadowed by it.
+    """
+    def dated(t: dict) -> bool:
+        return bool(t.get("deadline") or t.get("abstract_deadline"))
+
+    def still_open(t: dict) -> bool:
+        # Nothing is gained by carrying a closed deadline forward, and a row
+        # that no run will ever re-find -- a workshop since renamed, a generic
+        # row superseded by named ones -- would otherwise be carried for good.
+        dates = [
+            validate._parse(str(t[f]))
+            for f in ("deadline", "abstract_deadline")
+            if t.get(f)
+        ]
+        dates = [d for d in dates if d]
+        return bool(dates) and max(dates) >= datetime.now()
+
+    found = {(t.get("track"), t.get("comment")) for t in entry["timeline"] if dated(t)}
+    carried = [
+        t
+        for t in previous.get("timeline") or []
+        if t.get("track")
+        and dated(t)
+        and still_open(t)
+        and (t.get("track"), t.get("comment")) not in found
+    ]
+    if carried:
+        log.info("%s: carrying %d known track deadline(s) forward", title, len(carried))
+        entry["timeline"].extend(carried)
+    return len(carried)
 
 
 def _merge_cycle(conf: dict, cycle: extract.ConfCycle) -> None:
@@ -40,6 +83,9 @@ def _merge_cycle(conf: dict, cycle: extract.ConfCycle) -> None:
                     "deadline": t.deadline,
                     "comment": t.comment,
                     "track": t.track,
+                    # Kept so the site can link a workshop row to its own CFP,
+                    # and so a later run can re-check that page directly.
+                    "url": t.url,
                 }.items()
                 if v is not None
             }
@@ -53,19 +99,8 @@ def _merge_cycle(conf: dict, cycle: extract.ConfCycle) -> None:
     previous = next(
         (c for c in conf.get("confs") or [] if c.get("year") == cycle.year), None
     )
-    # Workshop and poster deadlines come from a separate listing page, so a
-    # day when that page is unreachable would otherwise wipe every one of
-    # them and put them back tomorrow. Keep what we already had whenever this
-    # run produced no track entries of its own.
-    if previous and not any(t.get("track") for t in entry["timeline"]):
-        carried = [t for t in previous.get("timeline") or [] if t.get("track")]
-        if carried:
-            log.info(
-                "%s: carrying %d previously-known track deadline(s) forward",
-                conf["title"],
-                len(carried),
-            )
-            entry["timeline"].extend(carried)
+    if previous:
+        _carry_forward_tracks(conf["title"], previous, entry)
 
     confs = [c for c in conf.get("confs") or [] if c.get("year") != cycle.year]
     confs.append(entry)
@@ -170,8 +205,131 @@ def _augment_tracks(title: str, result: extract.Extraction, visited: set[str]) -
     return added
 
 
-def scrape_all() -> list[dict]:
+def _cycle_deadline_from_page(
+    label: str, url: str, visited: set[str]
+) -> extract.TimelineEntry | None:
+    """Extract one submission deadline from a page that is about one thing.
+
+    Used for a workshop's own site and for a manually pinned extra source.
+    On such a page the deadline we want is the page's *main* deadline -- it
+    is the workshop's own call for papers -- so the main-track entry wins,
+    falling back to the earliest dated entry when everything is labelled.
+    """
+    if not url or not url.startswith(("http://", "https://")) or url in visited:
+        return None
+    visited.add(url)
+
+    text = fetch.fetch_page_text(url)
+    if not text:
+        log.info("%s: could not fetch %s", label, url)
+        return None
+    result = extract.extract_cycle(label, url, text)
+    if result is None or not result.found or result.cycle is None:
+        return None
+    if result.confidence == "low":
+        log.info("%s: low confidence on %s, not using it", label, url)
+        return None
+
+    dated = [t for t in result.cycle.timeline if t.deadline or t.abstract_deadline]
+    if not dated:
+        return None
+    return next((t for t in dated if not t.track), dated[0])
+
+
+def _follow_track_sites(title: str, result: extract.Extraction, visited: set[str]) -> int:
+    """Fill in workshops that advertise their deadline only on their own site.
+
+    A parent venue's workshop listing usually gives a name and a link but no
+    date -- each workshop runs its own CFP on its own page. Without this the
+    listing yields entries with no deadline, which are dropped, and the
+    workshop is invisible even though we knew its name and its URL.
+
+    Bounded: one fetch per workshop still missing a date, up to
+    MAX_TRACK_FOLLOWS of them, and never for a workshop the listing already
+    dated.
+    """
+    if result.cycle is None:
+        return 0
+    pending = [
+        t
+        for t in result.cycle.timeline
+        if t.track and t.url and not (t.deadline or t.abstract_deadline)
+    ]
+    if not pending:
+        return 0
+    if len(pending) > config.MAX_TRACK_FOLLOWS:
+        log.info(
+            "%s: %d undated tracks link out, following the first %d",
+            title,
+            len(pending),
+            config.MAX_TRACK_FOLLOWS,
+        )
+
+    filled = 0
+    for entry in pending[: config.MAX_TRACK_FOLLOWS]:
+        name = entry.comment or entry.track
+        found = _cycle_deadline_from_page(f"{name} ({title})", entry.url, visited)
+        if found is None:
+            continue
+        entry.abstract_deadline = found.abstract_deadline
+        entry.deadline = found.deadline
+        filled += 1
+        log.info("%s: %s -> %s", title, name, entry.deadline or entry.abstract_deadline)
+    return filled
+
+
+def _merge_extra_sources(conf: dict, result: extract.Extraction, visited: set[str]) -> int:
+    """Scrape workshops pinned by hand in the venue's YAML.
+
+    The automatic path only reaches a workshop the parent venue links to. One
+    that exists solely on its own site, with no mention on the parent, cannot
+    be discovered -- so it can be named explicitly instead. See README.
+    """
+    sources = (conf.get("isens") or {}).get("extra_sources") or []
+    if not sources or result.cycle is None:
+        return 0
+
+    title = conf.get("title", "?")
+    known = {(t.track, t.comment) for t in result.cycle.timeline}
+    added = 0
+    for src in sources:
+        url = (src or {}).get("url")
+        if not url:
+            continue
+        name = src.get("name")
+        track = src.get("track") or "Workshop"
+        found = _cycle_deadline_from_page(f"{name or url} ({title})", url, visited)
+        if found is None:
+            continue
+        # The source's own name wins over whatever the page called itself:
+        # it is what the YAML author wanted this row labelled.
+        comment = name or found.comment
+        if (track, comment) in known:
+            continue
+        known.add((track, comment))
+        result.cycle.timeline.append(
+            extract.TimelineEntry(
+                abstract_deadline=found.abstract_deadline,
+                deadline=found.deadline,
+                comment=comment,
+                track=track,
+                url=url,
+            )
+        )
+        added += 1
+        log.info("%s: pinned source %s -> %s", title, comment, found.deadline)
+    return added
+
+
+def scrape_all(deep: bool = False) -> list[dict]:
     """Scrape + extract every configured conference.
+
+    `deep` turns on the per-workshop pass: following each linked workshop to
+    its own site is by far the most expensive thing this pipeline does (one
+    fetch and one extraction per workshop, where the rest of a venue costs
+    two or three in total), and workshop dates do not move day to day. The
+    daily run therefore leaves it off and a weekly run turns it on; dates
+    found by a deep run are carried forward in between.
 
     Returns one status record per conference, which main() appends to the run
     history for the weekly health report.
@@ -230,8 +388,16 @@ def scrape_all() -> list[dict]:
             continue
 
         # Individual workshop deadlines live on their own listing page; pull
-        # them in before validating so they get the same checks.
+        # them in before validating so they get the same checks. Then chase
+        # the workshops whose dates are not even on that listing, and finally
+        # any source pinned by hand in the YAML.
         tracks_added = _augment_tracks(conf["title"], result, visited)
+        tracks_filled = (
+            _follow_track_sites(conf["title"], result, visited) if deep else 0
+        )
+        # Pinned sources stay on the daily run: there are a handful of them
+        # at most, and they are the venues nothing else can find.
+        extra_added = _merge_extra_sources(conf, result, visited)
 
         # Drop dateless entries (e.g. an announced-but-unscheduled round)
         # instead of rejecting the whole cycle because of them.
@@ -263,12 +429,14 @@ def scrape_all() -> list[dict]:
                 "confidence": result.confidence,
                 "year": result.cycle.year,
                 "tracks_added": tracks_added,
+                "tracks_filled": tracks_filled,
+                "extra_added": extra_added,
             }
         )
     return records
 
 
-def _append_run_history(started: datetime, records: list[dict]) -> None:
+def _append_run_history(started: datetime, records: list[dict], deep: bool = False) -> None:
     """Append this run's outcome for the weekly health report to consume."""
     finished = datetime.now(timezone.utc)
     entry = {
@@ -276,6 +444,7 @@ def _append_run_history(started: datetime, records: list[dict]) -> None:
         "finished_at": finished.isoformat(timespec="seconds"),
         "duration_s": round((finished - started).total_seconds()),
         "backend": extract.active_backend(),
+        "deep": deep,
         "results": records,
     }
     try:
@@ -290,10 +459,18 @@ def main() -> int:
     logging.basicConfig(
         level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s %(message)s"
     )
+    ap = argparse.ArgumentParser(description="Scrape every conference and rebuild the site")
+    ap.add_argument(
+        "--deep",
+        action="store_true",
+        help="also follow each linked workshop to its own site for its "
+             "deadline (expensive; intended for a weekly run)",
+    )
+    args = ap.parse_args()
     started = datetime.now(timezone.utc)
 
-    log.info("Step 1/2: scraping all conferences")
-    records = scrape_all()
+    log.info("Step 1/2: scraping all conferences%s", " (deep)" if args.deep else "")
+    records = scrape_all(deep=args.deep)
     counts = Counter(r["status"] for r in records)
     log.info(
         "Scrape results: %s",
@@ -304,7 +481,7 @@ def main() -> int:
     n = build.build()
     log.info("Wrote %s with %d conferences", config.SITE_DATA, n)
 
-    _append_run_history(started, records)
+    _append_run_history(started, records, deep=args.deep)
     return 0
 
 

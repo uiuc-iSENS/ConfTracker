@@ -14,6 +14,7 @@
     - abstract_deadline: '2026-08-26 23:59:00'
       deadline: '2026-09-02 23:59:00'
       comment: Summer deadlines
+      url: https://www.sigmobile.org/mobicom/2027/cfp.html
     timezone: AoE
     date: Oct 18-22, 2027
     place: TBD

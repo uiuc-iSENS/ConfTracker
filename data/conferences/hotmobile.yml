@@ -10,7 +10,9 @@
     id: hotmobile27
     link: https://www.hotmobile.org/2027
     timeline:
-    - deadline: '2026-10-09 23:59:00'
+    - deadline: '2026-10-09 23:59:59'
+      comment: Hard deadline
+      url: https://www.hotmobile.org/index.php?id=cfp
     timezone: AoE
     date: February 24-25, 2027
     place: Tucson, AZ, USA

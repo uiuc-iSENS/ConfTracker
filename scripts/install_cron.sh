@@ -26,7 +26,13 @@ MAILTO=""
 
 # Scrape every conference, rebuild the site, commit and push. Nightly, when
 # conference sites are idle and a slow run bothers nobody.
-0 2 * * *     $ROOT/scripts/run_daily.sh >> $ROOT/logs/daily.log 2>&1
+0 2 * * 1-6   $ROOT/scripts/run_daily.sh >> $ROOT/logs/daily.log 2>&1
+
+# Sundays, the same run plus --deep: follow every linked workshop to its own
+# site for its deadline. By far the most expensive pass (one fetch and one
+# extraction per workshop), and workshop dates do not move day to day, so it
+# runs weekly and the dates it finds are carried forward in between.
+0 2 * * 0     $ROOT/scripts/run_daily.sh --deep >> $ROOT/logs/daily.log 2>&1
 
 # Read the signup mailbox often, so subscribing feels immediate.
 */30 * * * *  $ROOT/scripts/run_reminders.sh --inbox-only >> $ROOT/logs/reminders.log 2>&1

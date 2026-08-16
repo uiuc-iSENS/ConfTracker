@@ -32,6 +32,10 @@ class TimelineEntry(BaseModel):
     # null = main paper track; otherwise a short label such as
     # "Workshop", "Poster", "Demo", "Tutorial", "SRC", "Doctoral Forum"
     track: str | None = None
+    # This track's own site, when the page links to one. Workshop listings
+    # routinely give a name and a link but no date -- the date lives on the
+    # workshop's own page -- so this is what makes that page reachable.
+    url: str | None = None
 
 
 class ConfCycle(BaseModel):
@@ -86,7 +90,11 @@ URL in tracks_url -- individual workshops usually have separate deadlines \
 from the main track and from each other. When the page you are reading is \
 itself such a listing, return every workshop as its own timeline entry: \
 one entry per workshop, track set to "Workshop" (or "Poster"/"Demo"/\
-"Tutorial"), and the workshop's own name or acronym in comment."""
+"Tutorial"), and the workshop's own name or acronym in comment. On such a \
+listing, also set url to that workshop's own linked page whenever one is \
+given -- include the entry even when the listing states no date for it, \
+since the date usually lives on the workshop's own site and that link is \
+how it gets found."""
 
 
 def _prompt(conf_title: str, url: str, page_text: str) -> str:
