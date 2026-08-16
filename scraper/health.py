@@ -21,16 +21,14 @@ no MTA to run, nothing to renew.
 import argparse
 import json
 import logging
-import smtplib
 import subprocess
 import sys
 from collections import Counter
 from datetime import date, datetime, timedelta, timezone
-from email.message import EmailMessage
 
 import yaml
 
-from . import config, validate
+from . import config, mail, subscriptions, validate
 
 log = logging.getLogger(__name__)
 
@@ -314,6 +312,34 @@ def render(days: int = 7) -> tuple[str, str]:
         a(f"  None -- all {healthy} conference(s) behaving.")
     a("")
 
+    # Reminder mail fails the same silent way the scrape does: cron stops
+    # firing, or the signup mailbox stops answering, and the only visible
+    # symptom is that nobody gets told about anything.
+    if config.SUBSCRIBE_ADDRESS:
+        a("REMINDER SUBSCRIPTIONS")
+        try:
+            store = subscriptions.load()
+        except RuntimeError as e:
+            a(f"  [ERROR] {e}")
+        else:
+            people = store.get("subscribers", {})
+            paused = sum(1 for s in people.values() if s.get("paused"))
+            last = max(
+                (d for s in people.values() for d in (s.get("sent") or {}).values()),
+                default=None,
+            )
+            a(f"  signup mailbox: {config.SUBSCRIBE_ADDRESS}")
+            a(f"  subscribers:    {len(people)}" + (f"  ({paused} paused)" if paused else ""))
+            a(f"  last reminder:  {last or 'none sent yet'}")
+            if people and last:
+                age = (date.today() - date.fromisoformat(last)).days
+                if age > 14:
+                    a(
+                        f"  [WARN ] nothing sent for {age} days despite "
+                        f"{len(people)} subscriber(s) -- is run_reminders.sh in cron?"
+                    )
+        a("")
+
     deadlines = upcoming_deadlines(config.DIGEST_DAYS)
     a(f"UPCOMING DEADLINES (next {config.DIGEST_DAYS} days)")
     if deadlines:
@@ -344,21 +370,7 @@ def render(days: int = 7) -> tuple[str, str]:
 # ---------- delivery ----------
 
 def send(subject: str, body: str, to: str | None = None) -> None:
-    msg = EmailMessage()
-    msg["Subject"] = subject
-    msg["From"] = f"ConfTracker <{config.REPORT_FROM}>"
-    msg["To"] = to or config.REPORT_TO
-    msg["Auto-Submitted"] = "auto-generated"  # keep it out of vacation replies
-    msg.set_content(body)
-
-    with smtplib.SMTP(config.SMTP_HOST, config.SMTP_PORT, timeout=60) as s:
-        s.ehlo()
-        try:
-            s.starttls()
-            s.ehlo()
-        except (smtplib.SMTPException, OSError) as e:
-            log.warning("STARTTLS unavailable, sending over plain SMTP: %s", e)
-        s.send_message(msg)
+    mail.send(subject, body, to)
 
 
 def main() -> int:

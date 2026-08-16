@@ -2,6 +2,7 @@
 
 import json
 import logging
+import sys
 from datetime import date, datetime, timedelta, timezone
 
 import yaml
@@ -99,6 +100,44 @@ def build(conf_dir=None, out_path=None) -> int:
         "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "conferences": conferences,
     }
+
+    # Where the frontend's "remind me" buttons should point. Published only
+    # when a signup channel is actually configured; without one the reminder
+    # UI stays hidden rather than offering a button that goes nowhere.
+    #
+    # Whatever is here ends up in a public repo. A repo name is fine to
+    # publish; a mailbox address is a decision (use the lab's, not a personal
+    # one), which is why neither is a default.
+    if config.SIGNUP_REPO or config.SUBSCRIBE_ADDRESS:
+        reminders = {
+            "domains": config.SUBSCRIBE_DOMAINS,
+            "lead_days": config.DEFAULT_LEAD_DAYS,
+        }
+        if config.SIGNUP_REPO:
+            reminders["mode"] = "issues"
+            reminders["repo"] = config.SIGNUP_REPO
+            reminders["label"] = config.SIGNUP_LABEL
+        else:
+            reminders["mode"] = "email"
+            reminders["address"] = config.SUBSCRIBE_ADDRESS
+        data["reminders"] = reminders
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(data, indent=2, ensure_ascii=False))
     return len(conferences)
+
+
+def main() -> int:
+    """Rebuild docs/data.json on its own, without a full scrape.
+
+    Needed whenever configuration reaches the frontend rather than the
+    scraper -- the reminder signup channel, most obviously: change it in
+    .env and the site does not know until data.json is written again.
+    """
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
+    n = build()
+    log.info("Wrote %s with %d conferences", config.SITE_DATA, n)
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

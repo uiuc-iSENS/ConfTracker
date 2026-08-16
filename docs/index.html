@@ -49,6 +49,16 @@
   <input id="search" class="search" type="search" placeholder="Filter by name…" aria-label="Filter conferences by name">
 </nav>
 
+<!-- Populated by app.js, and left hidden unless data.json carries a signup
+     address — a "remind me" button that mails nowhere is worse than none. -->
+<details class="reminders" id="reminders" hidden>
+  <summary>
+    <span class="rem-title">Email reminders</span>
+    <span class="rem-sub" id="rem-sub"></span>
+  </summary>
+  <div class="rem-body" id="rem-body"></div>
+</details>
+
 <main>
   <section aria-label="Upcoming deadlines">
     <ol id="upcoming" class="conf-list"></ol>

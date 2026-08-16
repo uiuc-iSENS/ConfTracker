@@ -160,6 +160,140 @@
     return true;
   }
 
+  // ---------- reminder signup ----------
+
+  // There is no backend to POST a signup to — the site is static files on
+  // GitHub Pages — so a subscription is a message whose *title* is the
+  // command, opened prefilled here and picked up by the lab machine.
+  // Two channels, same command language: a GitHub issue, or an email.
+  const reminders =
+    data.reminders && (data.reminders.repo || data.reminders.address)
+      ? data.reminders
+      : null;
+  const viaIssues = reminders && reminders.mode === "issues";
+
+  const HOW_TO_EDIT =
+    "You can edit the title first: add more venue names, or\n" +
+    "  tracks:all   also remind me about workshops, posters and demos\n" +
+    "  days:30,7,1  choose your own reminder lead times\n\n" +
+    "Later on, 'unsubscribe' stops everything and 'list' shows what you\n" +
+    "are signed up for.\n";
+
+  function signupUrl(command) {
+    if (viaIssues) {
+      // The address goes in the body, where the lab machine reads it; the
+      // title is the command itself.
+      const body =
+        "Email: \n\n" +
+        "(put your address on the line above — it is where reminders go)\n\n" +
+        HOW_TO_EDIT;
+      return (
+        "https://github.com/" +
+        reminders.repo +
+        "/issues/new?labels=" +
+        encodeURIComponent(reminders.label || "reminder-signup") +
+        "&title=" +
+        encodeURIComponent(command) +
+        "&body=" +
+        encodeURIComponent(body)
+      );
+    }
+    return (
+      "mailto:" +
+      encodeURIComponent(reminders.address) +
+      "?subject=" +
+      encodeURIComponent(command) +
+      "&body=" +
+      encodeURIComponent(
+        "Send this message as it is — the subject line is the whole request.\n\n" +
+          HOW_TO_EDIT
+      )
+    );
+  }
+
+  function remindButton(c) {
+    if (!reminders) return "";
+    // The empty span is a full-width flex item: it forces the link onto its
+    // own line without making the link itself full width, which would drag
+    // its underline across the whole column.
+    return `<span class="id-break"></span>
+      <a class="remind" href="${signupUrl("subscribe " + venueKey(c.title))}"
+        ${viaIssues ? 'target="_blank" rel="noopener"' : ""}
+        title="Email reminders before ${attr(c.title)} deadlines">remind me</a>`;
+  }
+
+  // What the filter bar is currently showing, as a subscription command.
+  // A tier and a tag together are an AND on screen but an OR in a command,
+  // so that case is spelled out venue by venue rather than quietly widened.
+  function commandForFilters(shown) {
+    const tierOnly = state.tier !== "all" && !state.tags.size && !state.q;
+    const tagsOnly = state.tier === "all" && state.tags.size && !state.q;
+    if (state.tier === "all" && !state.tags.size && !state.q) return "subscribe all";
+    if (tierOnly) return `subscribe tier${state.tier}`;
+    if (tagsOnly) return "subscribe " + [...state.tags].map((t) => "tag:" + t).join(" ");
+    return "subscribe " + shown.map((c) => venueKey(c.title)).join(" ");
+  }
+
+  const remBox = document.getElementById("reminders");
+  const remBody = document.getElementById("rem-body");
+  const remSub = document.getElementById("rem-sub");
+
+  function renderReminders(shown) {
+    if (!reminders) return;
+    remBox.hidden = false;
+    const leads = (reminders.lead_days || [14, 7, 3, 1]).join(", ");
+    const who =
+      reminders.domains && reminders.domains.length
+        ? `Open to ${reminders.domains.join(", ")} addresses.`
+        : "";
+    remSub.textContent = `mailed ${leads} days before each deadline`;
+
+    const count = shown.length;
+    // With nothing on screen there is nothing to subscribe to, so the
+    // filter-shaped button falls back to the whole list rather than mailing
+    // an empty command.
+    const filterCmd = count ? commandForFilters(shown) : "subscribe all";
+    const filterLabel =
+      filterCmd === "subscribe all"
+        ? "everything we track"
+        : `what's shown now (${count} venue${count === 1 ? "" : "s"})`;
+
+    const blank = viaIssues ? ' target="_blank" rel="noopener"' : "";
+    const lede = viaIssues
+      ? `Get an email before the deadlines you care about. The button opens a
+         prefilled issue in our signup repo — the title is the request, and you
+         add the address the reminders should go to. It is picked up within
+         half an hour.`
+      : `Get an email before the deadlines you care about. There is no form and
+         no account: the button sends a one-line message from your own mailbox,
+         which is what tells us the address is yours.`;
+    const where = viaIssues
+      ? `Or open an issue in
+         <a href="https://github.com/${reminders.repo}/issues"${blank}>${reminders.repo}</a>
+         yourself. The title is the command:`
+      : `Or mail <a href="${signupUrl("help")}">${reminders.address}</a> directly.
+         Put the command in the subject line:`;
+
+    remBody.innerHTML = `
+      <p class="rem-lede">${lede}</p>
+      <p class="rem-actions">
+        <a class="rem-btn" href="${signupUrl(filterCmd)}"${blank}>Remind me about ${filterLabel}</a>
+        <a class="rem-btn ghost" href="${signupUrl("subscribe all tracks:all")}"${blank}>Everything, workshops and posters included</a>
+        <a class="rem-btn ghost" href="${signupUrl("list")}"${blank}>What am I signed up for?</a>
+      </p>
+      <p class="rem-note">${where}</p>
+      <ul class="rem-syntax">
+        <li><code>subscribe mobicom sensys</code> one or more venues</li>
+        <li><code>subscribe tier1</code> · <code>subscribe tag:sensing</code> by tier or topic</li>
+        <li><code>subscribe all tracks:all</code> include workshop, poster and demo calls</li>
+        <li><code>subscribe all days:30,7,1</code> your own lead times</li>
+        <li><code>pause</code> · <code>resume</code> · <code>unsubscribe</code> · <code>list</code></li>
+      </ul>
+      <p class="rem-note">${who} Reminders use the dates on this page, which are
+        gathered automatically — treat them as a nudge to go and check the
+        official CFP, not as the authority.</p>`;
+  }
+
   // ---------- rendering ----------
 
   function coreBadge(c) {
@@ -173,7 +307,10 @@
   const brief = (s) => (s && s.length <= 48 ? s : null);
   // "UbiComp/ISWC" -> "ubicomp-iswc": a raw title breaks both the id and the
   // spectrum's "#conf-…" anchor as soon as it contains a slash or a space.
-  const slug = (title) => "conf-" + title.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+  // The same key names a venue in a reminder command, so the two must agree.
+  const venueKey = (title) =>
+    title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  const slug = (title) => "conf-" + venueKey(title);
   const attr = (s) => String(s || "").replace(/"/g, "&quot;");
   // "2026-09-02 23:59:59" -> "2026-09-02 23:59"; a bare date is left alone.
   const fmtStamp = (raw) => String(raw).replace(/:\d{2}$/, "");
@@ -282,6 +419,7 @@
         ${acr}
         ${coreBadge(c)}
         <span class="tier-dot">tier ${c.tier}</span>
+        ${remindButton(c)}
       </div>
       <div class="conf-body">
         <p class="full-name">${c.description || ""}</p>
@@ -310,6 +448,8 @@
     wait.forEach((c) => awaitingBox.appendChild(confRow(c)));
     awaitingLabel.hidden = !wait.length;
     renderSpectrum(up);
+    // The signup command follows the filters, so it is rebuilt with them.
+    renderReminders(up.concat(wait));
     tick();
   }
 

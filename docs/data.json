@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-15T07:59:55+00:00",
+  "generated_at": "2026-08-16T00:26:18+00:00",
   "conferences": [
     {
       "title": "CoNEXT",
@@ -581,5 +581,19 @@
         }
       }
     }
-  ]
+  ],
+  "reminders": {
+    "domains": [
+      "illinois.edu"
+    ],
+    "lead_days": [
+      14,
+      7,
+      3,
+      1
+    ],
+    "mode": "issues",
+    "repo": "uiuc-iSENS/ConfTracker-signups",
+    "label": "reminder-signup"
+  }
 }

@@ -27,6 +27,16 @@ fi
 source .venv/bin/activate
 
 echo "=== ConfTracker daily run: $(date -u +%FT%TZ) ==="
+
+# Sync before scraping. Without this a conference YAML edited on GitHub never
+# reaches the lab machine, and worse, the branches diverge: every subsequent
+# push fails and the site quietly stops updating while the scrape keeps
+# reporting success. --autostash covers a half-finished local edit.
+if git remote get-url origin &>/dev/null; then
+  git pull --rebase --autostash origin main \
+    || echo "warning: pull failed; continuing with the local checkout"
+fi
+
 python -m scraper.main
 
 # Commit data changes for an audit trail (rollback = git revert).

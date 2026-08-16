@@ -212,6 +212,83 @@ a:hover { color: var(--orange); }
 }
 .search:focus { border-color: var(--ink); }
 
+/* ---------- Reminder signup ---------- */
+
+.reminders {
+  margin: 0 clamp(1rem, 4vw, 3rem) 1.25rem;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--orange);
+  background: var(--card);
+}
+
+.reminders > summary {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  padding: 0.7rem 1rem;
+  cursor: pointer;
+  list-style: none;
+}
+.reminders > summary::-webkit-details-marker { display: none; }
+/* A disclosure triangle drawn with text, so it matches the mono type. */
+.reminders > summary::before {
+  content: "+";
+  font: 600 0.9rem var(--mono);
+  color: var(--orange);
+}
+.reminders[open] > summary::before { content: "–"; }
+
+.rem-title {
+  font: 600 0.8rem var(--sans);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+.rem-sub { font: 400 0.72rem var(--mono); color: var(--muted); }
+
+.rem-body { padding: 0 1rem 1rem; max-width: 68ch; }
+.rem-lede { margin: 0 0 0.8rem; font-size: 0.85rem; }
+
+.rem-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0 0 0.9rem; }
+
+.rem-btn {
+  padding: 0.4rem 0.7rem;
+  border: 1.5px solid var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+  font: 600 0.76rem var(--sans);
+  text-decoration: none;
+}
+.rem-btn:hover { background: var(--orange); border-color: var(--orange); color: var(--paper); }
+.rem-btn.ghost { background: transparent; color: var(--ink); }
+.rem-btn.ghost:hover { background: transparent; color: var(--orange); }
+
+.rem-note { margin: 0.6rem 0 0; font-size: 0.78rem; color: var(--muted); }
+.rem-note a { font-family: var(--mono); }
+
+.rem-syntax { margin: 0.5rem 0 0; padding-left: 1.1rem; font-size: 0.78rem; color: var(--muted); }
+.rem-syntax li { margin: 0.15rem 0; }
+.rem-syntax code {
+  font: 500 0.76rem var(--mono);
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--grid);
+  padding: 0 0.25rem;
+}
+
+/* Per-venue signup: wraps onto its own line under the acronym. */
+.id-break { flex-basis: 100%; height: 0; }
+.remind {
+  margin-top: 0.15rem;
+  font: 500 0.68rem var(--mono);
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--line);
+}
+/* An arrow, not an envelope glyph: ✉ falls back to tofu in plenty of font
+   stacks, and a broken box is a worse affordance than no icon at all. */
+.remind::after { content: " →"; color: var(--orange); }
+.remind:hover { color: var(--orange); border-bottom-color: var(--orange); }
+
 /* ---------- Conference list ---------- */
 
 main { padding: 0 clamp(1rem, 4vw, 3rem) 3rem; }

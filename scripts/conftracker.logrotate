@@ -1,0 +1,27 @@
+# logrotate config for ConfTracker's logs. Run from cron as the same user
+# that owns the logs -- no root, no /etc/logrotate.d entry:
+#
+#   /usr/sbin/logrotate --state logs/.logrotate.state scripts/conftracker.logrotate
+#
+# Paths are absolute below because logrotate does not resolve relative ones
+# against the config file's directory; scripts/install_cron.sh writes the
+# invocation with the repo path baked in, and this file assumes the standard
+# checkout location. Edit both if the repo moves.
+
+/nas-data/mt55/ConfTracker/logs/daily.log
+/nas-data/mt55/ConfTracker/logs/reminders.log
+/nas-data/mt55/ConfTracker/logs/weekly.log
+/nas-data/mt55/ConfTracker/logs/logrotate.log
+{
+    weekly
+    rotate 8
+    compress
+    delaycompress
+    missingok        # reminders.log does not exist until reminders are on
+    notifempty
+    copytruncate     # the scripts hold the file open across a rotation
+}
+
+# history.jsonl is deliberately absent: the weekly health report reads it as
+# the record of every run, and rotating it away would blind the report to
+# anything older than a week.
