@@ -2,10 +2,11 @@
 
 Conference deadline tracker for the [iSENS lab](https://isens.cs.illinois.edu/)
 (Wireless, Sensing, and Embedded Networked Systems, UIUC). A daily pipeline
-gathers deadlines for the venues we care about and publishes a static site
-with live countdowns, a 12-month deadline timeline, and tier/tag filters.
-Lab members can subscribe by email to any venue, tier or topic and get
-[reminders](#email-reminders) before each deadline.
+gathers deadlines for the venues we care about — including
+[each workshop's own](#finding-workshop-deadlines) — and publishes a static
+site with live countdowns, a 12-month deadline timeline, and tier/tag
+filters. Lab members can [sign up](#email-reminders) for any venue, tier or
+topic and get an email before each deadline.
 
 ## How it works
 
@@ -13,27 +14,28 @@ Lab members can subscribe by email to any venue, tier or topic and get
 data/conferences/*.yml     one YAML file per conference (venue info + an
                            `isens:` block for lab tier, tags, scrape URL)
         │
-        ▼  daily cron (scripts/run_daily.sh)
+        ▼  nightly cron (scripts/run_daily.sh; Sundays with --deep)
 scraper/                   Python pipeline, for every conference:
   fetch.py                 1. fetch the official page (requests, Playwright
                               fallback for JS-rendered sites)
   extract.py               2. extract the upcoming CFP cycle with Claude
                               (schema-validated structured output; follows
                               one link when deadlines live on a subpage, and
-                              one more to the workshop/poster listing, whose
-                              deadlines differ per workshop)
-  validate.py              3. reject anything failing sanity checks
-  build.py                 4. write docs/data.json
+                              one more to the workshop/poster listing)
+  main.py                  3. chase each listed workshop to its own site for
+                              its own deadline (--deep, weekly)
+  validate.py              4. reject anything failing sanity checks
+  build.py                 5. write docs/data.json
         │
         ▼  git push
 docs/                      static frontend (no build step) — served by
                            GitHub Pages straight from the main branch
 
-logs/history.jsonl         one record per daily run, read by
+logs/history.jsonl         one record per run, read by
   scraper/health.py        the weekly health report (scripts/weekly_report.sh)
 
-scraper/inbox.py           signup mailbox -> subscriptions, and
-  scraper/remind.py        subscriptions -> reminder mail
+scraper/issues.py          signup issues -> subscriptions (or inbox.py, from
+  scraper/remind.py        a mailbox), and subscriptions -> reminder mail
                            (scripts/run_reminders.sh; see Email reminders)
 ```
 
@@ -99,6 +101,30 @@ in on the lab machine) never leaves it.
 `scripts/subscribe.sh` does the same thing from the command line, for adding
 someone by hand or seeing who is on the list.
 
+### The commands
+
+The same vocabulary whichever channel is in use — it is an issue title here,
+an email subject line there:
+
+```
+subscribe mobicom sensys      one or more venues
+subscribe all                 every venue tracked
+subscribe tier1               everything at a lab tier
+subscribe tag:sensing         everything with a topic tag
+subscribe all tracks:all      include workshop/poster/demo calls
+subscribe all days:30,7,1     choose your own lead times
+unsubscribe mobicom           drop one selection
+unsubscribe                   remove the address entirely
+pause / resume                keep the selection, hold the mail
+list                          reply with the current subscription
+help                          reply with this syntax
+```
+
+Unrecognised words are never guessed at — they come back to the sender as
+ignored, along with the list of venues that can be named. Venue names are
+matched loosely: any unambiguous prefix works, so `ubicomp` finds
+UbiComp/ISWC.
+
 ### The signup repo must be private
 
 A signup issue contains someone's email address. On a public repo that
@@ -125,36 +151,6 @@ typed in. The domain allow-list, a private lab-only repo, and unsubscribe
 instructions in every reminder are what stand in for that. The mailbox
 channel below is stronger on exactly this point — a request arriving *from*
 an address is proof the sender owns it — which is the trade you are making.
-
-### Signing up by email instead
-
-Setting `CONFTRACKER_IMAP_USER` turns the buttons into `mailto:` links and
-`scraper/inbox.py` reads that mailbox over IMAP, applying the same commands
-and replying with what it did. Both channels can run at once; they share the
-store and the command language.
-
-For Gmail this needs an app password, which Google only issues with 2FA
-enabled on the account — the reason the GitHub channel is the default here.
-
-Commands go in the subject line (the body is read as a fallback, so replying
-`unsubscribe` to a reminder works):
-
-```
-subscribe mobicom sensys      one or more venues
-subscribe all                 every venue tracked
-subscribe tier1               everything at a lab tier
-subscribe tag:sensing         everything with a topic tag
-subscribe all tracks:all      include workshop/poster/demo calls
-subscribe all days:30,7,1     choose your own lead times
-unsubscribe mobicom           drop one selection
-unsubscribe                   remove the address entirely
-pause / resume                keep the selection, hold the mail
-list                          reply with the current subscription
-help                          reply with this syntax
-```
-
-Unrecognised words are never guessed at — they come back to the sender as
-ignored, along with the list of venues that can be named.
 
 ### Setup
 
@@ -186,6 +182,22 @@ scripts/subscribe.sh --list
 scripts/subscribe.sh alice@illinois.edu subscribe tier1 tracks:all
 scripts/subscribe.sh alice@illinois.edu unsubscribe
 ```
+
+### Signing up by email instead
+
+Setting `CONFTRACKER_IMAP_USER` turns the buttons into `mailto:` links and
+`scraper/inbox.py` reads that mailbox over IMAP, applying the same commands
+and replying with what it did. The command goes in the subject line, with the
+body read as a fallback, so replying `unsubscribe` to a reminder works.
+
+Both channels can run at once — they share the store and the vocabulary — and
+the reply text follows whichever one is configured, so nobody is ever told to
+mail an address that is not being read.
+
+For Gmail this needs an app password, which Google only issues with 2FA
+enabled on the account. That is the reason the GitHub channel is the default
+here, and the trade is real: an email arriving *from* an address proves the
+sender owns it, which an issue cannot.
 
 ### Which address the mail comes from
 
