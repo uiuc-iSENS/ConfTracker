@@ -6,9 +6,15 @@ is logged in, so it can read issues, comment and close them with nothing new
 to store and nothing that expires on its own.
 
     site button  ->  a prefilled issue in the signup repo
-                        title: subscribe mobicom tracks:all
+                        title: subscribe MobiCom tracks:all
                         body:  Email: alice@illinois.edu
-    this module  ->  applies it, comments with the result, closes the issue
+    this module  ->  applies it, mails a confirmation to that address,
+                     comments with the result, closes the issue
+
+The confirmation is not a formality. GitHub notifies the issue's author at
+their *account* address, which is not necessarily the one they typed on the
+Email: line -- so without a mail to the address we actually subscribed, a
+typo there stays invisible until the reminders never turn up.
 
     python -m scraper.issues --stdout   # read and show, change nothing
     python -m scraper.issues            # apply, comment, close
@@ -31,7 +37,7 @@ import re
 import subprocess
 import sys
 
-from . import config, subscriptions
+from . import config, mail, subscriptions
 
 log = logging.getLogger(__name__)
 
@@ -155,17 +161,42 @@ def process(repo: str, label: str, dry_run: bool = False) -> int:
             print()
             continue
 
-        # Save before commenting: if GitHub is unreachable for the comment,
-        # the subscription should still stand rather than be silently lost.
+        # Save before anything else: if GitHub or the relay is unreachable
+        # next, the subscription should still stand rather than be lost.
         subscriptions.save(store)
+
+        # Confirm to the address that was actually subscribed. GitHub will
+        # notify the issue's author too, but at their *account* address --
+        # so without this a typo in the Email: line is invisible until the
+        # reminders that were supposed to arrive never do.
+        mailed = _notify(email, subject, body)
+        note = (
+            f"A copy has been emailed to `{email}`. If it does not arrive, "
+            "that address is wrong — open a new issue with the right one."
+            if mailed
+            else f"⚠️ The subscription is saved, but mail to `{email}` could "
+            "not be sent. Check the address is right."
+        )
         _gh(
             "issue", "comment", str(num), "--repo", repo,
-            "--body", f"**{subject}**\n\n```\n{body}\n```",
+            "--body", f"**{subject}**\n\n```\n{body}\n```\n\n{note}",
         )
         _gh("issue", "close", str(num), "--repo", repo)
         handled += 1
 
     return handled
+
+
+def _notify(to: str, subject: str, body: str) -> bool:
+    """Mail the subscriber what changed. False if it could not be sent."""
+    try:
+        mail.send(subject, body, to=to, reply_to=config.SUBSCRIBE_ADDRESS or None)
+        return True
+    except Exception as e:
+        # Never fatal: the subscription is already saved, and the issue
+        # comment says plainly that the mail did not go out.
+        log.error("could not mail confirmation to %s: %s", to, e)
+        return False
 
 
 def main() -> int:

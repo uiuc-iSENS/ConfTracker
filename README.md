@@ -82,8 +82,8 @@ docs/           ─────────────────►  a prefil
                                       body:  Email: alice@illinois.edu
                                                 │  (subscriber hits Submit)
                                                 ▼  cron, every 30 min
-scraper/issues.py    reads it with the `gh` CLI, applies the command,
-                     comments with the result, closes the issue
+scraper/issues.py    reads it with the `gh` CLI, applies the command, mails
+                     a confirmation, comments on the issue and closes it
         │
         ▼            private/subscribers.json   (gitignored: real addresses,
         │                                         public repo)
@@ -148,6 +148,12 @@ gh label create reminder-signup --repo uiuc-iSENS/ConfTracker-signups \
 The label matters more than it looks: GitHub silently drops an unknown label
 from an `issues/new?labels=…` URL, so without it every signup would be filed
 and then never found by the poller. Preflight checks for it.
+
+A confirmation is mailed to the address that was subscribed, and the issue
+comment says so. That is not a courtesy: GitHub notifies the issue's author
+at their *account* address, which need not be the one they typed on the
+`Email:` line, so a typo there would otherwise stay invisible until the
+reminders failed to arrive.
 
 Worth being explicit about one thing this channel does *not* do: an issue
 proves the author owns a GitHub account, not that they own the address they
