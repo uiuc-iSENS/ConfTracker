@@ -121,9 +121,13 @@ help                          reply with this syntax
 ```
 
 Unrecognised words are never guessed at — they come back to the sender as
-ignored, along with the list of venues that can be named. Venue names are
-matched loosely: any unambiguous prefix works, so `ubicomp` finds
-UbiComp/ISWC.
+ignored, along with the list of venues that can be named.
+
+Venue names are matched loosely, because the buttons prefill a venue's real
+name and people retype these by hand: case and punctuation are normalised
+(`UbiComp/ISWC` and `ubicomp-iswc` are the same thing) and any unambiguous
+prefix works, so `ubicomp` finds it too. An ambiguous one — `mobi`, which
+could be MobiCom, MobiHoc or MobiSys — is reported back rather than guessed.
 
 ### The signup repo must be private
 

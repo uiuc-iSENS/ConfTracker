@@ -180,13 +180,18 @@
     "Later on, 'unsubscribe' stops everything and 'list' shows what you\n" +
     "are signed up for.\n";
 
-  function signupUrl(command) {
+  function signupUrl(command, note) {
+    // `note` names the venue in full. The command alone is enough for the
+    // machine, but a signup repo full of "subscribe conext" is unreadable to
+    // the humans who have to glance at it.
+    const context = note ? note + "\n\n" : "";
     if (viaIssues) {
       // The address goes in the body, where the lab machine reads it; the
       // title is the command itself.
       const body =
         "Email: \n\n" +
         "(put your address on the line above — it is where reminders go)\n\n" +
+        context +
         HOW_TO_EDIT;
       return (
         "https://github.com/" +
@@ -207,6 +212,7 @@
       "&body=" +
       encodeURIComponent(
         "Send this message as it is — the subject line is the whole request.\n\n" +
+          context +
           HOW_TO_EDIT
       )
     );
@@ -214,11 +220,15 @@
 
   function remindButton(c) {
     if (!reminders) return "";
-    // The empty span is a full-width flex item: it forces the link onto its
-    // own line without making the link itself full width, which would drag
-    // its underline across the whole column.
+    // The venue's real name, not its internal key: this is what the reader
+    // sees in the issue title, and the parser normalises it back on arrival
+    // (so "UbiComp/ISWC" resolves just as "ubicomp-iswc" would).
+    const command = "subscribe " + c.title;
+    const note = `Subscribing to: ${c.title}` + (c.description ? ` — ${c.description}` : "");
+    // The empty span is a full-width flex item: it forces the button onto its
+    // own line without stretching it across the whole column.
     return `<span class="id-break"></span>
-      <a class="remind" href="${signupUrl("subscribe " + venueKey(c.title))}"
+      <a class="remind" href="${signupUrl(command, note)}"
         ${viaIssues ? 'target="_blank" rel="noopener"' : ""}
         title="Email reminders before ${attr(c.title)} deadlines">remind me</a>`;
   }

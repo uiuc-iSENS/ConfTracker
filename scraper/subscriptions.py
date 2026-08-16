@@ -165,6 +165,10 @@ def resolve(token: str, cat: list[dict]) -> str | None:
     keys = {c["key"] for c in cat}
     if token.startswith("venue:"):
         token = token[6:]
+    # Normalised the same way a title becomes a key, so a venue's real name
+    # works as typed: the site prefills "subscribe UbiComp/ISWC", and without
+    # this the slash would stop it matching "ubicomp-iswc".
+    token = venue_key(token) or token
     if token in keys:
         return f"venue:{token}"
     # A unique prefix is enough; an ambiguous one is not resolved rather than

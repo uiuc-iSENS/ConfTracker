@@ -214,19 +214,31 @@ a:hover { color: var(--orange); }
 
 /* ---------- Reminder signup ---------- */
 
-/* Per-venue signup: wraps onto its own line under the acronym. */
+/* Per-venue signup: wraps onto its own line under the acronym. This is the
+   primary call to action on the page now that the top panel is gone, so it
+   reads as a button rather than as fine print. */
 .id-break { flex-basis: 100%; height: 0; }
 .remind {
-  margin-top: 0.15rem;
-  font: 500 0.68rem var(--mono);
-  color: var(--muted);
+  display: inline-block;
+  margin-top: 0.45rem;
+  padding: 0.32rem 0.6rem;
+  border: 1.5px solid var(--orange);
+  color: var(--orange);
+  background: transparent;
+  font: 600 0.78rem var(--sans);
+  letter-spacing: 0.01em;
   text-decoration: none;
-  border-bottom: 1px dotted var(--line);
+  white-space: nowrap;
 }
 /* An arrow, not an envelope glyph: ✉ falls back to tofu in plenty of font
    stacks, and a broken box is a worse affordance than no icon at all. */
-.remind::after { content: " →"; color: var(--orange); }
-.remind:hover { color: var(--orange); border-bottom-color: var(--orange); }
+.remind::after { content: " →"; }
+.remind:hover { background: var(--orange); color: var(--paper); }
+
+/* A venue with no upcoming deadline still takes signups -- that is arguably
+   when it is most useful -- but it should not shout from the dimmed list. */
+.dimmed .remind { border-color: var(--line); color: var(--muted); }
+.dimmed .remind:hover { border-color: var(--orange); background: var(--orange); color: var(--paper); }
 
 /* ---------- Conference list ---------- */
 
