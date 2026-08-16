@@ -49,16 +49,6 @@
   <input id="search" class="search" type="search" placeholder="Filter by name…" aria-label="Filter conferences by name">
 </nav>
 
-<!-- Populated by app.js, and left hidden unless data.json carries a signup
-     address — a "remind me" button that mails nowhere is worse than none. -->
-<details class="reminders" id="reminders" hidden>
-  <summary>
-    <span class="rem-title">Email reminders</span>
-    <span class="rem-sub" id="rem-sub"></span>
-  </summary>
-  <div class="rem-body" id="rem-body"></div>
-</details>
-
 <main>
   <section aria-label="Upcoming deadlines">
     <ol id="upcoming" class="conf-list"></ol>
@@ -70,6 +60,10 @@
 </main>
 
 <footer>
+  <!-- Filled by app.js only when a signup channel is configured. The real
+       call to action is the "remind me" link on each venue; this is just the
+       everything-at-once shortcut, kept out of the way. -->
+  <p id="footer-signup" class="footer-signup" hidden></p>
   <p>
     Deadlines are gathered daily from official conference pages — verify on
     the official site before submitting.

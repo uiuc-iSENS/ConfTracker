@@ -223,76 +223,23 @@
         title="Email reminders before ${attr(c.title)} deadlines">remind me</a>`;
   }
 
-  // What the filter bar is currently showing, as a subscription command.
-  // A tier and a tag together are an AND on screen but an OR in a command,
-  // so that case is spelled out venue by venue rather than quietly widened.
-  function commandForFilters(shown) {
-    const tierOnly = state.tier !== "all" && !state.tags.size && !state.q;
-    const tagsOnly = state.tier === "all" && state.tags.size && !state.q;
-    if (state.tier === "all" && !state.tags.size && !state.q) return "subscribe all";
-    if (tierOnly) return `subscribe tier${state.tier}`;
-    if (tagsOnly) return "subscribe " + [...state.tags].map((t) => "tag:" + t).join(" ");
-    return "subscribe " + shown.map((c) => venueKey(c.title)).join(" ");
-  }
-
-  const remBox = document.getElementById("reminders");
-  const remBody = document.getElementById("rem-body");
-  const remSub = document.getElementById("rem-sub");
-
-  function renderReminders(shown) {
+  // Signing up lives on each venue's own row, where the reader already is.
+  // All that is left over is the everything-at-once shortcut, which sits in
+  // the footer rather than lecturing from the top of the page.
+  function renderFooterSignup() {
+    const el = document.getElementById("footer-signup");
     if (!reminders) return;
-    remBox.hidden = false;
-    const leads = (reminders.lead_days || [14, 7, 3, 1]).join(", ");
-    const who =
-      reminders.domains && reminders.domains.length
-        ? `Open to ${reminders.domains.join(", ")} addresses.`
-        : "";
-    remSub.textContent = `mailed ${leads} days before each deadline`;
-
-    const count = shown.length;
-    // With nothing on screen there is nothing to subscribe to, so the
-    // filter-shaped button falls back to the whole list rather than mailing
-    // an empty command.
-    const filterCmd = count ? commandForFilters(shown) : "subscribe all";
-    const filterLabel =
-      filterCmd === "subscribe all"
-        ? "everything we track"
-        : `what's shown now (${count} venue${count === 1 ? "" : "s"})`;
-
+    el.hidden = false;
     const blank = viaIssues ? ' target="_blank" rel="noopener"' : "";
-    const lede = viaIssues
-      ? `Get an email before the deadlines you care about. The button opens a
-         prefilled issue in our signup repo — the title is the request, and you
-         add the address the reminders should go to. It is picked up within
-         half an hour.`
-      : `Get an email before the deadlines you care about. There is no form and
-         no account: the button sends a one-line message from your own mailbox,
-         which is what tells us the address is yours.`;
-    const where = viaIssues
-      ? `Or open an issue in
-         <a href="https://github.com/${reminders.repo}/issues"${blank}>${reminders.repo}</a>
-         yourself. The title is the command:`
-      : `Or mail <a href="${signupUrl("help")}">${reminders.address}</a> directly.
-         Put the command in the subject line:`;
-
-    remBody.innerHTML = `
-      <p class="rem-lede">${lede}</p>
-      <p class="rem-actions">
-        <a class="rem-btn" href="${signupUrl(filterCmd)}"${blank}>Remind me about ${filterLabel}</a>
-        <a class="rem-btn ghost" href="${signupUrl("subscribe all tracks:all")}"${blank}>Everything, workshops and posters included</a>
-        <a class="rem-btn ghost" href="${signupUrl("list")}"${blank}>What am I signed up for?</a>
-      </p>
-      <p class="rem-note">${where}</p>
-      <ul class="rem-syntax">
-        <li><code>subscribe mobicom sensys</code> one or more venues</li>
-        <li><code>subscribe tier1</code> · <code>subscribe tag:sensing</code> by tier or topic</li>
-        <li><code>subscribe all tracks:all</code> include workshop, poster and demo calls</li>
-        <li><code>subscribe all days:30,7,1</code> your own lead times</li>
-        <li><code>pause</code> · <code>resume</code> · <code>unsubscribe</code> · <code>list</code></li>
-      </ul>
-      <p class="rem-note">${who} Reminders use the dates on this page, which are
-        gathered automatically — treat them as a nudge to go and check the
-        official CFP, not as the authority.</p>`;
+    const leads = (reminders.lead_days || [14, 7, 3, 1]).join(", ");
+    el.innerHTML =
+      `Want an email before a deadline? Use <strong>remind me</strong> on any ` +
+      `venue above — or subscribe to ` +
+      `<a href="${signupUrl("subscribe all")}"${blank}>everything</a>, ` +
+      `<a href="${signupUrl("subscribe all tracks:all")}"${blank}>workshops included</a>. ` +
+      `Reminders arrive ${leads} days ahead; ` +
+      `<a href="${signupUrl("list")}"${blank}>check</a> or ` +
+      `<a href="${signupUrl("unsubscribe")}"${blank}>stop</a> yours any time.`;
   }
 
   // ---------- rendering ----------
@@ -390,6 +337,38 @@
       </li>`;
   }
 
+  // The secondary rounds, folded away. A venue can carry a dozen of them --
+  // six named workshops, posters, demos, a doctoral colloquium -- and open by
+  // default they bury the paper deadline the reader came for. Collapsed, the
+  // summary still has to earn its line: how many, of what kind, and how soon
+  // the first one closes, so nobody has to expand it to find out whether it
+  // is urgent.
+  function subtracksBlock(c) {
+    if (!c.extras.length) return "";
+    const times = c.extras.map((r) => soonest(r)).filter(Boolean).map((s) => s.t);
+    if (!times.length) return "";
+    const first = Math.min(...times);
+    const days = Math.ceil((first - Date.now()) / 86400000);
+    const n = c.extras.length;
+
+    const kinds = [...new Set(c.extras.map((r) => (r.track || "paper").toLowerCase()))];
+    const what =
+      kinds.length === 1
+        ? `${kinds[0]}${n > 1 ? "s" : ""}`
+        : kinds.length === 2
+        ? `${kinds[0]}s and ${kinds[1]}s`
+        : `${kinds[0]}s, ${kinds[1]}s and more`;
+
+    return `<details class="subtracks ${urgency(first)}">
+        <summary>
+          <span class="st-more">${n} more ${n === 1 ? "deadline" : "deadlines"}</span>
+          <span class="st-kinds">${what}</span>
+          <span class="st-soonest">next in ${days}d</span>
+        </summary>
+        <ul class="subtrack-list">${c.extras.map(subtrackRow).join("")}</ul>
+      </details>`;
+  }
+
   function confRow(c) {
     const li = document.createElement("li");
     li.className = "conf " + (c.soon ? urgency(c.soon.t) : "");
@@ -414,12 +393,7 @@
       ? deadlinePair(c.main)
       : `<span class="tbd">CFP not announced</span>`;
 
-    const extras = c.extras.length
-      ? `<ul class="subtracks">
-          <li class="subtracks-head">Also open</li>
-          ${c.extras.map(subtrackRow).join("")}
-        </ul>`
-      : "";
+    const extras = subtracksBlock(c);
 
     li.innerHTML = `
       <div class="conf-id">
@@ -455,8 +429,6 @@
     wait.forEach((c) => awaitingBox.appendChild(confRow(c)));
     awaitingLabel.hidden = !wait.length;
     renderSpectrum(up);
-    // The signup command follows the filters, so it is rebuilt with them.
-    renderReminders(up.concat(wait));
     tick();
   }
 
@@ -553,6 +525,8 @@
   }
 
   setInterval(tick, 1000);
+  // Fixed content, unlike the list: built once rather than on every filter.
+  renderFooterSignup();
   render();
 })().catch((err) => {
   document.getElementById("upcoming").innerHTML =

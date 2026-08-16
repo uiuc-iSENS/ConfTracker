@@ -214,67 +214,6 @@ a:hover { color: var(--orange); }
 
 /* ---------- Reminder signup ---------- */
 
-.reminders {
-  margin: 0 clamp(1rem, 4vw, 3rem) 1.25rem;
-  border: 1px solid var(--line);
-  border-left: 4px solid var(--orange);
-  background: var(--card);
-}
-
-.reminders > summary {
-  display: flex;
-  align-items: baseline;
-  gap: 0.6rem;
-  padding: 0.7rem 1rem;
-  cursor: pointer;
-  list-style: none;
-}
-.reminders > summary::-webkit-details-marker { display: none; }
-/* A disclosure triangle drawn with text, so it matches the mono type. */
-.reminders > summary::before {
-  content: "+";
-  font: 600 0.9rem var(--mono);
-  color: var(--orange);
-}
-.reminders[open] > summary::before { content: "–"; }
-
-.rem-title {
-  font: 600 0.8rem var(--sans);
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-}
-.rem-sub { font: 400 0.72rem var(--mono); color: var(--muted); }
-
-.rem-body { padding: 0 1rem 1rem; max-width: 68ch; }
-.rem-lede { margin: 0 0 0.8rem; font-size: 0.85rem; }
-
-.rem-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0 0 0.9rem; }
-
-.rem-btn {
-  padding: 0.4rem 0.7rem;
-  border: 1.5px solid var(--ink);
-  background: var(--ink);
-  color: var(--paper);
-  font: 600 0.76rem var(--sans);
-  text-decoration: none;
-}
-.rem-btn:hover { background: var(--orange); border-color: var(--orange); color: var(--paper); }
-.rem-btn.ghost { background: transparent; color: var(--ink); }
-.rem-btn.ghost:hover { background: transparent; color: var(--orange); }
-
-.rem-note { margin: 0.6rem 0 0; font-size: 0.78rem; color: var(--muted); }
-.rem-note a { font-family: var(--mono); }
-
-.rem-syntax { margin: 0.5rem 0 0; padding-left: 1.1rem; font-size: 0.78rem; color: var(--muted); }
-.rem-syntax li { margin: 0.15rem 0; }
-.rem-syntax code {
-  font: 500 0.76rem var(--mono);
-  color: var(--ink);
-  background: var(--paper);
-  border: 1px solid var(--grid);
-  padding: 0 0.25rem;
-}
-
 /* Per-venue signup: wraps onto its own line under the acronym. */
 .id-break { flex-basis: 100%; height: 0; }
 .remind {
@@ -337,23 +276,43 @@ main { padding: 0 clamp(1rem, 4vw, 3rem) 3rem; }
 .conf-body .full-name { margin: 0; font-size: 0.85rem; color: var(--muted); }
 .conf-body .venue { margin: 0.15rem 0 0; font-size: 0.78rem; font-family: var(--mono); color: var(--ink); }
 
-/* Secondary rounds — workshops, posters, demos, later cycles — listed one
-   per line under the venue, since each carries its own deadline. */
+/* Secondary rounds — workshops, posters, demos, later cycles — each with its
+   own deadline. Folded away by default: a venue can have a dozen, and open
+   they bury the paper deadline the reader came for. */
 .subtracks {
   grid-column: 1 / -1;
-  list-style: none;
   margin: 0.85rem 0 0;
   padding: 0.6rem 0 0;
   border-top: 1px dashed var(--line);
 }
 
-.subtracks-head {
-  font: 600 0.6rem var(--sans);
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
+.subtracks > summary {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  cursor: pointer;
+  list-style: none;
+  font: 400 0.72rem var(--mono);
   color: var(--muted);
-  margin-bottom: 0.35rem;
 }
+.subtracks > summary::-webkit-details-marker { display: none; }
+/* Text triangle rather than the native marker, to match the mono type. */
+.subtracks > summary::before {
+  content: "▸";
+  font-size: 0.7rem;
+  color: var(--muted);
+}
+.subtracks[open] > summary::before { content: "▾"; }
+.subtracks > summary:hover { color: var(--ink); }
+.subtracks > summary:hover::before { color: var(--orange); }
+
+.st-more { font-weight: 600; color: var(--ink); }
+.subtracks.u-warn .st-more { color: var(--warn); }
+.subtracks.u-urgent .st-more { color: var(--urgent); }
+.st-kinds { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.st-soonest { margin-left: auto; white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+.subtrack-list { list-style: none; margin: 0.5rem 0 0; padding: 0; }
 
 .subtrack {
   display: grid;
@@ -466,6 +425,15 @@ footer {
   color: var(--muted);
 }
 footer a { color: var(--muted); }
+
+.footer-signup {
+  margin: 0 0 0.6rem;
+  padding-left: 0.7rem;
+  border-left: 3px solid var(--orange);
+  max-width: 78ch;
+}
+.footer-signup strong { color: var(--ink); font-weight: 600; }
+.footer-signup a { color: var(--ink); }
 
 /* ---------- Responsive ---------- */
 
