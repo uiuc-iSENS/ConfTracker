@@ -230,7 +230,7 @@
     return `<span class="id-break"></span>
       <a class="remind" href="${signupUrl(command, note)}"
         ${viaIssues ? 'target="_blank" rel="noopener"' : ""}
-        title="Email reminders before ${attr(c.title)} deadlines">remind me</a>`;
+        title="Email reminders before ${attr(c.title)} deadlines">subscribe</a>`;
   }
 
   // Signing up lives on each venue's own row, where the reader already is.
@@ -243,7 +243,7 @@
     const blank = viaIssues ? ' target="_blank" rel="noopener"' : "";
     const leads = (reminders.lead_days || [14, 7, 3, 1]).join(", ");
     el.innerHTML =
-      `Want an email before a deadline? Use <strong>remind me</strong> on any ` +
+      `Want an email before a deadline? Use <strong>subscribe</strong> on any ` +
       `venue above — or subscribe to ` +
       `<a href="${signupUrl("subscribe all")}"${blank}>everything</a>, ` +
       `<a href="${signupUrl("subscribe all tracks:all")}"${blank}>workshops included</a>. ` +

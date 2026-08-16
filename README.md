@@ -72,13 +72,13 @@ each one — by default 14, 7, 3 and 1 days ahead, abstract registration
 deadlines included as events of their own.
 
 The site is static files on GitHub Pages, so there is no server to POST a
-signup form to. Instead a **remind me** button opens a prefilled message
+signup form to. Instead a **subscribe** button opens a prefilled message
 whose *title is the command*, and the lab machine picks it up from there:
 
 ```
-                click "remind me"
+                 click "subscribe"
 docs/           ─────────────────►  a prefilled GitHub issue
-  app.js                              title: subscribe mobicom
+  app.js                              title: subscribe MobiCom
                                       body:  Email: alice@illinois.edu
                                                 │  (subscriber hits Submit)
                                                 ▼  cron, every 30 min
