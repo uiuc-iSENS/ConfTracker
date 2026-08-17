@@ -19,7 +19,7 @@ import json
 import logging
 import math
 import sys
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 from . import config, mail, subscriptions, validate
 
@@ -30,14 +30,10 @@ log = logging.getLogger(__name__)
 # not re-send.
 PRUNE_AFTER_DAYS = 30
 
-
-def _parse(value: str) -> datetime | None:
-    for fmt in validate.DATE_FORMATS:
-        try:
-            return datetime.strptime(str(value).strip(), fmt)
-        except ValueError:
-            continue
-    return None
+# Parsing and timezone conversion live in validate, so that this, the daily
+# pipeline and the site cannot drift apart about when a deadline is.
+_parse = validate._parse
+tz_offset_hours = validate.tz_offset_hours
 
 
 def load_data() -> dict:
@@ -51,11 +47,19 @@ def events(data: dict, now: datetime | None = None) -> list[dict]:
     things to be reminded about, and on most venues missing the abstract
     registration means the paper cannot be submitted at all.
 
-    Times are compared naively, in the venue's own stated timezone. For an
-    AoE deadline that makes the reminder up to half a day early and never
-    late, which is the right direction to be wrong in.
+    Deadlines are compared as real instants. The venue's wall clock is read
+    in the venue's own timezone and converted to UTC, so an AoE deadline is
+    the 7 hours later than it looks from Chicago that it genuinely is.
+
+    Comparing the two naively -- as this used to -- happens to err early for
+    a zone behind us, which AoE and UTC-7 both are. It errs *late* the moment
+    a venue posts a deadline in CET, JST or China time, and being late is the
+    one failure this whole system exists to prevent.
+
+    `when` stays the venue's wall clock, for printing next to its timezone;
+    `when_utc` is the instant everything is actually computed from.
     """
-    now = now or datetime.now()
+    now = now or datetime.now(timezone.utc)
     out = []
     for conf in data.get("conferences") or []:
         key = subscriptions.venue_key(conf.get("title", ""))
@@ -66,7 +70,11 @@ def events(data: dict, now: datetime | None = None) -> list[dict]:
                     ("deadline", "paper"),
                 ):
                     when = _parse(entry.get(field) or "")
-                    if when is None or when <= now:
+                    if when is None:
+                        continue
+                    tz = cycle.get("timezone") or "AoE"
+                    when_utc = validate.to_utc(when, tz)
+                    if when_utc <= now:
                         continue
                     out.append(
                         {
@@ -75,15 +83,16 @@ def events(data: dict, now: datetime | None = None) -> list[dict]:
                             "title": conf.get("title", key),
                             "year": cycle.get("year"),
                             "link": cycle.get("link"),
-                            "tz": cycle.get("timezone") or "AoE",
+                            "tz": tz,
                             "track": entry.get("track"),
                             "comment": entry.get("comment") or "",
                             "kind": kind,
                             "raw": str(entry.get(field)),
                             "when": when,
+                            "when_utc": when_utc,
                         }
                     )
-    out.sort(key=lambda e: e["when"])
+    out.sort(key=lambda e: e["when_utc"])
     return out
 
 
@@ -101,12 +110,15 @@ def event_key(ev: dict) -> str:
 
 def _days_out(ev: dict, now: datetime) -> int:
     """Whole days until the deadline, rounded up: 23h away is 'in 1 day'."""
-    return max(0, math.ceil((ev["when"] - now).total_seconds() / 86400))
+    return max(0, math.ceil((ev["when_utc"] - now).total_seconds() / 86400))
 
 
 def prune(sub: dict, now: datetime) -> None:
     """Forget bookkeeping for deadlines that are well past."""
-    cutoff = now - timedelta(days=PRUNE_AFTER_DAYS)
+    # The keys carry the venue's own wall clock, so the cutoff has to be
+    # naive to compare against them. Thirty days of margin makes the handful
+    # of hours a timezone would move it entirely immaterial.
+    cutoff = now.replace(tzinfo=None) - timedelta(days=PRUNE_AFTER_DAYS)
     kept = {}
     for key, sent_on in (sub.get("sent") or {}).items():
         raw = key.rsplit("@", 1)[0].split("|")[-1]
@@ -146,11 +158,22 @@ def due_for(sub: dict, evs: list[dict], now: datetime) -> list[dict]:
 
 # ---------- rendering ----------
 
+def _local(ev: dict) -> str:
+    """The same instant on the reader's clock, e.g. '08-27 06:59 CDT'.
+
+    An AoE deadline is seven hours later than it looks from Chicago, which is
+    exactly the sort of arithmetic nobody wants to do at the wrong end of a
+    submission week. %Z picks up CDT or CST from the machine's own zone, so
+    this stays right across the daylight-saving switch.
+    """
+    return ev["when_utc"].astimezone().strftime("%m-%d %H:%M %Z")
+
+
 def _line(ev: dict) -> list[str]:
     when = ev["when"].strftime("%Y-%m-%d %H:%M")
     label = ev["kind"] if not ev.get("track") else f"{ev['track'].lower()} {ev['kind']}"
     head = f"  in {ev['days']:>3} day(s)   {ev['title']} {ev.get('year') or ''}".rstrip()
-    lines = [head, f"      {label} deadline -- {when} {ev['tz']}"]
+    lines = [head, f"      {label} deadline -- {when} {ev['tz']}  ({_local(ev)})"]
     if ev["comment"]:
         lines.append(f"      {ev['comment']}")
     if ev.get("link"):
@@ -160,7 +183,7 @@ def _line(ev: dict) -> list[str]:
 
 
 def render(sub: dict, due: list[dict], cat: list[dict]) -> tuple[str, str]:
-    due = sorted(due, key=lambda e: e["when"])
+    due = sorted(due, key=lambda e: e["when_utc"])
     first = due[0]
     if len(due) == 1:
         what = f"{first['track'].lower()} " if first.get("track") else ""
@@ -202,7 +225,11 @@ def render(sub: dict, due: list[dict], cat: list[dict]) -> tuple[str, str]:
 
 def run(dry_run: bool = False, only: str | None = None) -> int:
     """Mail every subscriber their due reminders. Returns the number sent."""
-    now = datetime.now()
+    # Aware UTC, because the deadlines are converted to real instants and the
+    # two have to be comparable. The bookkeeping stamp stays a local date --
+    # it is only ever read by a human.
+    now = datetime.now(timezone.utc)
+    sent_stamp = datetime.now().date().isoformat()
     data = load_data()
     evs = events(data, now)
     cat = subscriptions.catalog(data)
@@ -241,7 +268,7 @@ def run(dry_run: bool = False, only: str | None = None) -> int:
 
         for ev in due:
             for mark in ev["marks"]:
-                sub["sent"][mark] = now.date().isoformat()
+                sub["sent"][mark] = sent_stamp
         sent_count += 1
         log.info("%s: reminded about %d deadline(s)", email, len(due))
 

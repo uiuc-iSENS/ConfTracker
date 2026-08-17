@@ -42,6 +42,11 @@ def _carry_forward_tracks(title: str, previous: dict, entry: dict) -> int:
     def dated(t: dict) -> bool:
         return bool(t.get("deadline") or t.get("abstract_deadline"))
 
+    # The venue's own zone, so "still open" means still open where the venue
+    # is rather than where this machine happens to be sitting.
+    tz = entry.get("timezone") or previous.get("timezone") or "AoE"
+    now = datetime.now(timezone.utc)
+
     def still_open(t: dict) -> bool:
         # Nothing is gained by carrying a closed deadline forward, and a row
         # that no run will ever re-find -- a workshop since renamed, a generic
@@ -51,8 +56,8 @@ def _carry_forward_tracks(title: str, previous: dict, entry: dict) -> int:
             for f in ("deadline", "abstract_deadline")
             if t.get(f)
         ]
-        dates = [d for d in dates if d]
-        return bool(dates) and max(dates) >= datetime.now()
+        dates = [validate.to_utc(d, tz) for d in dates if d]
+        return bool(dates) and max(dates) >= now
 
     found = {(t.get("track"), t.get("comment")) for t in entry["timeline"] if dated(t)}
     carried = [
