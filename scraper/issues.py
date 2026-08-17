@@ -47,6 +47,12 @@ EMAIL_RE = re.compile(r"[\w.+-]+@[\w-]+\.[\w.-]+")
 # on it a second (and hundredth) time.
 STUCK_LABEL = "needs-info"
 
+# Carried inside the comment itself, invisible in GitHub's rendering. The
+# label is the cheap guard, but it lives on the repo and can be missing,
+# renamed or refused; the marker travels with the comment we are trying not
+# to repeat, so it stays true no matter what the repo's labels look like.
+STUCK_MARKER = "<!-- conftracker:needs-info -->"
+
 
 def _gh(*args: str, check: bool = True) -> str:
     """Run the gh CLI and return stdout."""
@@ -56,6 +62,40 @@ def _gh(*args: str, check: bool = True) -> str:
     if check and proc.returncode != 0:
         raise RuntimeError(f"gh {' '.join(args)} failed: {proc.stderr.strip()}")
     return proc.stdout
+
+
+def _ensure_stuck_label(repo: str) -> bool:
+    """Create STUCK_LABEL if the repo has not got one. False if unavailable.
+
+    Creating it is a POST rather than `gh label create`, which the pinned gh
+    (2.4.0) does not have. The call is idempotent: GitHub answers an existing
+    label with 422 already_exists, which is success for our purposes.
+    """
+    proc = subprocess.run(
+        [
+            "gh", "api", f"repos/{repo}/labels",
+            "-f", f"name={STUCK_LABEL}",
+            "-f", "color=d4c5f9",
+            "-f", "description=Signup issue missing the information to act on it",
+        ],
+        capture_output=True, text=True, timeout=120,
+    )
+    if proc.returncode == 0:
+        log.info("created the %r label in %s", STUCK_LABEL, repo)
+        return True
+    if "already_exists" in (proc.stderr + proc.stdout):
+        return True
+    log.error("could not create the %r label in %s: %s", STUCK_LABEL, repo, proc.stderr.strip())
+    return False
+
+
+def _already_asked(repo: str, num: int) -> bool:
+    """True if an earlier run already posted the "needs an address" comment."""
+    out = _gh(
+        "api", f"repos/{repo}/issues/{num}/comments",
+        "--paginate", "--jq", ".[].body",
+    )
+    return STUCK_MARKER in out
 
 
 def open_signups(repo: str, label: str) -> list[dict]:
@@ -110,81 +150,122 @@ def process(repo: str, label: str, dry_run: bool = False) -> int:
     issues = open_signups(repo, label)
     log.info("%d open signup issue(s) in %s", len(issues), repo)
 
+    # Checked at most once per run, and only if an issue actually needs it.
+    label_ready: list[bool] = []
+
+    def ensure_label() -> bool:
+        if not label_ready:
+            label_ready.append(_ensure_stuck_label(repo))
+        return label_ready[0]
+
     handled = 0
     for issue in issues:
         num = issue["number"]
-        author = (issue.get("author") or {}).get("login", "?")
-        labels = {l.get("name") for l in issue.get("labels") or []}
-
-        email = extract_email(issue)
-        if email is None:
-            if STUCK_LABEL in labels:
-                log.info("#%s: still no address, already asked; skipping", num)
-                continue
-            msg = (
-                "I could not find an email address in this issue, so nothing "
-                "has been subscribed.\n\nAdd a line like:\n\n    "
-                "Email: you@illinois.edu\n\nand reopen the issue (or open a "
-                "new one from the site's **remind me** button, which fills "
-                "this in for you)."
+        try:
+            handled += _process_one(
+                issue, repo, store, cat, dry_run, ensure_label=ensure_label,
             )
-            log.warning("#%s by %s: no email address found", num, author)
-            if not dry_run:
-                _gh("issue", "comment", str(num), "--repo", repo, "--body", msg)
-                _gh("issue", "edit", str(num), "--repo", repo, "--add-label", STUCK_LABEL)
-            handled += 1
-            continue
-
-        if not subscriptions.domain_allowed(email):
-            allowed = ", ".join(config.SUBSCRIBE_DOMAINS)
-            msg = (
-                f"Reminders are currently limited to {allowed} addresses, so "
-                f"`{email}` has not been subscribed.\n\nThe tracker itself is "
-                f"public and needs no signup: {config.SITE_URL}"
-            )
-            log.info("#%s: %s outside allowed domains", num, email)
-            if not dry_run:
-                _gh("issue", "comment", str(num), "--repo", repo, "--body", msg)
-                _gh("issue", "close", str(num), "--repo", repo)
-            handled += 1
-            continue
-
-        cmd = subscriptions.parse_message(issue.get("title") or "", issue.get("body") or "", cat)
-        subject, body = subscriptions.apply(store, email, cmd, cat)
-        log.info("#%s: %s -> %s", num, email, subject)
-
-        if dry_run:
-            print(f"--- #{num} by {author}: {issue.get('title')!r}")
-            print(f"would subscribe: {email}")
-            print(f"would comment:   {subject}")
-            print(body)
-            print()
-            continue
-
-        # Save before anything else: if GitHub or the relay is unreachable
-        # next, the subscription should still stand rather than be lost.
-        subscriptions.save(store)
-
-        # Confirm to the address that was actually subscribed. GitHub will
-        # notify the issue's author too, but at their *account* address --
-        # so without this a typo in the Email: line is invisible until the
-        # reminders that were supposed to arrive never do.
-        mailed = _notify(email, subject, body)
-        note = (
-            f"A copy has been emailed to `{email}`. If it does not arrive, "
-            "that address is wrong — open a new issue with the right one."
-            if mailed
-            else f"⚠️ The subscription is saved, but mail to `{email}` could "
-            "not be sent. Check the address is right."
-        )
-        _gh(
-            "issue", "comment", str(num), "--repo", repo,
-            "--body", f"**{subject}**\n\n```\n{body}\n```\n\n{note}",
-        )
-        _gh("issue", "close", str(num), "--repo", repo)
-        handled += 1
+        except (RuntimeError, OSError, subprocess.SubprocessError) as e:
+            # One unhappy issue must not end the run. These are processed
+            # newest-first, so an exception escaping here used to skip every
+            # older issue behind it -- a genuine signup could sit unanswered
+            # indefinitely because someone left an address blank days ago.
+            log.error("#%s: skipped after an error: %s", num, e)
 
     return handled
+
+
+def _process_one(
+    issue: dict,
+    repo: str,
+    store: dict,
+    cat: object,
+    dry_run: bool,
+    ensure_label,
+) -> int:
+    """Handle a single signup issue. Returns 1 if it was acted on, else 0."""
+    num = issue["number"]
+    author = (issue.get("author") or {}).get("login", "?")
+    labels = {l.get("name") for l in issue.get("labels") or []}
+
+    email = extract_email(issue)
+    if email is None:
+        if STUCK_LABEL in labels or _already_asked(repo, num):
+            log.info("#%s: still no address, already asked; skipping", num)
+            return 0
+        msg = (
+            "I could not find an email address in this issue, so nothing "
+            "has been subscribed.\n\nAdd a line like:\n\n    "
+            "Email: you@illinois.edu\n\nand reopen the issue (or open a "
+            "new one from the site's **remind me** button, which fills "
+            "this in for you)."
+        )
+        log.warning("#%s by %s: no email address found", num, author)
+        if not dry_run:
+            # Label first, comment second, and never let a failed label be
+            # fatal. The whole point of the label is to stop the *next* run
+            # commenting again, so a comment posted before it is a comment
+            # posted every half hour until someone notices.
+            ensure_label()
+            _gh(
+                "issue", "edit", str(num), "--repo", repo,
+                "--add-label", STUCK_LABEL, check=False,
+            )
+            # The marker makes the comment self-guarding even if the label
+            # never landed: _already_asked finds it on the next run.
+            _gh(
+                "issue", "comment", str(num), "--repo", repo,
+                "--body", f"{msg}\n\n{STUCK_MARKER}",
+            )
+        return 1
+
+    if not subscriptions.domain_allowed(email):
+        allowed = ", ".join(config.SUBSCRIBE_DOMAINS)
+        msg = (
+            f"Reminders are currently limited to {allowed} addresses, so "
+            f"`{email}` has not been subscribed.\n\nThe tracker itself is "
+            f"public and needs no signup: {config.SITE_URL}"
+        )
+        log.info("#%s: %s outside allowed domains", num, email)
+        if not dry_run:
+            _gh("issue", "comment", str(num), "--repo", repo, "--body", msg)
+            _gh("issue", "close", str(num), "--repo", repo)
+        return 1
+
+    cmd = subscriptions.parse_message(issue.get("title") or "", issue.get("body") or "", cat)
+    subject, body = subscriptions.apply(store, email, cmd, cat)
+    log.info("#%s: %s -> %s", num, email, subject)
+
+    if dry_run:
+        print(f"--- #{num} by {author}: {issue.get('title')!r}")
+        print(f"would subscribe: {email}")
+        print(f"would comment:   {subject}")
+        print(body)
+        print()
+        return 0
+
+    # Save before anything else: if GitHub or the relay is unreachable
+    # next, the subscription should still stand rather than be lost.
+    subscriptions.save(store)
+
+    # Confirm to the address that was actually subscribed. GitHub will
+    # notify the issue's author too, but at their *account* address --
+    # so without this a typo in the Email: line is invisible until the
+    # reminders that were supposed to arrive never do.
+    mailed = _notify(email, subject, body)
+    note = (
+        f"A copy has been emailed to `{email}`. If it does not arrive, "
+        "that address is wrong — open a new issue with the right one."
+        if mailed
+        else f"⚠️ The subscription is saved, but mail to `{email}` could "
+        "not be sent. Check the address is right."
+    )
+    _gh(
+        "issue", "comment", str(num), "--repo", repo,
+        "--body", f"**{subject}**\n\n```\n{body}\n```\n\n{note}",
+    )
+    _gh("issue", "close", str(num), "--repo", repo)
+    return 1
 
 
 def _notify(to: str, subject: str, body: str) -> bool:

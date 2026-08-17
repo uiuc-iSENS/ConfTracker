@@ -208,7 +208,6 @@ def run(dry_run: bool = False, only: str | None = None) -> int:
     cat = subscriptions.catalog(data)
     store = subscriptions.load()
     sent_count = 0
-    dirty = False
 
     for email, sub in sorted(store.get("subscribers", {}).items()):
         if only and email != subscriptions.normalize_email(only):
@@ -243,12 +242,25 @@ def run(dry_run: bool = False, only: str | None = None) -> int:
         for ev in due:
             for mark in ev["marks"]:
                 sub["sent"][mark] = now.date().isoformat()
-        dirty = True
         sent_count += 1
         log.info("%s: reminded about %d deadline(s)", email, len(due))
 
-    if dirty and not dry_run:
-        subscriptions.save(store)
+        # Record now, not once the whole run is over. Everything mailed so
+        # far is marked only in memory until this lands, so a crash here used
+        # to mean the entire run's digests going out again tomorrow.
+        try:
+            subscriptions.save(store)
+        except OSError as e:
+            # And stop, rather than keep mailing people whose reminders we
+            # cannot record either. One person seeing a digest twice is a
+            # bug; every remaining subscriber seeing one every day until
+            # somebody notices the disk is full is the thing worth avoiding.
+            log.error(
+                "could not record reminders as sent (%s); stopping this run "
+                "before mailing anyone we cannot record", e,
+            )
+            break
+
     return sent_count
 
 

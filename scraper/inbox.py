@@ -117,67 +117,111 @@ def poll(dry_run: bool = False, limit: int | None = None) -> int:
         log.info("%d unread message(s) in %s", len(ids), config.IMAP_MAILBOX)
 
         for num in ids:
-            # PEEK so that a crash mid-message leaves it unread and retriable.
-            ok, fetched = imap.fetch(num, "(BODY.PEEK[])")
-            if ok != "OK" or not fetched or not isinstance(fetched[0], tuple):
-                log.warning("could not fetch message %s", num.decode())
-                continue
-            msg = email.message_from_bytes(fetched[0][1])
-
-            subject = _header(msg, "Subject")
-            sender = subscriptions.normalize_email(
-                email.utils.parseaddr(msg.get("From", ""))[1]
-            )
-
-            if not sender or sender in ourselves:
-                log.info("skipping message from %r (no sender, or ourselves)", sender)
-                _mark_seen(imap, num, dry_run)
-                continue
-            if _is_automated(msg):
-                log.info("skipping automated message from %s (%r)", sender, subject)
-                _mark_seen(imap, num, dry_run)
-                continue
-
-            if not subscriptions.domain_allowed(sender):
-                log.info("declining signup from %s (outside allowed domains)", sender)
-                if dry_run:
-                    print(f"--- decline {sender}: {subject!r}")
-                else:
-                    _reply(
-                        sender,
-                        "ConfTracker reminders are not open to this address",
-                        _decline_body(sender),
-                    )
-                _mark_seen(imap, num, dry_run)
-                handled += 1
-                continue
-
-            cmd = subscriptions.parse_message(subject, _body_text(msg), cat)
-            reply_subject, reply_body = subscriptions.apply(store, sender, cmd, cat)
-            log.info("%s: %s -> %s", sender, subject or "(no subject)", reply_subject)
-
-            if dry_run:
-                print(f"--- from: {sender}   subject: {subject!r}")
-                print(f"would reply: {reply_subject}")
-                print(reply_body)
-                print()
-                continue
-
-            # Save before acknowledging: if the reply fails to send, the
-            # subscription should still stand rather than be silently lost.
-            subscriptions.save(store)
-            _reply(sender, reply_subject, reply_body)
-            _mark_seen(imap, num, dry_run)
-            handled += 1
+            try:
+                handled += _process_message(
+                    imap, num, store, cat, ourselves, dry_run
+                )
+            except imaplib.IMAP4.abort:
+                # The connection is gone; the rest of the run cannot work.
+                raise
+            except (imaplib.IMAP4.error, OSError, RuntimeError) as e:
+                # One unreadable or malformed message must not cost every
+                # message behind it its turn.
+                log.error(
+                    "message %s: skipped after an error: %s",
+                    num.decode(errors="replace"), e,
+                )
 
     return handled
 
 
-def _mark_seen(imap, num: bytes, dry_run: bool) -> None:
-    """Done with this message. Left unread on a dry run, and on a crash --
-    which is why the fetch above peeks instead of reading."""
-    if not dry_run:
-        imap.store(num, "+FLAGS", "\\Seen")
+def _process_message(imap, num, store, cat, ourselves, dry_run) -> int:
+    """Handle one unread message. Returns 1 if it was acted on, else 0."""
+    # PEEK so that a crash mid-message leaves it unread and retriable.
+    ok, fetched = imap.fetch(num, "(BODY.PEEK[])")
+    if ok != "OK" or not fetched or not isinstance(fetched[0], tuple):
+        log.warning("could not fetch message %s", num.decode(errors="replace"))
+        return 0
+    msg = email.message_from_bytes(fetched[0][1])
+
+    subject = _header(msg, "Subject")
+    sender = subscriptions.normalize_email(
+        email.utils.parseaddr(msg.get("From", ""))[1]
+    )
+
+    # Nothing goes out for these two, so flagging them is the whole action
+    # and a failure to flag costs only a re-read on the next poll.
+    if not sender or sender in ourselves:
+        log.info("skipping message from %r (no sender, or ourselves)", sender)
+        _mark_seen(imap, num, dry_run)
+        return 0
+    if _is_automated(msg):
+        log.info("skipping automated message from %s (%r)", sender, subject)
+        _mark_seen(imap, num, dry_run)
+        return 0
+
+    if not subscriptions.domain_allowed(sender):
+        log.info("declining signup from %s (outside allowed domains)", sender)
+        if dry_run:
+            print(f"--- decline {sender}: {subject!r}")
+            return 1
+        # Flag first: a decline we cannot flag is a decline this poll would
+        # send again in half an hour, and again after that.
+        if not _mark_seen(imap, num, dry_run):
+            return 0
+        _reply(
+            sender,
+            "ConfTracker reminders are not open to this address",
+            _decline_body(sender),
+        )
+        return 1
+
+    cmd = subscriptions.parse_message(subject, _body_text(msg), cat)
+    reply_subject, reply_body = subscriptions.apply(store, sender, cmd, cat)
+    log.info("%s: %s -> %s", sender, subject or "(no subject)", reply_subject)
+
+    if dry_run:
+        print(f"--- from: {sender}   subject: {subject!r}")
+        print(f"would reply: {reply_subject}")
+        print(reply_body)
+        print()
+        return 0
+
+    # Save before anything else: if the flag or the reply fails next, the
+    # subscription should still stand rather than be silently lost.
+    subscriptions.save(store)
+
+    # Then flag, and only acknowledge once it stuck. The command is already
+    # applied and saved by this point, so a message we cannot flag costs the
+    # sender an acknowledgement -- weighed against another copy of that
+    # acknowledgement every half hour for as long as the flag keeps failing.
+    if not _mark_seen(imap, num, dry_run):
+        return 0
+    _reply(sender, reply_subject, reply_body)
+    return 1
+
+
+def _mark_seen(imap, num: bytes, dry_run: bool) -> bool:
+    """Flag the message read. False if the server did not take it.
+
+    Returning something the caller has to look at is the point. imaplib
+    raises on a BAD response but hands back a plain ('NO', ...) otherwise,
+    which is easy to drop on the floor -- and a STORE that keeps being
+    refused leaves the message unread forever, so every poll sees it as new.
+    Left unread on a dry run too, and on a crash, which is why the fetch
+    above peeks instead of reading.
+    """
+    if dry_run:
+        return False
+    typ, data = imap.store(num, "+FLAGS", "\\Seen")
+    if typ != "OK":
+        log.error(
+            "could not flag message %s as read (%s %r); leaving it untouched "
+            "rather than answering it again next poll",
+            num.decode(errors="replace"), typ, data,
+        )
+        return False
+    return True
 
 
 def _reply(to: str, subject: str, body: str) -> None:
