@@ -16,12 +16,16 @@
       comment: Main track
       url: https://www.sigmobile.org/mobihoc/2026/cfp.html
     - deadline: '2026-08-31 23:59:59'
-      comment: Poster/Demo
+      comment: Posters and Demos
       track: Poster
       url: https://www.sigmobile.org/mobihoc/2026/cf-posters-demos.html
     - deadline: '2026-08-31 23:59:59'
       comment: All workshops
       track: Workshop
+    - deadline: '2026-08-31 23:59:59'
+      comment: Poster/Demo
+      track: Poster
+      url: https://www.sigmobile.org/mobihoc/2026/cf-posters-demos.html
     - deadline: '2026-08-31 23:59:59'
       comment: Posters and demos
       track: Poster
@@ -50,10 +54,6 @@
       comment: Beyond AoI
       track: Workshop
       url: https://www.sigmobile.org/mobihoc/2026/workshop-beyond-aoi.html
-    - deadline: '2026-08-31 23:59:59'
-      comment: Posters and Demos
-      track: Poster
-      url: https://www.sigmobile.org/mobihoc/2026/cf-posters-demos.html
     - deadline: '2026-08-31 23:59:59'
       comment: Workshop papers
       track: Workshop
