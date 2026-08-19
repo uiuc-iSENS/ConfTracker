@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-18T07:10:34+00:00",
+  "generated_at": "2026-08-19T07:13:46+00:00",
   "conferences": [
     {
       "title": "CoNEXT",
@@ -15,13 +15,20 @@
         {
           "year": 2026,
           "id": "conext26",
-          "link": "https://conferences.sigcomm.org/co-next/2026/#!/posters",
+          "link": "https://conferences.sigcomm.org/co-next/2026/#!/home",
           "timeline": [
             {
               "deadline": "2026-09-18 23:59:59",
               "comment": "Call for Posters",
               "track": "Poster",
               "url": "https://conferences.sigcomm.org/co-next/2026/#!/posters"
+            },
+            {
+              "abstract_deadline": "2026-07-07 23:59:59",
+              "deadline": "2026-07-14 23:59:59",
+              "comment": "All CoNEXT 2026 workshops",
+              "track": "Workshop",
+              "url": "https://conferences.sigcomm.org/co-next/2026/#!/cfw"
             }
           ],
           "timezone": "AoE",
@@ -89,7 +96,7 @@
           ],
           "timezone": "AoE",
           "date": "February 24-25, 2027",
-          "place": "Tucson, AZ, USA"
+          "place": "Tucson, AZ"
         }
       ],
       "isens": {
@@ -209,8 +216,8 @@
           "link": "https://www.sigmobile.org/mobicom/2027/",
           "timeline": [
             {
-              "abstract_deadline": "2026-08-26 23:59:59",
-              "deadline": "2026-09-02 23:59:59",
+              "abstract_deadline": "2026-08-26 23:59:00",
+              "deadline": "2026-09-02 23:59:00",
               "comment": "Summer deadlines",
               "url": "https://www.sigmobile.org/mobicom/2027/cfp.html"
             }
@@ -384,12 +391,12 @@
           "timeline": [
             {
               "abstract_deadline": "2026-09-10 20:59:00",
-              "comment": "Fall deadlines",
+              "comment": "Fall cycle",
               "url": "https://www.usenix.org/conference/nsdi27/call-for-papers"
             }
           ],
           "timezone": "UTC-7",
-          "date": "May 11–13, 2027",
+          "date": "May 11-13, 2027",
           "place": "Providence, RI, United States"
         }
       ],
@@ -426,7 +433,7 @@
             }
           ],
           "timezone": "AoE",
-          "date": "May 5-7, 2027",
+          "date": "5 - 7 May 2027",
           "place": "Lisbon, Portugal"
         }
       ],
@@ -508,56 +515,56 @@
           "timeline": [
             {
               "deadline": "2026-09-22 23:59:59",
-              "comment": "IMWUT videos due",
+              "comment": "IMWUT videos",
               "track": "Video Teaser",
               "url": "https://www.ubicomp.org/ubicomp-iswc-2026/video-teasers-cfv/"
             },
             {
               "deadline": "2026-04-30 23:59:59",
-              "comment": "Workshop proposals",
+              "comment": "Proposals",
               "track": "Workshop",
               "url": "https://www.ubicomp.org/ubicomp-iswc-2026/workshop-cfp/"
             },
             {
               "deadline": "2026-05-07 23:59:59",
-              "comment": "Tutorial proposals",
+              "comment": "Proposals",
               "track": "Tutorial",
               "url": "https://www.ubicomp.org/ubicomp-iswc-2026/tutorial-cfp/"
             },
             {
               "deadline": "2026-05-24 23:59:59",
-              "comment": "Extended deadline",
-              "track": "ISWC Notes & Briefs",
+              "comment": "ISWC Notes and Briefs",
+              "track": "Notes & Briefs",
               "url": "https://www.ubicomp.org/ubicomp-iswc-2026/iswc-cfp/"
             },
             {
               "deadline": "2026-06-06 23:59:59",
               "comment": "Posters & Demos",
-              "track": "Poster & Demo",
+              "track": "Poster",
               "url": "https://www.ubicomp.org/ubicomp-iswc-2026/posters-demos-2026/"
             },
             {
               "deadline": "2026-06-22 23:59:59",
-              "comment": "Extended deadline",
+              "comment": "ISWC Design Exhibition",
               "track": "Design Exhibition",
               "url": "https://www.ubicomp.org/ubicomp-iswc-2026/iswc-design-exhibition-cfp/"
             },
             {
               "deadline": "2026-06-19 23:59:59",
-              "comment": "Extended deadline",
               "track": "Doctoral Colloquium",
               "url": "https://www.ubicomp.org/ubicomp-iswc-2026/doctoral-colloquium-2026/"
             },
             {
               "deadline": "2026-06-24 23:59:59",
-              "comment": "Idea submission, extended",
+              "comment": "Idea submission",
               "track": "Student Challenge",
               "url": "https://www.ubicomp.org/ubicomp-iswc-2026/student-challenge-2026/"
             },
             {
               "deadline": "2026-09-22 23:59:59",
-              "comment": "IMWUT videos",
-              "track": "Video Teaser"
+              "comment": "IMWUT videos due",
+              "track": "Video Teaser",
+              "url": "https://www.ubicomp.org/ubicomp-iswc-2026/video-teasers-cfv/"
             },
             {
               "deadline": "2026-11-01 23:59:59",
