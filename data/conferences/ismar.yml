@@ -6,7 +6,35 @@
     core: A*
     thcpl: B
   dblp: ismar
-  confs: []
+  confs:
+  - year: 2026
+    id: ismar26
+    link: https://www.ieeeismar.net/2026
+    timeline:
+    - abstract_deadline: '2026-03-09 23:59:59'
+      deadline: '2026-03-16 23:59:59'
+      url: https://www.ieeeismar.net/2026/call-for-papers/
+    - deadline: '2026-05-22 23:59:59'
+      track: Workshop
+      url: https://www.ieeeismar.net/2026/call-for-workshops/
+    - deadline: '2026-05-22 23:59:59'
+      track: Tutorial
+      url: https://www.ieeeismar.net/2026/call-for-tutorials/
+    - deadline: '2026-06-03 23:59:59'
+      track: Doctoral Consortium
+      url: https://www.ieeeismar.net/2026/call-for-doctoral-consortium/
+    - deadline: '2026-06-25 23:59:59'
+      track: Poster
+      url: https://www.ieeeismar.net/2026/call-for-posters/
+    - deadline: '2026-07-17 23:59:59'
+      track: Demo
+      url: https://www.ieeeismar.net/2026/call-for-demos/
+    - deadline: '2026-09-05 23:59:59'
+      track: Pitch Your Lab
+      url: https://www.ieeeismar.net/2026/call-for-pitch-your-lab/
+    timezone: AoE
+    date: October 5-9, 2026
+    place: Bari, Italy
   isens:
     tier: 2
     tags:
