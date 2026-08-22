@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-21T07:11:40+00:00",
+  "generated_at": "2026-08-22T07:11:21+00:00",
   "conferences": [
     {
       "title": "CoNEXT",
@@ -307,6 +307,7 @@
             {
               "abstract_deadline": "2026-04-13 23:59:00",
               "deadline": "2026-04-20 23:59:00",
+              "comment": "Main track",
               "url": "https://www.sigmobile.org/mobihoc/2026/cfp.html"
             },
             {
@@ -314,6 +315,11 @@
               "comment": "Posters and demos",
               "track": "Poster",
               "url": "https://www.sigmobile.org/mobihoc/2026/cf-posters-demos.html"
+            },
+            {
+              "deadline": "2026-08-31 23:59:59",
+              "comment": "All workshops",
+              "track": "Workshop"
             },
             {
               "deadline": "2026-08-31 23:59:59",
@@ -362,11 +368,6 @@
               "comment": "Posters and Demos",
               "track": "Poster",
               "url": "https://www.sigmobile.org/mobihoc/2026/cf-posters-demos.html"
-            },
-            {
-              "deadline": "2026-08-31 23:59:59",
-              "comment": "All workshops",
-              "track": "Workshop"
             },
             {
               "deadline": "2026-08-31 23:59:59",
@@ -437,7 +438,7 @@
           "timeline": [
             {
               "abstract_deadline": "2026-09-10 20:59:00",
-              "comment": "Fall deadline",
+              "comment": "Fall deadlines",
               "url": "https://www.usenix.org/conference/nsdi27/call-for-papers"
             }
           ],
@@ -474,7 +475,8 @@
           "link": "https://ieee-secon.org/",
           "timeline": [
             {
-              "deadline": "2026-11-30 23:59:59"
+              "deadline": "2026-11-30 23:59:59",
+              "url": "https://ieee-secon.org/call-papers"
             }
           ],
           "timezone": "AoE",
@@ -503,7 +505,24 @@
         "thcpl": "A"
       },
       "dblp": "sensys",
-      "confs": [],
+      "confs": [
+        {
+          "year": 2027,
+          "id": "sensys27",
+          "link": "https://sensys.acm.org/2027/index.html",
+          "timeline": [
+            {
+              "abstract_deadline": "2026-05-29 23:59:59",
+              "deadline": "2026-06-05 23:59:59",
+              "comment": "First deadline",
+              "url": "https://sensys27.hotcrp.com/"
+            }
+          ],
+          "timezone": "AoE",
+          "date": "TBD",
+          "place": "TBD"
+        }
+      ],
       "isens": {
         "tier": 1,
         "tags": [
