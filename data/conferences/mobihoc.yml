@@ -13,8 +13,15 @@
     timeline:
     - abstract_deadline: '2026-04-13 23:59:59'
       deadline: '2026-04-20 23:59:59'
-      comment: Main track
+      comment: Main track (passed)
       url: https://www.sigmobile.org/mobihoc/2026/cfp.html
+    - deadline: '2026-08-31 23:59:59'
+      comment: Posters and demos
+      track: Poster
+      url: https://www.sigmobile.org/mobihoc/2026/cf-posters-demos.html
+    - deadline: '2026-08-31 23:59:59'
+      comment: Workshop papers
+      track: Workshop
     - deadline: '2026-08-31 23:59:59'
       comment: Poster/Demo
       track: Poster
@@ -48,16 +55,8 @@
       track: Workshop
       url: https://www.sigmobile.org/mobihoc/2026/workshop-beyond-aoi.html
     - deadline: '2026-08-31 23:59:59'
-      comment: Posters and demos
-      track: Poster
-      url: https://www.sigmobile.org/mobihoc/2026/cf-posters-demos.html
-    - deadline: '2026-08-31 23:59:59'
       comment: All workshops
       track: Workshop
-    - deadline: '2026-08-31 23:59:59'
-      comment: Workshop papers
-      track: Workshop
-      url: https://www.sigmobile.org/mobihoc/2026/cfw.html
     - deadline: '2026-08-31 23:59:59'
       comment: Posters and Demos
       track: Poster
