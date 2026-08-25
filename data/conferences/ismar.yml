@@ -13,7 +13,7 @@
     timeline:
     - abstract_deadline: '2026-03-09 23:59:59'
       deadline: '2026-03-16 23:59:59'
-      comment: Main papers
+      comment: Main papers (TVCG track)
       url: https://www.ieeeismar.net/2026/call-for-papers/
     - deadline: '2026-05-22 23:59:59'
       comment: Workshop proposals
@@ -24,17 +24,21 @@
       track: Tutorial
       url: https://www.ieeeismar.net/2026/call-for-tutorials/
     - deadline: '2026-06-03 23:59:59'
+      comment: Doctoral Consortium
       track: Doctoral Consortium
       url: https://www.ieeeismar.net/2026/call-for-doctoral-consortium/
     - deadline: '2026-06-25 23:59:59'
+      comment: Posters
       track: Poster
       url: https://www.ieeeismar.net/2026/call-for-posters/
-    - deadline: '2026-07-15 23:59:59'
-      track: Student Volunteers
-      url: https://www.ieeeismar.net/2026/call-for-student-volunteers/
     - deadline: '2026-07-17 23:59:59'
+      comment: Demos
       track: Demo
       url: https://www.ieeeismar.net/2026/call-for-demos/
+    - deadline: '2026-09-05 23:59:59'
+      comment: Pitch Your Lab
+      track: Pitch Your Lab
+      url: https://www.ieeeismar.net/2026/call-for-pitch-your-lab/
     - deadline: '2026-09-05 23:59:59'
       track: Pitch Your Lab
       url: https://www.ieeeismar.net/2026/call-for-pitch-your-lab/

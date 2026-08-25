@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-24T07:29:37+00:00",
+  "generated_at": "2026-08-25T07:10:51+00:00",
   "conferences": [
     {
       "title": "CoNEXT",
@@ -90,7 +90,6 @@
           "timeline": [
             {
               "deadline": "2026-10-09 23:59:59",
-              "comment": "Hard deadline",
               "url": "https://www.hotmobile.org/index.php?id=cfp"
             }
           ],
@@ -194,7 +193,7 @@
             {
               "abstract_deadline": "2026-03-09 23:59:59",
               "deadline": "2026-03-16 23:59:59",
-              "comment": "Main papers",
+              "comment": "Main papers (TVCG track)",
               "url": "https://www.ieeeismar.net/2026/call-for-papers/"
             },
             {
@@ -211,23 +210,27 @@
             },
             {
               "deadline": "2026-06-03 23:59:59",
+              "comment": "Doctoral Consortium",
               "track": "Doctoral Consortium",
               "url": "https://www.ieeeismar.net/2026/call-for-doctoral-consortium/"
             },
             {
               "deadline": "2026-06-25 23:59:59",
+              "comment": "Posters",
               "track": "Poster",
               "url": "https://www.ieeeismar.net/2026/call-for-posters/"
             },
             {
-              "deadline": "2026-07-15 23:59:59",
-              "track": "Student Volunteers",
-              "url": "https://www.ieeeismar.net/2026/call-for-student-volunteers/"
-            },
-            {
               "deadline": "2026-07-17 23:59:59",
+              "comment": "Demos",
               "track": "Demo",
               "url": "https://www.ieeeismar.net/2026/call-for-demos/"
+            },
+            {
+              "deadline": "2026-09-05 23:59:59",
+              "comment": "Pitch Your Lab",
+              "track": "Pitch Your Lab",
+              "url": "https://www.ieeeismar.net/2026/call-for-pitch-your-lab/"
             },
             {
               "deadline": "2026-09-05 23:59:59",
@@ -273,8 +276,7 @@
             {
               "abstract_deadline": "2026-08-26 23:59:59",
               "deadline": "2026-09-02 23:59:59",
-              "comment": "Summer deadlines",
-              "url": "https://www.sigmobile.org/mobicom/2027/cfp.html"
+              "comment": "Summer deadlines"
             }
           ],
           "timezone": "AoE",
@@ -315,7 +317,7 @@
             {
               "abstract_deadline": "2026-04-13 23:59:59",
               "deadline": "2026-04-20 23:59:59",
-              "comment": "Main track (passed)",
+              "comment": "Main track",
               "url": "https://www.sigmobile.org/mobihoc/2026/cfp.html"
             },
             {
@@ -323,6 +325,12 @@
               "comment": "Posters and demos",
               "track": "Poster",
               "url": "https://www.sigmobile.org/mobihoc/2026/cf-posters-demos.html"
+            },
+            {
+              "deadline": "2026-08-31 23:59:59",
+              "comment": "All workshops",
+              "track": "Workshop",
+              "url": "https://www.sigmobile.org/mobihoc/2026/cfw.html"
             },
             {
               "deadline": "2026-08-31 23:59:59",
@@ -376,11 +384,6 @@
               "comment": "Beyond AoI",
               "track": "Workshop",
               "url": "https://www.sigmobile.org/mobihoc/2026/workshop-beyond-aoi.html"
-            },
-            {
-              "deadline": "2026-08-31 23:59:59",
-              "comment": "All workshops",
-              "track": "Workshop"
             },
             {
               "deadline": "2026-08-31 23:59:59",
@@ -451,7 +454,7 @@
           "timeline": [
             {
               "abstract_deadline": "2026-09-10 20:59:00",
-              "comment": "Fall deadline",
+              "comment": "Fall deadlines",
               "url": "https://www.usenix.org/conference/nsdi27/call-for-papers"
             }
           ],
