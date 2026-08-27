@@ -10,7 +10,7 @@
   confs:
   - year: 2027
     id: sensys27
-    link: https://sensys.acm.org/2027/
+    link: https://sensys.acm.org/2027/index.html
     timeline:
     - abstract_deadline: '2026-10-29 23:59:59'
       deadline: '2026-11-05 23:59:59'
@@ -18,7 +18,7 @@
       url: https://sensys.acm.org/2027/cfp.html
     - abstract_deadline: '2026-05-29 23:59:59'
       deadline: '2026-06-05 23:59:59'
-      comment: 1st deadline
+      comment: 1st deadline (passed)
       url: https://sensys.acm.org/2027/cfp.html
     timezone: AoE
     date: May 17-20, 2027
