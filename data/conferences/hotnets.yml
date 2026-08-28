@@ -9,7 +9,7 @@
   confs:
   - year: 2026
     id: hotnets26
-    link: https://conferences.sigcomm.org/hotnets/2026/
+    link: https://conferences.sigcomm.org/hotnets/2026/index.html
     timeline:
     - deadline: '2026-07-16 23:59:59'
     timezone: AoE
