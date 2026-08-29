@@ -6,7 +6,17 @@
     core: A*
     thcpl: A
   dblp: infocom
-  confs: []
+  confs:
+  - year: 2027
+    id: infocom27
+    link: https://www.ieee-infocom.org/
+    timeline:
+    - abstract_deadline: '2026-07-24 23:59:59'
+      deadline: '2026-07-31 23:59:59'
+      url: https://www.ieee-infocom.org/call-papers
+    timezone: AoE
+    date: 24 - 27 May 2027
+    place: Honolulu, HI, USA
   isens:
     tier: 2
     tags:
