@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-29T07:09:54+00:00",
+  "generated_at": "2026-08-30T07:10:24+00:00",
   "conferences": [
     {
       "title": "CoNEXT",
@@ -89,7 +89,7 @@
           "link": "https://www.hotmobile.org/2027",
           "timeline": [
             {
-              "deadline": "2026-10-09 23:59:00",
+              "deadline": "2026-10-09 23:59:59",
               "comment": "Hard deadline",
               "url": "https://www.hotmobile.org/index.php?id=cfp"
             }
@@ -173,7 +173,7 @@
             }
           ],
           "timezone": "AoE",
-          "date": "24 - 27 May 2027",
+          "date": "2027-05-24 to 2027-05-27",
           "place": "Honolulu, HI, USA"
         }
       ],
@@ -330,7 +330,6 @@
             {
               "abstract_deadline": "2026-04-13 23:59:59",
               "deadline": "2026-04-20 23:59:59",
-              "comment": "Main track",
               "url": "https://www.sigmobile.org/mobihoc/2026/cfp.html"
             },
             {
@@ -341,31 +340,8 @@
             },
             {
               "deadline": "2026-08-31 23:59:59",
-              "comment": "Workshop papers",
-              "track": "Workshop",
-              "url": "https://www.sigmobile.org/mobihoc/2026/cfw.html"
-            },
-            {
-              "deadline": "2026-08-31 23:59:59",
               "comment": "All workshops",
               "track": "Workshop"
-            },
-            {
-              "deadline": "2026-08-31 23:59:59",
-              "comment": "General workshop deadline",
-              "track": "Workshop"
-            },
-            {
-              "deadline": "2026-08-31 23:59:59",
-              "comment": "Poster/Demo",
-              "track": "Poster",
-              "url": "https://www.sigmobile.org/mobihoc/2026/cf-posters-demos.html"
-            },
-            {
-              "deadline": "2026-08-31 23:59:59",
-              "comment": "Poster/Demo",
-              "track": "Demo",
-              "url": "https://www.sigmobile.org/mobihoc/2026/cf-posters-demos.html"
             },
             {
               "deadline": "2026-08-31 23:59:59",
@@ -402,6 +378,29 @@
               "comment": "Beyond AoI",
               "track": "Workshop",
               "url": "https://www.sigmobile.org/mobihoc/2026/workshop-beyond-aoi.html"
+            },
+            {
+              "deadline": "2026-08-31 23:59:59",
+              "comment": "Workshop papers",
+              "track": "Workshop",
+              "url": "https://www.sigmobile.org/mobihoc/2026/cfw.html"
+            },
+            {
+              "deadline": "2026-08-31 23:59:59",
+              "comment": "General workshop deadline",
+              "track": "Workshop"
+            },
+            {
+              "deadline": "2026-08-31 23:59:59",
+              "comment": "Poster/Demo",
+              "track": "Poster",
+              "url": "https://www.sigmobile.org/mobihoc/2026/cf-posters-demos.html"
+            },
+            {
+              "deadline": "2026-08-31 23:59:59",
+              "comment": "Poster/Demo",
+              "track": "Demo",
+              "url": "https://www.sigmobile.org/mobihoc/2026/cf-posters-demos.html"
             },
             {
               "deadline": "2026-08-31 23:59:59",
@@ -471,8 +470,8 @@
           "link": "https://www.usenix.org/conference/nsdi27",
           "timeline": [
             {
-              "abstract_deadline": "2026-09-10 20:59:00",
-              "comment": "Fall deadlines",
+              "abstract_deadline": "2026-09-10 20:59:59",
+              "comment": "Fall cycle",
               "url": "https://www.usenix.org/conference/nsdi27/call-for-papers"
             }
           ],
@@ -509,12 +508,11 @@
           "link": "https://ieee-secon.org/",
           "timeline": [
             {
-              "deadline": "2026-11-30 23:59:59",
-              "url": "https://secon2027.ieee-secon.org/call-papers"
+              "deadline": "2026-11-30 23:59:59"
             }
           ],
           "timezone": "AoE",
-          "date": "5 - 7 May 2027",
+          "date": "May 5-7, 2027",
           "place": "Lisbon, Portugal"
         }
       ],
@@ -543,7 +541,7 @@
         {
           "year": 2027,
           "id": "sensys27",
-          "link": "https://sensys.acm.org/2027/",
+          "link": "https://sensys.acm.org/2027/index.html",
           "timeline": [
             {
               "abstract_deadline": "2026-10-29 23:59:59",
