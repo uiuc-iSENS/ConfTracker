@@ -13,6 +13,7 @@
     timeline:
     - abstract_deadline: '2026-04-13 23:59:59'
       deadline: '2026-04-20 23:59:59'
+      comment: Main technical program
       url: https://www.sigmobile.org/mobihoc/2026/cfp.html
     - deadline: '2026-08-31 23:59:59'
       comment: Posters and demos
@@ -21,6 +22,7 @@
     - deadline: '2026-08-31 23:59:59'
       comment: All workshops
       track: Workshop
+      url: https://www.sigmobile.org/mobihoc/2026/cfw.html
     - deadline: '2026-08-31 23:59:59'
       comment: AI-RAN
       track: Workshop
