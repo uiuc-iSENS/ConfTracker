@@ -1,0 +1,27 @@
+- title: ICLR
+  description: International Conference on Learning Representations
+  sub: AI
+  rank:
+    ccf: N
+    core: A*
+  dblp: iclr
+  confs:
+  - year: 2027
+    id: iclr27
+    link: https://iclr.cc/Conferences/2027/index.html
+    timeline:
+    - abstract_deadline: '2026-09-18 23:59:59'
+      deadline: '2026-09-25 23:59:59'
+      url: https://iclr.cc/Conferences/2027/CallForPapers
+    timezone: AoE
+    date: '2027-04-26'
+    place: California, United States
+  isens:
+    tier: 3
+    tags:
+    - ml
+    group: ai
+    scrape:
+      url: https://iclr.cc/
+      templates:
+      - https://iclr.cc/Conferences/{year}

@@ -1,0 +1,16 @@
+- title: NeurIPS
+  description: Conference on Neural Information Processing Systems
+  sub: AI
+  rank:
+    ccf: A
+    core: A*
+  dblp: nips
+  confs: []
+  isens:
+    tier: 3
+    tags: [ml]
+    group: ai
+    scrape:
+      url: https://neurips.cc/
+      templates:
+        - https://neurips.cc/Conferences/{year}

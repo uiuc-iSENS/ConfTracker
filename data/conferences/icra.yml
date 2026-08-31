@@ -1,0 +1,37 @@
+- title: ICRA
+  description: IEEE International Conference on Robotics and Automation
+  sub: MX
+  rank:
+    ccf: B
+    core: A*
+  dblp: icra
+  confs:
+  - year: 2027
+    id: icra27
+    link: https://2027.ieee-icra.org/
+    timeline:
+    - deadline: '2026-09-15 23:59:59'
+    - deadline: '2026-09-01 23:59:59'
+      comment: Pre-proposal
+      track: Workshop
+    - deadline: '2026-11-01 23:59:59'
+      comment: Full proposal
+      track: Workshop
+    - deadline: '2026-09-01 23:59:59'
+      comment: Pre-proposal
+      track: Tutorial
+    - deadline: '2026-11-01 23:59:59'
+      comment: Full proposal
+      track: Tutorial
+    timezone: UTC-7
+    date: May 24-28, 2027
+    place: TBD
+  isens:
+    tier: 3
+    tags:
+    - robotics
+    group: robotics
+    scrape:
+      url: https://www.ieee-ras.org/conferences-workshops/fully-sponsored/icra
+      templates:
+      - https://{year}.ieee-icra.org/

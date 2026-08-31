@@ -1,0 +1,27 @@
+- title: ICC
+  description: IEEE International Conference on Communications
+  sub: NW
+  rank:
+    ccf: C
+    core: N
+  dblp: icc
+  confs:
+  - year: 2027
+    id: icc27
+    link: https://icc2027.ieee-icc.org/
+    timeline:
+    - deadline: '2026-10-02 23:59:59'
+      comment: Call for Technical Papers
+      url: https://icc2027.ieee-icc.org/
+    timezone: AoE
+    date: May 30 - June 3, 2027
+    place: Washington, District of Columbia, United States
+  isens:
+    tier: 2
+    tags:
+    - wireless
+    - networking
+    scrape:
+      url: https://www.comsoc.org/conferences-events/ieee-international-conference-communications-2027
+      templates:
+      - https://icc{year}.ieee-icc.org/

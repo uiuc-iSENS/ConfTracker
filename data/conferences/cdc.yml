@@ -1,0 +1,16 @@
+- title: CDC
+  description: IEEE Conference on Decision and Control
+  sub: MX
+  rank:
+    ccf: N
+    core: N
+  dblp: cdc
+  confs: []
+  isens:
+    tier: 3
+    tags: [controls]
+    group: controls
+    scrape:
+      url: https://cdc2026.ieeecss.org/
+      templates:
+        - https://cdc{year}.ieeecss.org/

@@ -1,0 +1,16 @@
+- title: WoWMoM
+  description: IEEE International Symposium on a World of Wireless, Mobile and Multimedia Networks
+  sub: NW
+  rank:
+    ccf: C
+    core: B
+  dblp: wowmom
+  confs: []
+  isens:
+    tier: 3
+    tags: [mobile, wireless, networking]
+    scrape:
+      # The series has no stable homepage -- each edition sits on its host
+      # institution's domain (ieee-wowmom.org no longer resolves), so this uses
+      # the WikiCFP fallback described in the README.
+      url: http://www.wikicfp.com/cfp/servlet/tool.search?q=WoWMoM&year=f

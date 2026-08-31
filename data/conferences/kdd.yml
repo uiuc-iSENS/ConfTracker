@@ -1,0 +1,16 @@
+- title: KDD
+  description: ACM SIGKDD Conference on Knowledge Discovery and Data Mining
+  sub: AI
+  rank:
+    ccf: A
+    core: A*
+  dblp: kdd
+  confs: []
+  isens:
+    tier: 3
+    tags: [ml]
+    group: ai
+    scrape:
+      url: https://kdd.org/
+      templates:
+        - https://kdd.org/kdd{year}/

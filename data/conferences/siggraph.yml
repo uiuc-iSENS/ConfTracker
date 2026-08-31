@@ -1,0 +1,16 @@
+- title: SIGGRAPH
+  description: ACM SIGGRAPH Annual Conference on Computer Graphics and Interactive Techniques
+  sub: CG
+  rank:
+    ccf: A
+    core: A*
+  dblp: siggraph
+  confs: []
+  isens:
+    tier: 3
+    tags: [graphics, cv]
+    group: ai
+    scrape:
+      url: https://s2026.siggraph.org/
+      templates:
+        - https://s{year}.siggraph.org/

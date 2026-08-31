@@ -1,0 +1,34 @@
+- title: WCNC
+  description: IEEE Wireless Communications and Networking Conference
+  sub: NW
+  rank:
+    ccf: C
+    core: B
+  dblp: wcnc
+  confs:
+  - year: 2027
+    id: wcnc27
+    link: https://wcnc2027.ieee-wcnc.org/
+    timeline:
+    - deadline: '2026-09-15 23:59:59'
+      url: https://wcnc2027.ieee-wcnc.org/authors/call-papers
+    - deadline: '2026-10-31 23:59:59'
+      comment: Tutorial proposals
+      track: Tutorial
+      url: https://wcnc2027.ieee-wcnc.org/authors/call-tutorial-proposals
+    - deadline: '2026-08-10 23:59:59'
+      comment: Workshop proposals
+      track: Workshop
+      url: https://wcnc2027.ieee-wcnc.org/authors/call-workshop-proposals
+    timezone: AoE
+    date: April 5-8, 2027
+    place: Panama City, Panama
+  isens:
+    tier: 2
+    tags:
+    - wireless
+    - networking
+    scrape:
+      url: https://ieee-wcnc.org/
+      templates:
+      - https://wcnc{year}.ieee-wcnc.org/

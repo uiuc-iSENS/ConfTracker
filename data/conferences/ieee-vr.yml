@@ -1,0 +1,27 @@
+- title: IEEE VR
+  description: IEEE Conference on Virtual Reality and 3D User Interfaces
+  sub: CG
+  rank:
+    ccf: A
+    core: A*
+  dblp: vr
+  confs:
+  - year: 2027
+    id: ieee vr27
+    link: https://ieeevr.org/2027/
+    timeline:
+    - abstract_deadline: '2026-08-24 23:59:59'
+      deadline: '2026-08-31 23:59:59'
+      url: https://ieeevr.org/2027/contribute/papers/
+    timezone: AoE
+    date: February 27 – March 3, 2027
+    place: Melbourne, Australia
+  isens:
+    tier: 2
+    tags:
+    - mr
+    - hci
+    scrape:
+      url: https://ieeevr.org/
+      templates:
+      - https://ieeevr.org/{year}/

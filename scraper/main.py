@@ -27,6 +27,40 @@ from . import build, config, extract, fetch, validate
 log = logging.getLogger("scraper")
 
 
+def _source_key(track: str | None, url: str | None) -> tuple | None:
+    """Identity of a track row by the page its deadline came from.
+
+    Names are the unreliable half of a timeline row: one call gets written
+    down as "Poster/Demo", "Posters and demos" and "Posters and Demos" by
+    three different pages, and no amount of string comparison makes those the
+    same. The URL does: rows on the same track, closing on the same date,
+    whose dates were read off the *same page*, are one call described more
+    than once. A workshop with a site of its own has its own URL and so
+    stays distinct, which is what keeps six named workshops six rows.
+
+    None when there is no URL to compare -- then only the name is available.
+    """
+    url = (url or "").strip()
+    return ((track or "").strip().casefold(), url) if url else None
+
+
+def _track_name(track: str | None, comment: str | None) -> str:
+    """The name that distinguishes one track row from another, normalised.
+
+    `comment` carries a workshop's own name, so it cannot simply be dropped
+    when matching rows: two workshops sharing a track and a closing date are
+    still two workshops. But a comment that only restates the track it is on
+    -- "Pitch Your Lab" against the Pitch Your Lab track -- names nothing,
+    and the same call reached twice (once from the main CFP, once from the
+    workshop listing) routinely differs by exactly that. Treating those as
+    the same row is what stops one deadline being listed, and mailed, twice.
+    """
+    name = (comment or "").strip()
+    if name.casefold() == (track or "").strip().casefold():
+        return ""
+    return name.casefold()
+
+
 def _carry_forward_tracks(title: str, previous: dict, entry: dict) -> int:
     """Keep track deadlines we already knew but did not re-find this run.
 
@@ -59,14 +93,26 @@ def _carry_forward_tracks(title: str, previous: dict, entry: dict) -> int:
         dates = [validate.to_utc(d, tz) for d in dates if d]
         return bool(dates) and max(dates) >= now
 
-    found = {(t.get("track"), t.get("comment")) for t in entry["timeline"] if dated(t)}
+    def name_key(t: dict) -> tuple:
+        track = t.get("track")
+        return ((track or "").casefold(), _track_name(track, t.get("comment")))
+
+    def src_key(t: dict) -> tuple | None:
+        return _source_key(t.get("track"), t.get("url"))
+
+    found = {name_key(t) for t in entry["timeline"] if dated(t)}
+    found_src = {k for k in (src_key(t) for t in entry["timeline"] if dated(t)) if k}
     carried = [
         t
         for t in previous.get("timeline") or []
         if t.get("track")
         and dated(t)
         and still_open(t)
-        and (t.get("track"), t.get("comment")) not in found
+        and name_key(t) not in found
+        # ...and not a row this run already re-found under another wording,
+        # which the name comparison alone would miss and carry forward as a
+        # second copy of a call that is already there.
+        and (src_key(t) is None or src_key(t) not in found_src)
     ]
     if carried:
         log.info("%s: carrying %d known track deadline(s) forward", title, len(carried))
@@ -189,20 +235,35 @@ def _augment_tracks(title: str, result: extract.Extraction, visited: set[str]) -
     if listing is None or not listing.found or listing.cycle is None:
         return 0
 
-    known = {
-        (t.track, t.comment, t.deadline, t.abstract_deadline)
-        for t in result.cycle.timeline
-    }
+    def row_key(t: extract.TimelineEntry) -> tuple:
+        return (
+            (t.track or "").casefold(),
+            _track_name(t.track, t.comment),
+            t.deadline,
+            t.abstract_deadline,
+        )
+
+    def src_key(t: extract.TimelineEntry) -> tuple | None:
+        base = _source_key(t.track, t.url)
+        return (*base, t.deadline, t.abstract_deadline) if base else None
+
+    known = {row_key(t) for t in result.cycle.timeline}
+    known_src = {k for k in map(src_key, result.cycle.timeline) if k}
     added = 0
     for entry in listing.cycle.timeline:
         if not entry.track:
             continue
         if not (entry.deadline or entry.abstract_deadline):
             continue
-        key = (entry.track, entry.comment, entry.deadline, entry.abstract_deadline)
-        if key in known:
+        key, src = row_key(entry), src_key(entry)
+        # Either identity is enough to call it a row we already have: the
+        # listing page and the main CFP describe the same calls in different
+        # words, and matching on the name alone lets the rewording through.
+        if key in known or (src and src in known_src):
             continue
         known.add(key)
+        if src:
+            known_src.add(src)
         result.cycle.timeline.append(entry)
         added += 1
     if added:
@@ -295,7 +356,10 @@ def _merge_extra_sources(conf: dict, result: extract.Extraction, visited: set[st
         return 0
 
     title = conf.get("title", "?")
-    known = {(t.track, t.comment) for t in result.cycle.timeline}
+    known = {
+        ((t.track or "").casefold(), _track_name(t.track, t.comment))
+        for t in result.cycle.timeline
+    }
     added = 0
     for src in sources:
         url = (src or {}).get("url")
@@ -309,9 +373,10 @@ def _merge_extra_sources(conf: dict, result: extract.Extraction, visited: set[st
         # The source's own name wins over whatever the page called itself:
         # it is what the YAML author wanted this row labelled.
         comment = name or found.comment
-        if (track, comment) in known:
+        key = (track.casefold(), _track_name(track, comment))
+        if key in known:
             continue
-        known.add((track, comment))
+        known.add(key)
         result.cycle.timeline.append(
             extract.TimelineEntry(
                 abstract_deadline=found.abstract_deadline,
@@ -326,7 +391,7 @@ def _merge_extra_sources(conf: dict, result: extract.Extraction, visited: set[st
     return added
 
 
-def scrape_all(deep: bool = False) -> list[dict]:
+def scrape_all(deep: bool = False, only: set[str] | None = None) -> list[dict]:
     """Scrape + extract every configured conference.
 
     `deep` turns on the per-workshop pass: following each linked workshop to
@@ -336,12 +401,18 @@ def scrape_all(deep: bool = False) -> list[dict]:
     daily run therefore leaves it off and a weekly run turns it on; dates
     found by a deep run are carried forward in between.
 
+    `only` narrows the run to named venues, which is how a newly added one is
+    checked without paying for all the others -- a wrong `scrape.url` is
+    otherwise invisible until the next nightly log.
+
     Returns one status record per conference, which main() appends to the run
     history for the weekly health report.
     """
     records = []
     for path in sorted(config.CONF_DIR.glob("*.yml")):
         stem = path.stem
+        if only and stem not in only:
+            continue
         conf = yaml.safe_load(path.read_text())[0]
         candidates = _candidate_urls(conf)
         if not candidates:
@@ -471,11 +542,30 @@ def main() -> int:
         help="also follow each linked workshop to its own site for its "
              "deadline (expensive; intended for a weekly run)",
     )
+    ap.add_argument(
+        "--only",
+        metavar="VENUE",
+        nargs="+",
+        help="scrape just these venues, named by their data/conferences file "
+             "(e.g. --only wcnc icc). For checking a venue you have just "
+             "added; the site is still rebuilt from all of them.",
+    )
     args = ap.parse_args()
     started = datetime.now(timezone.utc)
 
-    log.info("Step 1/2: scraping all conferences%s", " (deep)" if args.deep else "")
-    records = scrape_all(deep=args.deep)
+    only = set(args.only) if args.only else None
+    if only:
+        unknown = only - {p.stem for p in config.CONF_DIR.glob("*.yml")}
+        if unknown:
+            log.error("No such venue: %s", ", ".join(sorted(unknown)))
+            return 2
+
+    log.info(
+        "Step 1/2: scraping %s%s",
+        "all conferences" if not only else f"{len(only)} venue(s)",
+        " (deep)" if args.deep else "",
+    )
+    records = scrape_all(deep=args.deep, only=only)
     counts = Counter(r["status"] for r in records)
     log.info(
         "Scrape results: %s",
@@ -486,7 +576,11 @@ def main() -> int:
     n = build.build()
     log.info("Wrote %s with %d conferences", config.SITE_DATA, n)
 
-    _append_run_history(started, records, deep=args.deep)
+    # A partial run is not evidence about the venues it skipped, and the
+    # weekly report reads this file to decide which venues have gone quiet --
+    # so record full runs only.
+    if not only:
+        _append_run_history(started, records, deep=args.deep)
     return 0
 
 

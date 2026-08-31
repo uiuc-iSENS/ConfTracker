@@ -93,12 +93,20 @@
 
   const confs = data.conferences.map((c) => {
     const rounds = upcomingRounds(c);
-    // Main paper track leads; workshops/posters/demos become secondary rows.
-    const main = rounds.find((r) => !r.track) || rounds[0] || null;
+    // The main paper track leads. When it has no live round, the venue has
+    // not announced its next paper deadline -- and saying so is the honest
+    // headline. Promoting a side call into that slot instead (a poster
+    // track, a doctoral consortium, ISMAR's "pitch your lab") puts an urgent
+    // countdown against a venue whose paper deadline is months away and
+    // unannounced. The side calls stay, as the secondary rows they are.
+    const main = rounds.find((r) => !r.track) || null;
     return {
       ...c,
       tier: (c.isens && c.isens.tier) || 3,
       tags: (c.isens && c.isens.tags) || [],
+      // Venues outside the lab's own area are tracked but hidden until their
+      // group is switched on; no group means the default, always-shown set.
+      group: (c.isens && c.isens.group) || null,
       main,
       soon: main ? soonest(main) : null,
       // Every other round gets its own sub-row: workshops, posters, demos
@@ -109,7 +117,16 @@
   });
 
   const upcoming = confs.filter((c) => c.main).sort((a, b) => a.soon.t - b.soon.t);
-  const awaiting = confs.filter((c) => !c.main);
+  // Venues awaiting a CFP are not all equally quiet: one can have a workshop
+  // closing this week while its own paper deadline is still unannounced.
+  // Order them by the soonest date they do have, so those surface.
+  const nextExtra = (c) => {
+    const ts = c.extras.map((r) => soonest(r)).filter(Boolean).map((s) => s.t);
+    return ts.length ? Math.min(...ts) : Infinity;
+  };
+  const awaiting = confs
+    .filter((c) => !c.main)
+    .sort((a, b) => nextExtra(a) - nextExtra(b));
 
   // ---------- header ----------
 
@@ -121,21 +138,61 @@
 
   // ---------- filters ----------
 
-  const state = { tier: "all", tags: new Set(), q: "" };
+  const state = { tier: "all", tags: new Set(), groups: new Set(), q: "" };
 
-  const allTags = [...new Set(confs.flatMap((c) => c.tags))].sort();
-  const chipBox = document.getElementById("tag-chips");
-  for (const tag of allTags) {
+  // Off-area venues are tracked all the same -- the lab does publish at
+  // them -- but shown only on request: left on, the AI and robotics venues
+  // would outnumber the wireless and sensing ones the site exists for.
+  // Anything without a group is the default set. The buttons come from the
+  // data, so grouping a venue is a YAML edit, not a code change.
+  const GROUP_LABELS = { ai: "AI / ML", robotics: "Robotics", controls: "Controls" };
+  const groupLabel = (g) => GROUP_LABELS[g] || g;
+
+  const allGroups = [...new Set(confs.map((c) => c.group).filter(Boolean))].sort();
+  const groupBox = document.getElementById("group-toggles");
+  for (const g of allGroups) {
     const b = document.createElement("button");
-    b.className = "chip";
-    b.textContent = tag;
+    b.className = "chip group";
+    b.type = "button";
+    b.setAttribute("aria-pressed", "false");
+    b.textContent = "+ " + groupLabel(g);
+    b.title = `Also show ${groupLabel(g)} venues`;
     b.addEventListener("click", () => {
-      state.tags.has(tag) ? state.tags.delete(tag) : state.tags.add(tag);
-      b.classList.toggle("active");
+      const on = state.groups.has(g);
+      on ? state.groups.delete(g) : state.groups.add(g);
+      b.classList.toggle("active", !on);
+      b.setAttribute("aria-pressed", String(!on));
+      b.textContent = (on ? "+ " : "− ") + groupLabel(g);
+      renderTagChips();
       render();
     });
-    chipBox.appendChild(b);
+    groupBox.appendChild(b);
   }
+
+  // Tags belong to the venues currently in play. Offering "cv" while the AI
+  // group is switched off would give a chip that can only ever produce an
+  // empty list, which reads as a broken filter rather than a hidden group.
+  const chipBox = document.getElementById("tag-chips");
+  function renderTagChips() {
+    const inPlay = confs.filter((c) => !c.group || state.groups.has(c.group));
+    const tags = [...new Set(inPlay.flatMap((c) => c.tags))].sort();
+    // A selection whose tag just disappeared would keep filtering invisibly.
+    for (const t of [...state.tags]) if (!tags.includes(t)) state.tags.delete(t);
+    chipBox.textContent = "";
+    for (const tag of tags) {
+      const b = document.createElement("button");
+      b.className = "chip" + (state.tags.has(tag) ? " active" : "");
+      b.type = "button";
+      b.textContent = tag;
+      b.addEventListener("click", () => {
+        state.tags.has(tag) ? state.tags.delete(tag) : state.tags.add(tag);
+        b.classList.toggle("active");
+        render();
+      });
+      chipBox.appendChild(b);
+    }
+  }
+  renderTagChips();
 
   document.getElementById("tier-tabs").addEventListener("click", (e) => {
     const btn = e.target.closest(".tab");
@@ -152,6 +209,7 @@
   });
 
   function visible(c) {
+    if (c.group && !state.groups.has(c.group)) return false;
     if (state.tier !== "all" && String(c.tier) !== state.tier) return false;
     if (state.tags.size && ![...state.tags].some((t) => c.tags.includes(t))) return false;
     if (state.q) {
@@ -245,7 +303,7 @@
     el.innerHTML =
       `Want an email before a deadline? Use <strong>subscribe</strong> on any ` +
       `venue above — or subscribe to ` +
-      `<a href="${signupUrl("subscribe all")}"${blank}>everything</a>, ` +
+      `<a href="${signupUrl("subscribe all")}"${blank}>every venue shown</a>, ` +
       `<a href="${signupUrl("subscribe all tracks:all")}"${blank}>workshops included</a>. ` +
       `Reminders arrive ${leads} days ahead; ` +
       `<a href="${signupUrl("list")}"${blank}>check</a> or ` +

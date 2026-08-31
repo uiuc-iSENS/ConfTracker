@@ -1,0 +1,15 @@
+- title: DySPAN
+  description: IEEE International Symposium on Dynamic Spectrum Access Networks
+  sub: NW
+  rank:
+    ccf: B
+    core: N
+  dblp: dyspan
+  confs: []
+  isens:
+    tier: 3
+    tags: [spectrum, wireless]
+    scrape:
+      url: https://ieee-dyspan.org/
+      templates:
+        - https://dyspan{year}.ieee-dyspan.org/

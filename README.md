@@ -5,8 +5,11 @@ Conference deadline tracker for the [iSENS lab](https://isens.cs.illinois.edu/)
 gathers deadlines for the venues we care about — including
 [each workshop's own](#finding-workshop-deadlines) — and publishes a static
 site with live countdowns, a 12-month deadline timeline, and tier/tag
-filters. Lab members can [sign up](#email-reminders) for any venue, tier or
-topic and get an email before each deadline.
+filters. Wireless and sensing venues are what it shows by default; the AI,
+robotics and controls venues the lab publishes at occasionally are
+[a button away](#venues-outside-the-labs-own-area). Lab members can
+[sign up](#email-reminders) for any venue, tier or topic and get an email
+before each deadline.
 
 ## How it works
 
@@ -108,7 +111,7 @@ an email subject line there:
 
 ```
 subscribe mobicom sensys      one or more venues
-subscribe all                 every venue tracked
+subscribe all                 every venue in the default set
 subscribe tier1               everything at a lab tier
 subscribe tag:sensing         everything with a topic tag
 subscribe all tracks:all      include workshop/poster/demo calls
@@ -469,11 +472,44 @@ Add a file under `data/conferences/`, e.g. `data/conferences/example.yml`:
   isens:
     tier: 2        # 1 = core venues, 2 = relevant, 3 = peripheral (site grouping)
     tags: [sensing, mobile]
+    group: ai      # optional; off-by-default cluster, see below
     scrape:
       url: https://example-conf.org/
       templates:                     # optional; {year} is expanded to
         - https://example-conf.org/{year}/   # next year, then this year
 ```
+
+Then check it before the nightly run has to:
+
+```bash
+.venv/bin/python -m scraper.main --only example    # just this venue
+```
+
+A venue whose `scrape.url` is wrong fails silently — it logs and is stepped
+over like any other bad venue — so it is worth one run to see it come back
+with a cycle rather than `no_cfp`.
+
+### Venues outside the lab's own area
+
+The lab publishes at AI, robotics and controls venues occasionally, and they
+are tracked, but left on they would outnumber the wireless and sensing venues
+the site exists for. `group:` puts a venue in a cluster that is **hidden until
+its button is pressed**:
+
+```yaml
+  isens:
+    group: ai      # ai | robotics | controls — or any new name
+```
+
+No `group:` is the default, always-shown set. The buttons are built from
+whatever groups appear in the data, so introducing one is a YAML edit; only
+its display name is in `app.js` (`GROUP_LABELS`), and an unlisted group falls
+back to showing its own name. Tag chips follow the visible groups, so a tag
+that only exists inside a hidden cluster does not offer a filter that can
+return nothing.
+
+Grouping is about topic, `tier:` is about how much the lab cares — a grouped
+venue is normally tier 3, and reminders still reach it by name or by tier.
 
 ### Venues with fixed recurring deadlines
 

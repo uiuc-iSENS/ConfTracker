@@ -1,0 +1,15 @@
+- title: Globecom
+  description: IEEE Global Communications Conference
+  sub: NW
+  rank:
+    ccf: C
+    core: B
+  dblp: globecom
+  confs: []
+  isens:
+    tier: 2
+    tags: [wireless, networking]
+    scrape:
+      url: https://ieee-globecom.org/
+      templates:
+        - https://globecom{year}.ieee-globecom.org/

@@ -11,7 +11,7 @@ The command language is deliberately forgiving, because the request is a
 human-editable email and people will edit it:
 
     subscribe mobicom sensys        one or more venues
-    subscribe all                   every venue we track
+    subscribe all                   every venue in the default set
     subscribe tier1 tag:sensing     by lab tier or topic tag
     subscribe mobicom tracks:all    include workshops/posters/demos
     subscribe all days:30,7,1       pick your own reminder lead times
@@ -183,7 +183,7 @@ def resolve(token: str, cat: list[dict]) -> str | None:
 
 def describe(selector: str, cat: list[dict]) -> str:
     if selector == EVERYTHING:
-        return "every venue"
+        return "every venue in the default set"
     kind, _, value = selector.partition(":")
     if kind == "tier":
         return f"tier {value}"
@@ -199,9 +199,17 @@ def matches(sub: dict, conf: dict) -> bool:
     isens = conf.get("isens") or {}
     tier = str(isens.get("tier") or 3)
     tags = {str(t).lower() for t in isens.get("tags") or []}
+    # A grouped venue -- AI, robotics, controls -- sits behind a button on the
+    # site, and "all" means the same thing here as it does there: nobody who
+    # typed "subscribe all" at a wireless tracker was asking to be mailed
+    # about NeurIPS. Naming the venue, its tier or one of its tags still
+    # reaches it, so the venues stay subscribable, just not by accident.
+    grouped = bool(isens.get("group"))
     for selector in sub.get("selectors") or []:
         if selector == EVERYTHING:
-            return True
+            if not grouped:
+                return True
+            continue
         kind, _, value = selector.partition(":")
         if kind == "venue" and value == key:
             return True
@@ -447,7 +455,7 @@ def channel_hint() -> str:
 def _syntax() -> str:
     return (
         "  subscribe mobicom sensys      one or more venues\n"
-        "  subscribe all                 every venue tracked\n"
+        "  subscribe all                 every venue in the default set\n"
         "  subscribe tier1               everything at a lab tier\n"
         "  subscribe tag:sensing         everything with a topic tag\n"
         "  subscribe all tracks:all      include workshops/posters/demos\n"

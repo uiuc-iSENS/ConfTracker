@@ -1,0 +1,15 @@
+- title: UIST
+  description: ACM Symposium on User Interface Software and Technology
+  sub: HI
+  rank:
+    ccf: A
+    core: A*
+  dblp: uist
+  confs: []
+  isens:
+    tier: 2
+    tags: [hci, sensing]
+    scrape:
+      url: https://uist.acm.org/
+      templates:
+        - https://uist.acm.org/{year}/

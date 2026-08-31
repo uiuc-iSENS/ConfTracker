@@ -1,0 +1,17 @@
+- title: NINeS
+  description: Conference on New Ideas in Networked Systems
+  sub: NW
+  rank:
+    ccf: N
+    core: N
+  dblp: nines
+  confs: []
+  isens:
+    tier: 2
+    tags: [networking, systems]
+    scrape:
+      # Founded 2026, so no CORE or CCF rank yet; same scope as SIGCOMM and
+      # NSDI with a different reviewing philosophy. One-day online event.
+      url: https://nines-conference.org/
+      templates:
+        - https://{year}.nines-conference.org/

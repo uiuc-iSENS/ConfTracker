@@ -1,0 +1,13 @@
+- title: ICNP
+  description: IEEE International Conference on Network Protocols
+  sub: NW
+  rank:
+    ccf: B
+    core: B
+  dblp: icnp
+  confs: []
+  isens:
+    tier: 2
+    tags: [networking]
+    scrape:
+      url: https://www.ieee-icnp.org/

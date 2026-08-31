@@ -1,0 +1,16 @@
+- title: ICML
+  description: International Conference on Machine Learning
+  sub: AI
+  rank:
+    ccf: A
+    core: A*
+  dblp: icml
+  confs: []
+  isens:
+    tier: 3
+    tags: [ml]
+    group: ai
+    scrape:
+      url: https://icml.cc/
+      templates:
+        - https://icml.cc/Conferences/{year}

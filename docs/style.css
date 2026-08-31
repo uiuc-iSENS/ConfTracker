@@ -201,6 +201,22 @@ a:hover { color: var(--orange); }
 }
 .chip.active { border-color: var(--orange); color: var(--orange); }
 
+/* A group toggle adds venues rather than narrowing the ones on screen, so it
+   reads as a switch: dashed while off, filled in once it is on. Without the
+   distinction it sits among the tag chips looking like one more filter. */
+.group-toggles { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.chip.group {
+  border-style: dashed;
+  font-family: var(--sans);
+  font-weight: 600;
+}
+.chip.group.active {
+  border-style: solid;
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+}
+
 .search {
   margin-left: auto;
   padding: 0.45rem 0.75rem;

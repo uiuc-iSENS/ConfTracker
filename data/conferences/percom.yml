@@ -1,0 +1,25 @@
+- title: PerCom
+  description: IEEE International Conference on Pervasive Computing and Communications
+  sub: NW
+  rank:
+    ccf: B
+    core: A*
+  dblp: percom
+  confs:
+  - year: 2027
+    id: percom27
+    link: https://percom.org/
+    timeline:
+    - abstract_deadline: '2026-09-04 23:59:59'
+      deadline: '2026-09-11 23:59:59'
+      url: https://percom2027.hotcrp.com/
+    timezone: AoE
+    date: March 2027
+    place: Goa, India
+  isens:
+    tier: 2
+    tags:
+    - mobile
+    - sensing
+    scrape:
+      url: https://percom.org/

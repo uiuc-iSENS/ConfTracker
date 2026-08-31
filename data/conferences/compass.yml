@@ -1,0 +1,16 @@
+- title: COMPASS
+  description: ACM SIGCAS/SIGCHI Conference on Computing and Sustainable Societies
+  sub: MX
+  rank:
+    ccf: N
+    core: N
+  dblp: compass
+  confs: []
+  isens:
+    tier: 3
+    tags: [sensing, iot]
+    scrape:
+      # Not acmcompass.org -- that domain now serves an unrelated blog.
+      url: https://compass.acm.org/
+      templates:
+        - https://{year}.compass.acm.org/

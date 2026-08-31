@@ -1,0 +1,38 @@
+- title: RadarConf
+  description: IEEE Radar Conference
+  sub: MX
+  rank:
+    ccf: N
+    core: N
+  dblp: radarconf
+  confs:
+  - year: 2027
+    id: radarconf27
+    link: https://radarconf2027.org/
+    timeline:
+    - deadline: '2026-10-31 23:59:59'
+      url: https://radarconf2027.org/call-for-papers/
+    - deadline: '2026-10-31 23:59:59'
+      comment: Special session papers
+      track: Special Session
+      url: https://radarconf2027.org/call-for-special-sessions/
+    - deadline: '2026-08-31 23:59:59'
+      comment: Special session proposals
+      track: Special Session
+      url: https://radarconf2027.org/call-for-special-sessions/
+    - deadline: '2026-09-30 23:59:59'
+      comment: Workshop/tutorial proposals
+      track: Workshop
+      url: https://radarconf2027.org/call-for-workshop/
+    timezone: AoE
+    date: May 1-6, 2027
+    place: Bangalore, India
+  isens:
+    tier: 3
+    tags:
+    - radar
+    - sensing
+    scrape:
+      url: https://radarconf2027.org/
+      templates:
+      - https://radarconf{year}.org/

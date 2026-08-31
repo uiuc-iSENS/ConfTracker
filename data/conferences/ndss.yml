@@ -1,0 +1,15 @@
+- title: NDSS
+  description: Network and Distributed System Security Symposium
+  sub: SC
+  rank:
+    ccf: A
+    core: A*
+  dblp: ndss
+  confs: []
+  isens:
+    tier: 3
+    tags: [security, networking]
+    scrape:
+      url: https://www.ndss-symposium.org/
+      templates:
+        - https://www.ndss-symposium.org/ndss{year}/

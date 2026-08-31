@@ -1,0 +1,16 @@
+- title: ICCV
+  description: IEEE/CVF International Conference on Computer Vision
+  sub: CG
+  rank:
+    ccf: A
+    core: A*
+  dblp: iccv
+  confs: []
+  isens:
+    tier: 3
+    tags: [cv]
+    group: ai
+    scrape:
+      url: https://iccv.thecvf.com/
+      templates:
+        - https://iccv.thecvf.com/Conferences/{year}

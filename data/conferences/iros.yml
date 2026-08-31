@@ -1,0 +1,16 @@
+- title: IROS
+  description: IEEE/RSJ International Conference on Intelligent Robots and Systems
+  sub: MX
+  rank:
+    ccf: C
+    core: A
+  dblp: iros
+  confs: []
+  isens:
+    tier: 3
+    tags: [robotics]
+    group: robotics
+    scrape:
+      url: https://2026.ieee-iros.org/
+      templates:
+        - https://{year}.ieee-iros.org/

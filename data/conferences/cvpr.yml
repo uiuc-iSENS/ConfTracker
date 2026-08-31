@@ -1,0 +1,16 @@
+- title: CVPR
+  description: IEEE/CVF Conference on Computer Vision and Pattern Recognition
+  sub: CG
+  rank:
+    ccf: A
+    core: A*
+  dblp: cvpr
+  confs: []
+  isens:
+    tier: 3
+    tags: [cv]
+    group: ai
+    scrape:
+      url: https://cvpr.thecvf.com/
+      templates:
+        - https://cvpr.thecvf.com/Conferences/{year}

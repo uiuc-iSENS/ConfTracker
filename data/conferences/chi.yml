@@ -1,0 +1,50 @@
+- title: CHI
+  description: ACM CHI Conference on Human Factors in Computing Systems
+  sub: HI
+  rank:
+    ccf: A
+    core: A*
+  dblp: chi
+  confs:
+  - year: 2027
+    id: chi27
+    link: https://chi2027.acm.org/
+    timeline:
+    - deadline: '2026-09-10 23:59:59'
+      comment: Papers
+      url: https://chi2027.acm.org/authors/papers/
+    - deadline: '2026-10-01 23:59:59'
+      comment: Workshop proposals
+      track: Workshop
+      url: https://chi2027.acm.org/authors/workshops/
+    - deadline: '2026-10-01 23:59:59'
+      comment: Meet-Ups
+      track: Meet-Up
+      url: https://chi2027.acm.org/authors/meet-ups/
+    - deadline: '2026-11-19 23:59:59'
+      comment: Panels
+      track: Panel
+      url: https://chi2027.acm.org/authors/panels/
+    - deadline: '2027-01-21 23:59:59'
+      comment: Posters
+      track: Poster
+      url: https://chi2027.acm.org/authors/posters/
+    - deadline: '2027-01-21 23:59:59'
+      comment: Interactive Demos
+      track: Demo
+      url: https://chi2027.acm.org/authors/interactive-demos/
+    - deadline: '2027-01-21 23:59:59'
+      comment: Student Research Competition
+      track: SRC
+      url: https://chi2027.acm.org/authors/student-research-competition/
+    timezone: AoE
+    date: May 10-14, 2027
+    place: Pittsburgh, PA, USA
+  isens:
+    tier: 2
+    tags:
+    - hci
+    scrape:
+      url: https://chi2027.acm.org/
+      templates:
+      - https://chi{year}.acm.org/

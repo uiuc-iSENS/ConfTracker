@@ -1,0 +1,15 @@
+- title: IEEE RFID
+  description: IEEE International Conference on RFID
+  sub: NW
+  rank:
+    ccf: N
+    core: N
+  dblp: rfid
+  confs: []
+  isens:
+    tier: 2
+    tags: [rfid, sensing, wireless]
+    scrape:
+      url: https://www.ieee-rfid.org/
+      templates:
+        - https://{year}.ieee-rfid.org/
