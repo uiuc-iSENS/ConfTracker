@@ -8,14 +8,14 @@
   confs:
   - year: 2027
     id: iclr27
-    link: https://iclr.cc/Conferences/2027/index.html
+    link: https://iclr.cc/Conferences/2027/
     timeline:
     - abstract_deadline: '2026-09-18 23:59:59'
       deadline: '2026-09-25 23:59:59'
       url: https://iclr.cc/Conferences/2027/CallForPapers
     timezone: AoE
-    date: '2027-04-26'
-    place: California, United States
+    date: April 26-30, 2027
+    place: California, USA
   isens:
     tier: 3
     tags:

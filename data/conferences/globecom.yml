@@ -5,11 +5,34 @@
     ccf: C
     core: B
   dblp: globecom
-  confs: []
+  confs:
+  - year: 2026
+    id: globecom26
+    link: https://ieee-globecom.org/
+    timeline:
+    - deadline: '2026-05-03 23:59:59'
+      comment: Firm deadline
+      url: https://ieee-globecom.org/authors/call-symposium-papers
+    - deadline: '2026-03-15 23:59:59'
+      comment: Tutorial proposals
+      track: Tutorial
+      url: https://ieee-globecom.org/call-tutorial-proposals
+    - deadline: '2026-03-01 23:59:59'
+      comment: Workshop proposals (extended)
+      track: Workshop
+      url: https://ieee-globecom.org/call-workshop-proposals
+    - deadline: '2026-05-15 23:59:59'
+      comment: IF&E proposals
+      track: Industry
+    timezone: AoE
+    date: 7 - 11 December 2026
+    place: Macau S.A.R., China
   isens:
     tier: 2
-    tags: [wireless, networking]
+    tags:
+    - wireless
+    - networking
     scrape:
       url: https://ieee-globecom.org/
       templates:
-        - https://globecom{year}.ieee-globecom.org/
+      - https://globecom{year}.ieee-globecom.org/
