@@ -5,11 +5,25 @@
     ccf: A
     core: A*
   dblp: ndss
-  confs: []
+  confs:
+  - year: 2027
+    id: ndss27
+    link: https://www.ndss-symposium.org/ndss2027/
+    timeline:
+    - deadline: '2026-05-06 23:59:59'
+      comment: Summer cycle
+    - deadline: '2026-08-19 23:59:59'
+      comment: Fall cycle
+      url: https://ndss27-fall.hotcrp.com/
+    timezone: AoE
+    date: TBD
+    place: TBD
   isens:
     tier: 3
-    tags: [security, networking]
+    tags:
+    - security
+    - networking
     scrape:
       url: https://www.ndss-symposium.org/
       templates:
-        - https://www.ndss-symposium.org/ndss{year}/
+      - https://www.ndss-symposium.org/ndss{year}/

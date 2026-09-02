@@ -13,6 +13,10 @@
     - abstract_deadline: '2026-08-24 23:59:59'
       deadline: '2026-08-31 23:59:59'
       url: https://ieeevr.org/2027/contribute/papers/
+    - deadline: '2026-09-28 23:59:59'
+      comment: Workshop proposals
+      track: Workshop
+      url: https://ieeevr.org/2027/contribute/workshops/
     timezone: AoE
     date: February 27 – March 3, 2027
     place: Melbourne, Australia

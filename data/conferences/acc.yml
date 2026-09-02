@@ -19,23 +19,23 @@
     - deadline: '2026-09-23 23:59:59'
       comment: Invited session proposals
       track: Invited Session
-      url: https://css.paperplaza.net/conferences/scripts/start.pl
+      url: https://acc2027.a2c2.org/invited-sessions/
     - deadline: '2026-10-16 23:59:59'
       comment: Special session proposals
       track: Special Session
-      url: https://css.paperplaza.net/conferences/scripts/start.pl
+      url: https://acc2027.a2c2.org/special-sessions/
     - deadline: '2026-10-16 23:59:59'
       comment: Workshop proposals
       track: Workshop
-      url: https://css.paperplaza.net/conferences/scripts/start.pl
+      url: https://acc2027.a2c2.org/workshops-2/
     - deadline: '2026-10-23 23:59:59'
       comment: Tutorial session proposals
       track: Tutorial
-      url: https://css.paperplaza.net/conferences/scripts/start.pl
+      url: https://acc2027.a2c2.org/tutorial-sessions-2/
     - deadline: '2027-01-29 23:59:59'
       comment: Tutorial papers
       track: Tutorial
-      url: https://css.paperplaza.net/conferences/scripts/start.pl
+      url: https://acc2027.a2c2.org/tutorial-sessions-2/
     - deadline: '2026-09-11 23:59:59'
       comment: Joint ACC + L-CSS
       track: L-CSS

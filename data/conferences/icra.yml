@@ -11,24 +11,18 @@
     link: https://2027.ieee-icra.org/
     timeline:
     - deadline: '2026-09-15 23:59:59'
-      comment: Contributed papers
-      url: https://2027.ieee-icra.org/event/technical-paper-first-submission/
     - deadline: '2026-09-01 23:59:59'
       comment: Pre-proposal
       track: Workshop
-      url: https://2027.ieee-icra.org/event/workshop-and-tutorials-pre-proposal-submission-open/
     - deadline: '2026-11-01 23:59:59'
       comment: Full proposal
       track: Workshop
-    - deadline: '2026-09-01 23:59:59'
-      comment: Pre-proposal
-      track: Tutorial
     - deadline: '2026-11-01 23:59:59'
       comment: Full proposal
       track: Tutorial
-    timezone: AoE
-    date: May 24-28, 2027
-    place: Coex, Seoul, South Korea
+    timezone: UTC-7
+    date: 24 – 28 May, 2027
+    place: TBD
   isens:
     tier: 3
     tags:
