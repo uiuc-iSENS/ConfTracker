@@ -15,11 +15,11 @@
       deadline: '2026-04-20 23:59:59'
       url: https://www.sigmobile.org/mobihoc/2026/cfp.html
     - deadline: '2026-09-07 23:59:59'
-      comment: Poster/Demo (extended)
+      comment: Posters and demos (extended)
       track: Poster
       url: https://www.sigmobile.org/mobihoc/2026/cf-posters-demos.html
     - deadline: '2026-08-31 23:59:59'
-      comment: Workshop papers (general)
+      comment: All workshops
       track: Workshop
       url: https://www.sigmobile.org/mobihoc/2026/cfw.html
     timezone: AoE

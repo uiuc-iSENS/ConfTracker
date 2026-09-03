@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-02T07:35:51+00:00",
+  "generated_at": "2026-09-03T07:39:01+00:00",
   "conferences": [
     {
       "title": "AAAI",
@@ -19,14 +19,7 @@
             {
               "abstract_deadline": "2026-07-21 23:59:59",
               "deadline": "2026-07-28 23:59:59",
-              "comment": "Main Technical Track",
               "url": "https://aaai.org/conference/aaai/aaai-27/main-technical-track-call/"
-            },
-            {
-              "deadline": "2026-08-28 23:59:59",
-              "comment": "Workshop proposals",
-              "track": "Workshop",
-              "url": "https://aaai.org/conference/aaai/aaai-27/workshops-call/"
             },
             {
               "deadline": "2026-11-20 23:59:59",
@@ -80,31 +73,31 @@
               "deadline": "2026-09-23 23:59:59",
               "comment": "Invited session proposals",
               "track": "Invited Session",
-              "url": "https://acc2027.a2c2.org/invited-sessions/"
+              "url": "https://css.paperplaza.net/conferences/scripts/start.pl"
             },
             {
               "deadline": "2026-10-16 23:59:59",
               "comment": "Special session proposals",
               "track": "Special Session",
-              "url": "https://acc2027.a2c2.org/special-sessions/"
+              "url": "https://css.paperplaza.net/conferences/scripts/start.pl"
             },
             {
               "deadline": "2026-10-16 23:59:59",
               "comment": "Workshop proposals",
               "track": "Workshop",
-              "url": "https://acc2027.a2c2.org/workshops-2/"
+              "url": "https://css.paperplaza.net/conferences/scripts/start.pl"
             },
             {
               "deadline": "2026-10-23 23:59:59",
               "comment": "Tutorial session proposals",
               "track": "Tutorial",
-              "url": "https://acc2027.a2c2.org/tutorial-sessions-2/"
+              "url": "https://css.paperplaza.net/conferences/scripts/start.pl"
             },
             {
               "deadline": "2027-01-29 23:59:59",
               "comment": "Tutorial papers",
               "track": "Tutorial",
-              "url": "https://acc2027.a2c2.org/tutorial-sessions-2/"
+              "url": "https://css.paperplaza.net/conferences/scripts/start.pl"
             },
             {
               "deadline": "2026-09-11 23:59:59",
@@ -207,11 +200,17 @@
               "comment": "Student Research Competition",
               "track": "SRC",
               "url": "https://chi2027.acm.org/authors/student-research-competition/"
+            },
+            {
+              "deadline": "2027-02-11 23:59:59",
+              "comment": "Participant submissions (approx.)",
+              "track": "Workshop",
+              "url": "https://chi2027.acm.org/authors/workshops/"
             }
           ],
           "timezone": "AoE",
           "date": "May 10-14, 2027",
-          "place": "Pittsburgh, USA"
+          "place": "Pittsburgh, PA, USA"
         }
       ],
       "isens": {
@@ -385,21 +384,28 @@
               "url": "https://ieee-globecom.org/authors/call-symposium-papers"
             },
             {
+              "deadline": "2026-03-01 23:59:59",
+              "comment": "Workshop proposals",
+              "track": "Workshop",
+              "url": "https://ieee-globecom.org/call-workshop-proposals"
+            },
+            {
               "deadline": "2026-03-15 23:59:59",
               "comment": "Tutorial proposals",
               "track": "Tutorial",
               "url": "https://ieee-globecom.org/call-tutorial-proposals"
             },
             {
-              "deadline": "2026-03-01 23:59:59",
-              "comment": "Workshop proposals (extended)",
-              "track": "Workshop",
-              "url": "https://ieee-globecom.org/call-workshop-proposals"
-            },
-            {
               "deadline": "2026-05-15 23:59:59",
               "comment": "IF&E proposals",
-              "track": "Industry"
+              "track": "Industry",
+              "url": "https://ieee-globecom.org/industry-forums-and-exhibition-committee"
+            },
+            {
+              "deadline": "2026-08-19 23:59:59",
+              "comment": "All workshops (extended)",
+              "track": "Workshop",
+              "url": "https://ieee-globecom.org/authors/call-workshop-papers"
             }
           ],
           "timezone": "AoE",
@@ -437,7 +443,9 @@
           "link": "https://www.hotmobile.org/2027",
           "timeline": [
             {
-              "deadline": "2026-10-09 23:59:59"
+              "deadline": "2026-10-09 23:59:59",
+              "comment": "Hard deadline",
+              "url": "https://www.hotmobile.org/index.php?id=cfp"
             }
           ],
           "timezone": "AoE",
@@ -512,13 +520,12 @@
           "link": "https://icc2027.ieee-icc.org/",
           "timeline": [
             {
-              "deadline": "2026-10-02 23:59:59",
-              "comment": "Technical papers"
+              "deadline": "2026-10-02 23:59:59"
             }
           ],
           "timezone": "AoE",
           "date": "May 30 - June 3, 2027",
-          "place": "Washington, DC, United States"
+          "place": "Washington, District of Columbia, United States"
         }
       ],
       "isens": {
@@ -572,7 +579,7 @@
         {
           "year": 2027,
           "id": "iclr27",
-          "link": "https://iclr.cc/Conferences/2027/",
+          "link": "https://iclr.cc/Conferences/2027/index.html",
           "timeline": [
             {
               "abstract_deadline": "2026-09-18 23:59:59",
@@ -659,15 +666,15 @@
           "link": "https://2027.ieee-icra.org/",
           "timeline": [
             {
-              "deadline": "2026-09-15 23:59:59"
+              "deadline": "2026-09-15 23:59:00"
             },
             {
-              "deadline": "2026-09-01 23:59:59",
+              "deadline": "2026-09-01 23:59:00",
               "comment": "Pre-proposal",
               "track": "Workshop"
             },
             {
-              "deadline": "2026-11-01 23:59:59",
+              "deadline": "2026-11-01 23:59:00",
               "comment": "Full proposal",
               "track": "Workshop"
             },
@@ -678,7 +685,7 @@
             }
           ],
           "timezone": "UTC-7",
-          "date": "24 – 28 May, 2027",
+          "date": "May 24-28, 2027",
           "place": "TBD"
         }
       ],
@@ -789,6 +796,7 @@
             },
             {
               "deadline": "2027-01-11 23:59:59",
+              "comment": "Student paper competition",
               "track": "Student Paper Competition",
               "url": "https://2027.ieeeigarss.org/important_dates.php"
             },
@@ -796,6 +804,12 @@
               "deadline": "2026-11-03 23:59:59",
               "comment": "Tutorial proposals",
               "track": "Tutorial",
+              "url": "https://2027.ieeeigarss.org/important_dates.php"
+            },
+            {
+              "deadline": "2026-10-15 23:59:59",
+              "comment": "Community Contributed Themes",
+              "track": "Special Session",
               "url": "https://2027.ieeeigarss.org/important_dates.php"
             },
             {
@@ -821,7 +835,7 @@
             }
           ],
           "timezone": "AoE",
-          "date": "July 11-16, 2027",
+          "date": "11 - 16 July 2027",
           "place": "Reykjavík, Iceland"
         }
       ],
@@ -862,7 +876,7 @@
             }
           ],
           "timezone": "AoE",
-          "date": "2027-05-24 to 2027-05-27",
+          "date": "2027-05-24 - 2027-05-27",
           "place": "Honolulu, HI, USA"
         }
       ],
@@ -1064,13 +1078,13 @@
             },
             {
               "deadline": "2026-09-07 23:59:59",
-              "comment": "Poster/Demo (extended)",
+              "comment": "Posters and demos (extended)",
               "track": "Poster",
               "url": "https://www.sigmobile.org/mobihoc/2026/cf-posters-demos.html"
             },
             {
               "deadline": "2026-08-31 23:59:59",
-              "comment": "Workshop papers (general)",
+              "comment": "All workshops",
               "track": "Workshop",
               "url": "https://www.sigmobile.org/mobihoc/2026/cfw.html"
             }
@@ -1181,12 +1195,57 @@
             {
               "abstract_deadline": "2026-05-04 23:59:59",
               "deadline": "2026-05-06 23:59:59",
-              "url": "https://openreview.net/group?id=NeurIPS.cc/2026/Conference"
+              "comment": "Main conference paper",
+              "url": "https://neurips.cc/Conferences/2026/CallForPapers"
+            },
+            {
+              "abstract_deadline": "2026-05-04 23:59:59",
+              "deadline": "2026-05-06 23:59:59",
+              "comment": "Evaluations and Datasets",
+              "track": "Datasets",
+              "url": "https://neurips.cc/Conferences/2026/CallForEvaluationsDatasets"
+            },
+            {
+              "abstract_deadline": "2026-05-04 23:59:59",
+              "deadline": "2026-05-06 23:59:59",
+              "comment": "Position Papers",
+              "track": "Position Paper",
+              "url": "https://neurips.cc/Conferences/2026/CallForPositionPapers"
+            },
+            {
+              "deadline": "2026-05-15 23:59:59",
+              "comment": "Competition proposals",
+              "track": "Competition",
+              "url": "https://neurips.cc/Conferences/2026/CallForCompetitions"
+            },
+            {
+              "deadline": "2026-06-06 23:59:59",
+              "comment": "Workshop proposals",
+              "track": "Workshop",
+              "url": "https://neurips.cc/Conferences/2026/CallForWorkshops"
+            },
+            {
+              "deadline": "2026-08-29 23:59:59",
+              "comment": "Suggested workshop contribution date",
+              "track": "Workshop",
+              "url": "https://neurips.cc/Conferences/2026/CallForWorkshops"
+            },
+            {
+              "deadline": "2026-06-28 23:59:59",
+              "comment": "Affinity events",
+              "track": "Affinity Event",
+              "url": "https://neurips.cc/Conferences/2026/CallForAffinityEvents"
+            },
+            {
+              "deadline": "2026-07-04 23:59:59",
+              "comment": "Tutorial proposals",
+              "track": "Tutorial",
+              "url": "https://neurips.cc/Conferences/2026/CallForTutorials"
             }
           ],
           "timezone": "AoE",
-          "date": "TBD",
-          "place": "TBD"
+          "date": "Dec 6-12, 2026 (Sydney); Dec 9-13, 2026 (Atlanta); Dec 9-13, 2026 (Paris)",
+          "place": "Sydney, Australia / Atlanta, USA / Paris, France"
         }
       ],
       "isens": {
@@ -1284,11 +1343,17 @@
               "abstract_deadline": "2026-09-04 23:59:59",
               "deadline": "2026-09-11 23:59:59",
               "url": "https://percom.org/call-for-papers/"
+            },
+            {
+              "deadline": "2026-06-14 23:59:59",
+              "comment": "Workshop proposals",
+              "track": "Workshop",
+              "url": "https://percom.org/call-for-workshop-proposals/"
             }
           ],
           "timezone": "AoE",
-          "date": "March 2027",
-          "place": "Goa, India"
+          "date": "TBD",
+          "place": "TBD"
         }
       ],
       "isens": {
@@ -1322,8 +1387,8 @@
               "url": "https://radarconf2027.org/call-for-papers/"
             },
             {
-              "deadline": "2026-09-30 23:59:59",
-              "comment": "Special session papers",
+              "deadline": "2026-10-31 23:59:59",
+              "comment": "Special session proposals",
               "track": "Special Session",
               "url": "https://radarconf2027.org/call-for-special-sessions/"
             },
@@ -1421,12 +1486,12 @@
             {
               "abstract_deadline": "2026-05-29 23:59:59",
               "deadline": "2026-06-05 23:59:59",
-              "comment": "1st deadline (passed)",
+              "comment": "1st deadline",
               "url": "https://sensys.acm.org/2027/cfp.html"
             }
           ],
           "timezone": "AoE",
-          "date": "2027-05-17",
+          "date": "May 17-20, 2027",
           "place": "Boulder, CO, USA"
         }
       ],
@@ -1679,13 +1744,13 @@
             },
             {
               "deadline": "2026-08-10 23:59:59",
-              "comment": "Workshop proposals",
+              "comment": "Workshop proposals (final)",
               "track": "Workshop",
               "url": "https://wcnc2027.ieee-wcnc.org/authors/call-workshop-proposals"
             }
           ],
           "timezone": "AoE",
-          "date": "April 5-8, 2027",
+          "date": "5 - 8 April 2027",
           "place": "Panama City, Panama"
         }
       ],

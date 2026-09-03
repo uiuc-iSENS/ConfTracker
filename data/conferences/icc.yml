@@ -11,10 +11,9 @@
     link: https://icc2027.ieee-icc.org/
     timeline:
     - deadline: '2026-10-02 23:59:59'
-      comment: Technical papers
     timezone: AoE
     date: May 30 - June 3, 2027
-    place: Washington, DC, United States
+    place: Washington, District of Columbia, United States
   isens:
     tier: 2
     tags:

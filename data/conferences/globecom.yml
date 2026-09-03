@@ -13,17 +13,22 @@
     - deadline: '2026-05-03 23:59:59'
       comment: Firm deadline
       url: https://ieee-globecom.org/authors/call-symposium-papers
+    - deadline: '2026-03-01 23:59:59'
+      comment: Workshop proposals
+      track: Workshop
+      url: https://ieee-globecom.org/call-workshop-proposals
     - deadline: '2026-03-15 23:59:59'
       comment: Tutorial proposals
       track: Tutorial
       url: https://ieee-globecom.org/call-tutorial-proposals
-    - deadline: '2026-03-01 23:59:59'
-      comment: Workshop proposals (extended)
-      track: Workshop
-      url: https://ieee-globecom.org/call-workshop-proposals
     - deadline: '2026-05-15 23:59:59'
       comment: IF&E proposals
       track: Industry
+      url: https://ieee-globecom.org/industry-forums-and-exhibition-committee
+    - deadline: '2026-08-19 23:59:59'
+      comment: All workshops (extended)
+      track: Workshop
+      url: https://ieee-globecom.org/authors/call-workshop-papers
     timezone: AoE
     date: 7 - 11 December 2026
     place: Macau S.A.R., China
