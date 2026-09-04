@@ -22,6 +22,10 @@
       track: Tutorial
       url: https://2027.ieeeigarss.org/important_dates.php
     - deadline: '2026-10-15 23:59:59'
+      comment: Community contributed theme proposals
+      track: Community Theme
+      url: https://2027.ieeeigarss.org/important_dates.php
+    - deadline: '2026-10-15 23:59:59'
       comment: Community Contributed Themes
       track: Special Session
       url: https://2027.ieeeigarss.org/important_dates.php
@@ -39,7 +43,7 @@
       comment: Community Contributed Theme proposals
       track: Theme Session
     timezone: AoE
-    date: 11 - 16 July 2027
+    date: July 11-16, 2027
     place: Reykjavík, Iceland
   isens:
     tier: 3

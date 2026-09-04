@@ -5,13 +5,21 @@
     ccf: N
     core: N
   dblp: nines
-  confs: []
+  confs:
+  - year: 2027
+    id: nines27
+    link: https://nines-conference.org/
+    timeline:
+    - deadline: '2026-08-06 23:59:59'
+    timezone: AoE
+    date: '2027-02-16'
+    place: TBD
   isens:
     tier: 2
-    tags: [networking, systems]
+    tags:
+    - networking
+    - systems
     scrape:
-      # Founded 2026, so no CORE or CCF rank yet; same scope as SIGCOMM and
-      # NSDI with a different reviewing philosophy. One-day online event.
       url: https://nines-conference.org/
       templates:
-        - https://{year}.nines-conference.org/
+      - https://{year}.nines-conference.org/

@@ -8,18 +8,14 @@
   confs:
   - year: 2027
     id: percom27
-    link: https://percom.org/
+    link: https://percom.org/call-for-papers/
     timeline:
     - abstract_deadline: '2026-09-04 23:59:59'
       deadline: '2026-09-11 23:59:59'
-      url: https://percom.org/call-for-papers/
-    - deadline: '2026-06-14 23:59:59'
-      comment: Workshop proposals
-      track: Workshop
-      url: https://percom.org/call-for-workshop-proposals/
+      url: https://percom2027.hotcrp.com/
     timezone: AoE
-    date: TBD
-    place: TBD
+    date: March 2027
+    place: Goa, India
   isens:
     tier: 2
     tags:

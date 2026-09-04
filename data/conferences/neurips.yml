@@ -8,7 +8,7 @@
   confs:
   - year: 2026
     id: neurips26
-    link: https://neurips.cc/Conferences/2026/CallForPapers
+    link: https://neurips.cc/Conferences/2026
     timeline:
     - abstract_deadline: '2026-05-04 23:59:59'
       deadline: '2026-05-06 23:59:59'
@@ -17,7 +17,7 @@
     - abstract_deadline: '2026-05-04 23:59:59'
       deadline: '2026-05-06 23:59:59'
       comment: Evaluations and Datasets
-      track: Datasets
+      track: Evaluations & Datasets
       url: https://neurips.cc/Conferences/2026/CallForEvaluationsDatasets
     - abstract_deadline: '2026-05-04 23:59:59'
       deadline: '2026-05-06 23:59:59'
@@ -32,20 +32,20 @@
       comment: Workshop proposals
       track: Workshop
       url: https://neurips.cc/Conferences/2026/CallForWorkshops
-    - deadline: '2026-08-29 23:59:59'
-      comment: Suggested workshop contribution date
-      track: Workshop
-      url: https://neurips.cc/Conferences/2026/CallForWorkshops
     - deadline: '2026-06-28 23:59:59'
-      comment: Affinity events
+      comment: Affinity event submissions
       track: Affinity Event
       url: https://neurips.cc/Conferences/2026/CallForAffinityEvents
     - deadline: '2026-07-04 23:59:59'
       comment: Tutorial proposals
       track: Tutorial
       url: https://neurips.cc/Conferences/2026/CallForTutorials
+    - deadline: '2026-08-29 23:59:59'
+      comment: Workshop contributions
+      track: Workshop
+      url: https://neurips.cc/Conferences/2026/CallForWorkshops
     timezone: AoE
-    date: Dec 6-12, 2026 (Sydney); Dec 9-13, 2026 (Atlanta); Dec 9-13, 2026 (Paris)
+    date: December 6-13, 2026
     place: Sydney, Australia / Atlanta, USA / Paris, France
   isens:
     tier: 3

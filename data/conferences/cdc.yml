@@ -5,12 +5,34 @@
     ccf: N
     core: N
   dblp: cdc
-  confs: []
+  confs:
+  - year: 2027
+    id: cdc27
+    link: https://cdc2027.ieeecss.org/
+    timeline:
+    - deadline: '2027-03-17 23:59:59'
+      comment: L-CSS + CDC submissions
+      url: https://cdc2027.ieeecss.org/authors/call-for-papers
+    - deadline: '2027-03-31 23:59:59'
+      comment: CDC only submissions
+      url: https://cdc2027.ieeecss.org/authors/call-for-papers
+    - deadline: '2027-03-24 23:59:59'
+      comment: Invited session proposals
+      track: Invited Session
+      url: https://cdc2027.ieeecss.org/authors/call-for-papers
+    - deadline: '2027-04-30 23:59:59'
+      comment: Workshop proposals
+      track: Workshop
+      url: https://cdc2027.ieeecss.org/authors/call-for-papers
+    timezone: AoE
+    date: December 14 - 17, 2027
+    place: Lisboa, Portugal
   isens:
     tier: 3
-    tags: [controls]
+    tags:
+    - controls
     group: controls
     scrape:
       url: https://cdc2026.ieeecss.org/
       templates:
-        - https://cdc{year}.ieeecss.org/
+      - https://cdc{year}.ieeecss.org/

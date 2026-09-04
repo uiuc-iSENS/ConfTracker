@@ -5,12 +5,23 @@
     ccf: A
     core: A*
   dblp: cvpr
-  confs: []
+  confs:
+  - year: 2027
+    id: cvpr27
+    link: https://cvpr.thecvf.com/Conferences/2027
+    timeline:
+    - abstract_deadline: '2026-11-10 23:59:59'
+      deadline: '2026-11-16 23:59:59'
+      url: https://cvpr.thecvf.com/Conferences/2027/CallForPapers
+    timezone: AoE
+    date: June 22-25, 2027
+    place: TBD
   isens:
     tier: 3
-    tags: [cv]
+    tags:
+    - cv
     group: ai
     scrape:
       url: https://cvpr.thecvf.com/
       templates:
-        - https://cvpr.thecvf.com/Conferences/{year}
+      - https://cvpr.thecvf.com/Conferences/{year}
