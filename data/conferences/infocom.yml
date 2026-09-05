@@ -13,9 +13,8 @@
     timeline:
     - abstract_deadline: '2026-07-24 23:59:59'
       deadline: '2026-07-31 23:59:59'
-      url: https://www.ieee-infocom.org/call-papers
     timezone: AoE
-    date: 2027-05-24 - 2027-05-27
+    date: May 24-27, 2027
     place: Honolulu, HI, USA
   isens:
     tier: 2

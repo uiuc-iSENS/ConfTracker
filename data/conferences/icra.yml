@@ -10,18 +10,18 @@
     id: icra27
     link: https://2027.ieee-icra.org/
     timeline:
-    - deadline: '2026-09-15 23:59:00'
-    - deadline: '2026-09-01 23:59:00'
+    - deadline: '2026-09-15 23:59:59'
+    - deadline: '2026-09-01 23:59:59'
       comment: Pre-proposal
       track: Workshop
-    - deadline: '2026-11-01 23:59:00'
+    - deadline: '2026-11-01 23:59:59'
       comment: Full proposal
       track: Workshop
     - deadline: '2026-11-01 23:59:59'
       comment: Full proposal
       track: Tutorial
     timezone: UTC-7
-    date: 24 – 28 May, 2027
+    date: May 24-28, 2027
     place: TBD
   isens:
     tier: 3

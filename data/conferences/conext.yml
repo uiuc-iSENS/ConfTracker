@@ -9,12 +9,50 @@
   confs:
   - year: 2026
     id: conext26
-    link: https://conferences.sigcomm.org/co-next/2026/#!/posters
+    link: https://conferences.sigcomm.org/co-next/2026/#!/home
     timeline:
     - deadline: '2026-09-18 23:59:59'
-      comment: Call for Posters
       track: Poster
       url: https://conferences.sigcomm.org/co-next/2026/#!/posters
+    - abstract_deadline: '2026-07-07 23:59:59'
+      deadline: '2026-07-14 23:59:59'
+      comment: All CoNEXT 2026 workshops
+      track: Workshop
+      url: https://conferences.sigcomm.org/co-next/2026/#!/cfw
+    - deadline: '2026-05-19 23:59:59'
+      comment: Workshop proposals
+      track: Workshop
+      url: https://conferences.sigcomm.org/co-next/2026/#!/cfw
+    - abstract_deadline: '2026-07-07 23:59:59'
+      deadline: '2026-07-14 23:59:59'
+      comment: Student Workshop
+      track: Workshop
+      url: https://conferences.sigcomm.org/co-next/2026/#!/workshop-student
+    - abstract_deadline: '2026-07-07 23:59:59'
+      deadline: '2026-07-14 23:59:59'
+      comment: EMS Workshop
+      track: Workshop
+      url: https://athena.itec.aau.at/ems-2026/
+    - abstract_deadline: '2026-07-07 23:59:59'
+      deadline: '2026-07-14 23:59:59'
+      comment: EuroP4 Workshop
+      track: Workshop
+      url: https://p4.org/euro-p4-2026/
+    - abstract_deadline: '2026-07-07 23:59:59'
+      deadline: '2026-07-14 23:59:59'
+      comment: INET4AI Workshop
+      track: Workshop
+      url: https://irtf-net4ai.github.io/inet4ai/
+    - abstract_deadline: '2026-07-07 23:59:59'
+      deadline: '2026-07-14 23:59:59'
+      comment: NTC-R Workshop
+      track: Workshop
+      url: https://ntc-reloaded.github.io/
+    - abstract_deadline: '2026-07-07 23:59:59'
+      deadline: '2026-07-14 23:59:59'
+      comment: RE-NET Workshop
+      track: Workshop
+      url: https://conferences.sigcomm.org/co-next/2026/#!/renet
     timezone: AoE
     date: TBD
     place: TBD

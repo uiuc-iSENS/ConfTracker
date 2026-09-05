@@ -8,45 +8,14 @@
   confs:
   - year: 2026
     id: neurips26
-    link: https://neurips.cc/Conferences/2026
+    link: https://neurips.cc/Conferences/2026/CallForPapers
     timeline:
     - abstract_deadline: '2026-05-04 23:59:59'
       deadline: '2026-05-06 23:59:59'
-      comment: Main conference paper
       url: https://neurips.cc/Conferences/2026/CallForPapers
-    - abstract_deadline: '2026-05-04 23:59:59'
-      deadline: '2026-05-06 23:59:59'
-      comment: Evaluations and Datasets
-      track: Evaluations & Datasets
-      url: https://neurips.cc/Conferences/2026/CallForEvaluationsDatasets
-    - abstract_deadline: '2026-05-04 23:59:59'
-      deadline: '2026-05-06 23:59:59'
-      comment: Position Papers
-      track: Position Paper
-      url: https://neurips.cc/Conferences/2026/CallForPositionPapers
-    - deadline: '2026-05-15 23:59:59'
-      comment: Competition proposals
-      track: Competition
-      url: https://neurips.cc/Conferences/2026/CallForCompetitions
-    - deadline: '2026-06-06 23:59:59'
-      comment: Workshop proposals
-      track: Workshop
-      url: https://neurips.cc/Conferences/2026/CallForWorkshops
-    - deadline: '2026-06-28 23:59:59'
-      comment: Affinity event submissions
-      track: Affinity Event
-      url: https://neurips.cc/Conferences/2026/CallForAffinityEvents
-    - deadline: '2026-07-04 23:59:59'
-      comment: Tutorial proposals
-      track: Tutorial
-      url: https://neurips.cc/Conferences/2026/CallForTutorials
-    - deadline: '2026-08-29 23:59:59'
-      comment: Workshop contributions
-      track: Workshop
-      url: https://neurips.cc/Conferences/2026/CallForWorkshops
     timezone: AoE
-    date: December 6-13, 2026
-    place: Sydney, Australia / Atlanta, USA / Paris, France
+    date: TBD
+    place: TBD
   isens:
     tier: 3
     tags:
