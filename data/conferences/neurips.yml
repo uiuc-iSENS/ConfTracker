@@ -8,7 +8,7 @@
   confs:
   - year: 2026
     id: neurips26
-    link: https://neurips.cc/Conferences/2026/CallForPapers
+    link: https://neurips.cc/Conferences/2026
     timeline:
     - abstract_deadline: '2026-05-04 23:59:59'
       deadline: '2026-05-06 23:59:59'

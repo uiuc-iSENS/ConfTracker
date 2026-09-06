@@ -13,7 +13,7 @@
     - deadline: '2026-09-10 23:59:59'
       url: https://chi2027.acm.org/authors/papers/
     - deadline: '2026-10-01 23:59:59'
-      comment: Organizer submission
+      comment: Organizer proposals
       track: Workshop
       url: https://chi2027.acm.org/authors/workshops/
     - deadline: '2026-10-01 23:59:59'
@@ -39,7 +39,7 @@
       url: https://chi2027.acm.org/authors/workshops/
     timezone: AoE
     date: May 10-14, 2027
-    place: Pittsburgh, Pennsylvania, USA
+    place: Pittsburgh, PA, USA (David L. Lawrence Convention Center)
   isens:
     tier: 2
     tags:
