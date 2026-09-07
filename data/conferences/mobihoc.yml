@@ -21,13 +21,12 @@
     - deadline: '2026-08-31 23:59:59'
       comment: All workshops
       track: Workshop
-      url: https://www.sigmobile.org/mobihoc/2026/cfw.html
     - deadline: '2026-09-07 23:59:59'
       comment: Extended deadline
       track: Poster/Demo
       url: https://www.sigmobile.org/mobihoc/2026/cf-posters-demos.html
     timezone: AoE
-    date: November 23-26, 2026
+    date: 2026-11-23 - 2026-11-26
     place: Tokyo, Japan
   isens:
     tier: 2

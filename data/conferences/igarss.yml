@@ -14,11 +14,17 @@
       comment: Abstract/manuscript submission
       url: https://2027.ieeeigarss.org/call_for_papers.php
     - deadline: '2027-01-11 23:59:59'
-      comment: Student paper competition
-      track: Student Paper Competition
+      comment: Student Paper Competition
+      track: Student Paper
     - deadline: '2026-11-03 23:59:59'
       comment: Tutorial proposals
       track: Tutorial
+    - deadline: '2026-10-15 23:59:59'
+      comment: Community Contributed Theme proposals
+      track: Session
+    - deadline: '2027-01-11 23:59:59'
+      comment: Student paper competition
+      track: Student Paper Competition
     - deadline: '2026-10-15 23:59:59'
       comment: Community Contributed Theme proposals
       track: Special Session
@@ -37,9 +43,6 @@
       comment: Community Contributed Themes
       track: Theme Proposal
       url: https://2027.ieeeigarss.org/important_dates.php
-    - deadline: '2027-01-11 23:59:59'
-      comment: Student Paper Competition
-      track: Student Paper
     - deadline: '2026-10-15 23:59:59'
       comment: Community Contributed Theme proposals
       track: Theme Session

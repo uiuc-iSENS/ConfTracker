@@ -34,12 +34,12 @@
       track: SRC
       url: https://chi2027.acm.org/authors/student-research-competition/
     - deadline: '2027-02-11 23:59:59'
-      comment: Participant submissions
+      comment: Participant submissions (approx.)
       track: Workshop
       url: https://chi2027.acm.org/authors/workshops/
     timezone: AoE
     date: May 10-14, 2027
-    place: Pittsburgh, PA, USA (David L. Lawrence Convention Center)
+    place: Pittsburgh, PA, USA
   isens:
     tier: 2
     tags:
