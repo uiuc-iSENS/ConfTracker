@@ -14,11 +14,9 @@
       comment: CDC only
       url: https://cdc2026.ieeecss.org/about/call-for-papers
     - deadline: '2026-03-17 23:59:59'
-      comment: Via L-CSS site
-      track: L-CSS + CDC
-      url: https://cdc2026.ieeecss.org/about/call-for-papers
+      comment: L-CSS + CDC
     - deadline: '2026-03-24 23:59:59'
-      comment: Session proposals
+      comment: Invited session proposals
       track: Invited Session
       url: https://cdc2026.ieeecss.org/invited-sessions
     - deadline: '2026-05-01 23:59:59'
@@ -28,10 +26,9 @@
     - deadline: '2026-05-01 23:59:59'
       comment: Tutorial session proposals
       track: Tutorial
-      url: https://cdc2026.ieeecss.org/authors/workshops
     - deadline: '2026-06-10 23:59:59'
       comment: CSS journal paper
-      track: Journal Presentation
+      track: Special Session
       url: https://cdc2026.ieeecss.org/special-sessions-for-journal-publications
     timezone: AoE
     date: December 15-18, 2026
