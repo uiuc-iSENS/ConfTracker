@@ -12,14 +12,14 @@
     timeline:
     - deadline: '2026-09-15 23:59:59'
       url: https://wcnc2027.ieee-wcnc.org/authors/call-papers
-    - deadline: '2026-10-31 23:59:59'
-      comment: Tutorial proposals
-      track: Tutorial
-      url: https://wcnc2027.ieee-wcnc.org/authors/call-tutorial-proposals
     - deadline: '2026-08-10 23:59:59'
-      comment: Workshop proposals
+      comment: Proposals, final deadline
       track: Workshop
       url: https://wcnc2027.ieee-wcnc.org/authors/call-workshop-proposals
+    - deadline: '2026-10-31 23:59:59'
+      comment: Proposals
+      track: Tutorial
+      url: https://wcnc2027.ieee-wcnc.org/authors/call-tutorial-proposals
     timezone: AoE
     date: April 5-8, 2027
     place: Panama City, Panama

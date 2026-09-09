@@ -14,19 +14,21 @@
       url: https://2027.ieeeigarss.org/call_for_papers.php
     - deadline: '2027-01-11 23:59:59'
       comment: Student Paper Competition
-      track: Student Paper Competition
-      url: https://2027.ieeeigarss.org/important_dates.php
+      track: Student Paper
     - deadline: '2026-11-03 23:59:59'
       comment: Tutorial proposals
       track: Tutorial
+    - deadline: '2026-10-15 23:59:59'
+      comment: Community Contributed Themes
+      track: Theme Proposal
+    - deadline: '2027-01-11 23:59:59'
+      comment: Student Paper Competition
+      track: Student Paper Competition
       url: https://2027.ieeeigarss.org/important_dates.php
     - deadline: '2026-10-15 23:59:59'
       comment: Theme proposals
       track: Community Contributed Theme
       url: https://2027.ieeeigarss.org/important_dates.php
-    - deadline: '2027-01-11 23:59:59'
-      comment: Student Paper Competition
-      track: Student Paper
     - deadline: '2026-10-15 23:59:59'
       comment: Community Contributed Theme proposals
       track: Session
@@ -42,14 +44,10 @@
       track: Special Session
       url: https://2027.ieeeigarss.org/important_dates.php
     - deadline: '2026-10-15 23:59:59'
-      comment: Community Contributed Themes
-      track: Theme Proposal
-      url: https://2027.ieeeigarss.org/important_dates.php
-    - deadline: '2026-10-15 23:59:59'
       comment: Community Contributed Theme proposals
       track: Theme Session
     timezone: AoE
-    date: July 11-16, 2027
+    date: 11 - 16 July 2027
     place: Reykjavík, Iceland
   isens:
     tier: 3
