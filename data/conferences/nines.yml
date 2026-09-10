@@ -11,9 +11,10 @@
     link: https://nines-conference.org/
     timeline:
     - deadline: '2026-08-06 23:59:59'
+      url: https://nines-conference.org/cfp.html
     timezone: AoE
     date: '2027-02-16'
-    place: Online
+    place: TBD
   isens:
     tier: 2
     tags:

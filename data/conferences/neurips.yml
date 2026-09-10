@@ -12,7 +12,7 @@
     timeline:
     - abstract_deadline: '2026-05-04 23:59:59'
       deadline: '2026-05-06 23:59:59'
-      url: https://neurips.cc/Conferences/2026/CallForPapers
+      url: https://openreview.net/group?id=NeurIPS.cc/2026/Conference
     timezone: AoE
     date: TBD
     place: TBD

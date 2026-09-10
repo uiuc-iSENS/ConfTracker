@@ -12,6 +12,7 @@
     timeline:
     - abstract_deadline: '2026-11-10 23:59:59'
       deadline: '2026-11-16 23:59:59'
+      url: https://openreview.net/group?id=thecvf.com/CVPR/2027/Conference
     timezone: AoE
     date: TBD
     place: TBD

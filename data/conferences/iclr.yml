@@ -13,8 +13,16 @@
     - abstract_deadline: '2026-09-18 23:59:59'
       deadline: '2026-09-25 23:59:59'
       url: https://iclr.cc/Conferences/2027/CallForPapers
+    - deadline: '2026-10-09 23:59:59'
+      comment: Workshop proposals
+      track: Workshop
+      url: https://openreview.net/group?id=ICLR.cc/2027/Workshop_Proposals
+    - deadline: '2027-02-01 23:59:59'
+      comment: Suggested workshop paper deadline
+      track: Workshop
+      url: https://iclr.cc/Conferences/2027/CallForWorkshops
     timezone: AoE
-    date: TBD
+    date: April 26-30, 2027
     place: California, United States
   isens:
     tier: 3
