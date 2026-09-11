@@ -8,7 +8,7 @@
   confs:
   - year: 2027
     id: cvpr27
-    link: https://cvpr.thecvf.com/Conferences/2027
+    link: https://cvpr.thecvf.com/Conferences/2027/CallForPapers
     timeline:
     - abstract_deadline: '2026-11-10 23:59:59'
       deadline: '2026-11-16 23:59:59'

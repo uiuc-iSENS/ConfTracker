@@ -11,12 +11,12 @@
     id: nsdi27
     link: https://www.usenix.org/conference/nsdi27
     timeline:
-    - abstract_deadline: '2026-09-10 20:59:00'
+    - abstract_deadline: '2026-09-10 23:59:59'
       comment: Fall round
       url: https://www.usenix.org/conference/nsdi27/call-for-papers
-    timezone: UTC-7
+    timezone: AoE
     date: May 11-13, 2027
-    place: Providence, RI, United States
+    place: Providence, RI, USA
   isens:
     tier: 1
     tags:

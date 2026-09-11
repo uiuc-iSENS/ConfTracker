@@ -12,15 +12,14 @@
     timeline:
     - abstract_deadline: '2026-07-21 23:59:59'
       deadline: '2026-07-28 23:59:59'
-      comment: Main conference timetable
       url: https://aaai.org/conference/aaai/aaai-27/main-technical-track-call/
+    - deadline: '2026-11-20 23:59:59'
+      comment: Papers due to organizers
+      track: Workshop
+      url: https://aaai.org/conference/aaai/aaai-27/workshops-call/
     - deadline: '2026-11-20 23:59:59'
       comment: Workshop paper submissions
       track: Workshop
-    - deadline: '2026-08-28 23:59:59'
-      comment: Workshop proposals
-      track: Workshop
-      url: https://easychair.org/conferences/?conf=aaai27wp
     - deadline: '2026-11-20 23:59:59'
       comment: Papers to workshop organizers
       track: Workshop
