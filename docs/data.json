@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26T07:03:20+00:00",
+  "generated_at": "2026-09-27T07:02:58+00:00",
   "conferences": [
     {
       "title": "AAAI",
@@ -1810,6 +1810,10 @@
               "deadline": "2027-08-01 23:59:59",
               "track": "Resubmission",
               "comment": "IMWUT major revisions only"
+            },
+            {
+              "deadline": "2027-11-01 23:59:59",
+              "comment": "IMWUT new submissions"
             }
           ],
           "timezone": "AoE",
