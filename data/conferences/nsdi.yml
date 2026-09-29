@@ -9,12 +9,17 @@
   confs:
   - year: 2027
     id: nsdi27
-    link: https://www.usenix.org/conference/nsdi27
+    link: https://www.usenix.org/conference/nsdi27/call-for-papers
     timeline:
+    - abstract_deadline: '2026-04-16 23:59:59'
+      deadline: '2026-04-23 23:59:59'
+      comment: Spring deadline
+      url: https://nsdi27spring.usenix.hotcrp.com/
     - abstract_deadline: '2026-09-10 23:59:59'
-      comment: Fall round
-      url: https://www.usenix.org/conference/nsdi27/call-for-papers
-    timezone: AoE
+      deadline: '2026-09-17 23:59:59'
+      comment: Fall deadline
+      url: https://nsdi27fall.usenix.hotcrp.com/
+    timezone: UTC-4
     date: May 11-13, 2027
     place: Providence, RI, USA
   isens:

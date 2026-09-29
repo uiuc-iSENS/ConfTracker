@@ -14,11 +14,11 @@
       comment: Deadline extended
       url: https://wcnc2027.ieee-wcnc.org/authors/call-papers
     - deadline: '2026-10-31 23:59:59'
-      comment: Proposal deadline
+      comment: Tutorial proposals
       track: Tutorial
       url: https://wcnc2027.ieee-wcnc.org/authors/call-tutorial-proposals
     - deadline: '2026-10-16 23:59:59'
-      comment: All WCNC 2027 workshops
+      comment: All workshops
       track: Workshop
       url: https://wcnc2027.ieee-wcnc.org/authors/call-workshop-papers
     - deadline: '2026-10-16 23:59:59'
@@ -26,19 +26,19 @@
       track: Workshop
       url: https://edas.info/newPaper.php?c=34673&track=140123
     - deadline: '2026-10-16 23:59:59'
-      comment: WS02 AI, ML and Quantum for Wireless
+      comment: WS02 AI, ML and Quantum for Sustainable Wireless
       track: Workshop
       url: https://edas.info/newPaper.php?c=34673&track=140124
     - deadline: '2026-10-16 23:59:59'
-      comment: WS03 Next-Evolution Waveforms
+      comment: WS03 Next-Evolution Waveforms (4th)
       track: Workshop
       url: https://edas.info/newPaper.php?c=34673&track=140125
     - deadline: '2026-10-16 23:59:59'
-      comment: WS04 TwinNetApp
+      comment: WS04 TwinNetApp (5th)
       track: Workshop
       url: https://edas.info/newPaper.php?c=34673&track=140126
     - deadline: '2026-10-16 23:59:59'
-      comment: WS05 6GArch
+      comment: WS05 6GArch (6th)
       track: Workshop
       url: https://edas.info/newPaper.php?c=34673&track=140127
     - deadline: '2026-10-16 23:59:59'
@@ -46,14 +46,14 @@
       track: Workshop
       url: https://edas.info/newPaper.php?c=34673&track=140128
     - deadline: '2026-10-16 23:59:59'
-      comment: WS07 6G SAGA
+      comment: WS07 6G SAGA (6th)
       track: Workshop
       url: https://edas.info/newPaper.php?c=34673&track=140129
     - deadline: '2026-10-16 23:59:59'
       comment: WS08 SR-SAGSIN
       track: Workshop
     timezone: AoE
-    date: April 5-8, 2027
+    date: '2027-04-05'
     place: Panama City, Panama
   isens:
     tier: 2
