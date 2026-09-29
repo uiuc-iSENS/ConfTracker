@@ -121,6 +121,26 @@ def build(conf_dir=None, out_path=None) -> int:
             reminders["mode"] = "email"
             reminders["address"] = config.SUBSCRIBE_ADDRESS
         data["reminders"] = reminders
+    else:
+        # A rebuild run without the environment -- `python -m scraper.build`
+        # straight from a shell, where run_daily.sh would have sourced .env --
+        # silently drops this block, and the frontend then hides every
+        # subscribe button because a channel it cannot name is a button that
+        # goes nowhere. Nothing about the page looks broken, so say it here:
+        # the rebuild is the only place that can still tell the difference.
+        try:
+            had = "reminders" in json.loads(out_path.read_text())
+        except (OSError, json.JSONDecodeError):
+            had = False
+        if had:
+            log.warning(
+                "No signup channel configured, so the subscribe buttons will "
+                "disappear from the site -- the previous %s had one. If this "
+                "was not intended, the environment is missing: re-run with "
+                "`set -a; source .env; set +a` (this is what run_daily.sh "
+                "does) before rebuilding.",
+                out_path.name,
+            )
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(data, indent=2, ensure_ascii=False))
     return len(conferences)

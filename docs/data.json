@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T01:59:28+00:00",
+  "generated_at": "2026-09-29T02:23:45+00:00",
   "conferences": [
     {
       "title": "AAAI",
@@ -2049,5 +2049,19 @@
         }
       }
     }
-  ]
+  ],
+  "reminders": {
+    "domains": [
+      "illinois.edu"
+    ],
+    "lead_days": [
+      14,
+      7,
+      3,
+      1
+    ],
+    "mode": "issues",
+    "repo": "uiuc-iSENS/ConfTracker-signups",
+    "label": "reminder-signup"
+  }
 }
