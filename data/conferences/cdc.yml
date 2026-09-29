@@ -38,10 +38,10 @@
     link: https://cdc2027.ieeecss.org/
     timeline:
     - deadline: '2027-03-17 23:59:59'
-      comment: L-CSS + CDC submissions
+      comment: L-CSS + CDC
       url: https://cdc2027.ieeecss.org/authors/call-for-papers
     - deadline: '2027-03-31 23:59:59'
-      comment: CDC only submissions
+      comment: CDC only
       url: https://cdc2027.ieeecss.org/authors/call-for-papers
     - deadline: '2027-03-24 23:59:59'
       comment: Invited session proposals

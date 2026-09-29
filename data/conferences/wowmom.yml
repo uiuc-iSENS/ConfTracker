@@ -1,16 +1,25 @@
 - title: WoWMoM
-  description: IEEE International Symposium on a World of Wireless, Mobile and Multimedia Networks
+  description: IEEE International Symposium on a World of Wireless, Mobile and Multimedia
+    Networks
   sub: NW
   rank:
     ccf: C
     core: B
   dblp: wowmom
-  confs: []
+  confs:
+  - year: 2027
+    id: wowmom27
+    link: http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=203246&copyownerid=45859
+    timeline:
+    - deadline: '2026-12-01 23:59:59'
+    timezone: AoE
+    date: 2027-06-21 - 2027-06-24
+    place: Irvine, CA, USA
   isens:
     tier: 3
-    tags: [mobile, wireless, networking]
+    tags:
+    - mobile
+    - wireless
+    - networking
     scrape:
-      # The series has no stable homepage -- each edition sits on its host
-      # institution's domain (ieee-wowmom.org no longer resolves), so this uses
-      # the WikiCFP fallback described in the README.
       url: http://www.wikicfp.com/cfp/servlet/tool.search?q=WoWMoM&year=f

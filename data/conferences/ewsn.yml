@@ -5,7 +5,20 @@
     ccf: N
     core: B
   dblp: ewsn
-  confs: []
+  confs:
+  - year: 2027
+    id: ewsn27
+    link: https://ewsn.org/2027
+    timeline:
+    - deadline: '2026-12-10 23:59:59'
+      comment: Winter round
+      url: https://ewsn.org/call-for-papers
+    - deadline: '2027-03-25 23:59:59'
+      comment: Spring round
+      url: https://ewsn.org/call-for-papers
+    timezone: AoE
+    date: September 27-30, 2027
+    place: Thessaloniki, Greece
   isens:
     tier: 2
     tags:

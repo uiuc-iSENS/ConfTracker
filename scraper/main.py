@@ -16,6 +16,7 @@ and deployment.
 import argparse
 import json
 import logging
+import re
 import sys
 from collections import Counter
 from datetime import date, datetime, timezone
@@ -44,31 +45,53 @@ def _source_key(track: str | None, url: str | None) -> tuple | None:
     return ((track or "").strip().casefold(), url) if url else None
 
 
-def _track_name(track: str | None, comment: str | None) -> str:
-    """The name that distinguishes one track row from another, normalised.
+# Words that say what *shape* a call is rather than which call it is. The
+# extractor rewords a track freely between runs -- one IGARSS deadline came
+# back as "Theme Proposal", "Theme Session", "Community Theme", "Session" and
+# "Special Session" on five different nights -- and every new wording was a
+# row nothing would ever match again. What actually tells two calls apart is
+# the words left when these are taken out.
+_GENERIC_WORDS = frozenset({
+    "call", "cfp", "deadline", "due", "paper", "proposal", "submission",
+    "abstract", "session", "track", "program", "registration", "for", "and",
+    "the", "of", "a", "an", "to", "all", "general", "main", "other", "new",
+})
 
-    `comment` carries a workshop's own name, so it cannot simply be dropped
-    when matching rows: two workshops sharing a track and a closing date are
-    still two workshops. But a comment that only restates the track it is on
-    -- "Pitch Your Lab" against the Pitch Your Lab track -- names nothing,
-    and the same call reached twice (once from the main CFP, once from the
-    workshop listing) routinely differs by exactly that. Treating those as
-    the same row is what stops one deadline being listed, and mailed, twice.
+
+def _singular(word: str) -> str:
+    """"themes" -> "theme". Crude on purpose: only trailing -s, only on words
+    long enough that it is a plural rather than the word itself."""
+    return word[:-1] if len(word) > 3 and word.endswith("s") and not word.endswith("ss") else word
+
+
+def _call_key(track: str | None, comment: str | None) -> frozenset:
+    """Which call a timeline row is about, as a set of distinctive words.
+
+    Track and comment are read together because the extractor splits the same
+    phrase between them differently each time ("Theme Proposal" + "Community
+    Contributed Theme" one night, "Session" + "Community Contributed Theme
+    proposals" the next). Reduced to {community, contributed, theme} both are
+    plainly the same call, while eight WCNC workshops stay eight rows because
+    their names -- ws01, 6garch, openrit6g -- survive the reduction.
     """
-    name = (comment or "").strip()
-    if name.casefold() == (track or "").strip().casefold():
-        return ""
-    return name.casefold()
+    words = {
+        _singular(w)
+        for w in re.findall(r"[a-z0-9]+", f"{track or ''} {comment or ''}".lower())
+    }
+    distinctive = frozenset(w for w in words if w not in _GENERIC_WORDS)
+    # Nothing distinctive left ("Paper", "Call for papers"): keep the whole
+    # set, so every such row does not reduce to one empty key.
+    return distinctive or frozenset(words)
 
 
 def _carry_forward_tracks(title: str, previous: dict, entry: dict) -> int:
     """Keep track deadlines we already knew but did not re-find this run.
 
-    Matched per track, on (track, name), rather than all-or-nothing. Workshop
-    dates are the fragile ones: they come from pages that are frequently
-    unreachable, and from the deep pass, which does not run every day. Losing
-    them on an ordinary run would make workshops flicker on and off the site
-    between Sundays.
+    Matched per call rather than all-or-nothing, so one unreachable page does
+    not drop every workshop a venue has. Workshop dates are the fragile ones:
+    they come from pages that are frequently unreachable, and from the deep
+    pass, which does not run every day. Losing them on an ordinary run would
+    make workshops flicker on and off the site between Sundays.
 
     A date the run *did* find always wins -- that is how an extended deadline
     replaces the old one instead of being shadowed by it.
@@ -94,8 +117,10 @@ def _carry_forward_tracks(title: str, previous: dict, entry: dict) -> int:
         return bool(dates) and max(dates) >= now
 
     def name_key(t: dict) -> tuple:
-        track = t.get("track")
-        return ((track or "").casefold(), _track_name(track, t.get("comment")))
+        # Keyed on which call it is, not how this run happened to word it --
+        # a re-worded track is the same row, and carrying the old wording
+        # forward is how one deadline became eight rows on IGARSS.
+        return (_call_key(t.get("track"), t.get("comment")),)
 
     def src_key(t: dict) -> tuple | None:
         return _source_key(t.get("track"), t.get("url"))
@@ -236,12 +261,7 @@ def _augment_tracks(title: str, result: extract.Extraction, visited: set[str]) -
         return 0
 
     def row_key(t: extract.TimelineEntry) -> tuple:
-        return (
-            (t.track or "").casefold(),
-            _track_name(t.track, t.comment),
-            t.deadline,
-            t.abstract_deadline,
-        )
+        return (_call_key(t.track, t.comment), t.deadline, t.abstract_deadline)
 
     def src_key(t: extract.TimelineEntry) -> tuple | None:
         base = _source_key(t.track, t.url)
@@ -356,10 +376,7 @@ def _merge_extra_sources(conf: dict, result: extract.Extraction, visited: set[st
         return 0
 
     title = conf.get("title", "?")
-    known = {
-        ((t.track or "").casefold(), _track_name(t.track, t.comment))
-        for t in result.cycle.timeline
-    }
+    known = {_call_key(t.track, t.comment) for t in result.cycle.timeline}
     added = 0
     for src in sources:
         url = (src or {}).get("url")
@@ -373,7 +390,7 @@ def _merge_extra_sources(conf: dict, result: extract.Extraction, visited: set[st
         # The source's own name wins over whatever the page called itself:
         # it is what the YAML author wanted this row labelled.
         comment = name or found.comment
-        key = (track.casefold(), _track_name(track, comment))
+        key = _call_key(track, comment)
         if key in known:
             continue
         known.add(key)

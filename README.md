@@ -438,6 +438,31 @@ than assumed:
 Two jobs take a `flock` before doing anything (`logs/.daily.lock`,
 `logs/.reminders.lock`), so a slow run is skipped rather than overlapped.
 
+### When every venue fails at once
+
+`extract_failed` on *all* of them is never 43 broken conference sites — it is
+one thing wrong with the extractor. The log line carries the reason, which
+with the `cli` backend comes off the CLI's own JSON result:
+
+```
+grep 'claude -p failed' logs/daily.log | tail -5
+```
+
+Worth knowing before reading it:
+
+- A run that takes **two minutes instead of forty** failed at the door rather
+  than timing out. 43 venues is ~118 extractions and ~40 minutes of real work.
+- **The pipeline working when you run it by hand does not clear the extractor.**
+  A usage limit or an expired login depends on the time of day, and the cron
+  slot is 02:00 local. `scripts/run_daily.sh` is the only thing that runs then.
+- With the Claude subscription backend the whole nightly run counts against
+  the plan's limits, so the lab's own interactive use and the scrape compete
+  for the same quota. `CONFTRACKER_CLI_MODEL` picks a cheaper model for
+  extraction, which is the lever if they collide.
+- Nothing is lost while it is broken: a failed venue keeps the data it had, so
+  the site goes stale rather than blank — which is exactly why the only sign
+  is the Monday report.
+
 ## Deployment (GitHub Pages)
 
 1. Create a GitHub repository and push:

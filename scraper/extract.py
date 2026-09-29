@@ -158,7 +158,27 @@ def _extract_cli(prompt: str) -> Extraction | None:
 
     proc = subprocess.run(cmd, capture_output=True, text=True, timeout=600)
     if proc.returncode != 0:
-        log.error("claude -p failed (rc=%s): %s", proc.returncode, proc.stderr[:500])
+        # The CLI reports most failures as a JSON result object on *stdout*
+        # ("is_error": true, with the reason); stderr is usually empty. Logging
+        # stderr alone turns every one of them into a bare "rc=1", which says
+        # a run failed but never why -- indistinguishable between an expired
+        # login, a usage limit and a bad argument.
+        detail = (proc.stderr or "").strip()
+        if proc.stdout:
+            try:
+                payload = json.loads(proc.stdout)
+                detail = (
+                    payload.get("result")
+                    or payload.get("error")
+                    or payload.get("subtype")
+                    or detail
+                )
+                status = payload.get("api_error_status")
+                if status:
+                    detail = f"[api_error_status={status}] {detail}"
+            except (json.JSONDecodeError, AttributeError):
+                detail = detail or proc.stdout.strip()
+        log.error("claude -p failed (rc=%s): %s", proc.returncode, str(detail)[:500])
         return None
 
     payload = json.loads(proc.stdout)
