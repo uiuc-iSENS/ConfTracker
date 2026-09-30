@@ -41,10 +41,11 @@
       comment: CDC only
       url: https://cdc2027.ieeecss.org/authors/call-for-papers
     - deadline: '2027-03-17 23:59:59'
-      comment: L-CSS + CDC
+      comment: Joint L-CSS submission
+      track: L-CSS + CDC
       url: https://cdc2027.ieeecss.org/authors/call-for-papers
     - deadline: '2027-03-24 23:59:59'
-      comment: Invited session proposals
+      comment: Session proposals
       track: Invited Session
       url: https://cdc2027.ieeecss.org/authors/call-for-papers
     - deadline: '2027-04-30 23:59:59'
@@ -52,7 +53,7 @@
       track: Workshop
       url: https://cdc2027.ieeecss.org/authors/call-for-papers
     timezone: AoE
-    date: December 14-17, 2027
+    date: December 14 - 17, 2027
     place: Lisboa, Portugal
   isens:
     tier: 3

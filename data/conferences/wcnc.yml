@@ -14,7 +14,7 @@
       comment: Deadline extended
       url: https://wcnc2027.ieee-wcnc.org/authors/call-papers
     - deadline: '2026-10-31 23:59:59'
-      comment: Tutorial proposals
+      comment: Proposal submission
       track: Tutorial
       url: https://wcnc2027.ieee-wcnc.org/authors/call-tutorial-proposals
     - deadline: '2026-10-16 23:59:59'
@@ -53,7 +53,7 @@
       comment: WS08 SR-SAGSIN
       track: Workshop
     timezone: AoE
-    date: '2027-04-05'
+    date: 5 - 8 April 2027
     place: Panama City, Panama
   isens:
     tier: 2

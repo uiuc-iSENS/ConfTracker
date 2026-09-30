@@ -8,16 +8,15 @@
   confs:
   - year: 2027
     id: igarss27
-    link: https://2027.ieeeigarss.org/index.php
+    link: https://2027.ieeeigarss.org/
     timeline:
-    - deadline: '2027-01-11 23:59:59'
-      url: https://2027.ieeeigarss.org/call_for_papers.php
-    - deadline: '2027-01-11 23:59:59'
-      comment: Student Paper Competition
-      track: Student Paper
     - deadline: '2026-11-03 23:59:59'
       comment: Tutorial proposals
       track: Tutorial
+      url: https://2027.ieeeigarss.org/tutorial_proposals.php
+    - deadline: '2027-01-11 23:59:59'
+      comment: Student Paper Competition
+      track: Student Paper
     - deadline: '2026-10-15 23:59:59'
       comment: Community-Contributed Themes
       track: Session Proposal
