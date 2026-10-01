@@ -11,11 +11,11 @@
     id: mobisys27
     link: https://www.sigmobile.org/mobisys/2027/
     timeline:
-    - abstract_deadline: '2026-11-27 23:59:00'
-      deadline: '2026-12-04 23:59:00'
+    - abstract_deadline: '2026-11-27 23:59:59'
+      deadline: '2026-12-04 23:59:59'
       url: https://www.sigmobile.org/mobisys/2027/call_for_papers/
     timezone: AoE
-    date: June 21 - 25, 2027
+    date: June 21-25, 2027
     place: Ho Chi Minh City, Vietnam
   isens:
     tier: 1
