@@ -9,7 +9,7 @@
   confs:
   - year: 2026
     id: hotnets26
-    link: https://conferences.sigcomm.org/hotnets/2026/index.html
+    link: https://conferences.sigcomm.org/hotnets/2026/
     timeline:
     - deadline: '2026-07-16 23:59:59'
       url: https://conferences.sigcomm.org/hotnets/2026/cfp.html

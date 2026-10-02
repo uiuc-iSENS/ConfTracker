@@ -13,8 +13,19 @@
     - deadline: '2026-09-10 23:59:59'
       url: https://chi2027.acm.org/authors/papers/
     - deadline: '2026-12-03 23:59:59'
-      comment: Resubmission round
+      comment: Resubmission
       url: https://chi2027.acm.org/authors/papers/
+    - deadline: '2027-01-21 23:59:59'
+      track: Poster
+      url: https://chi2027.acm.org/authors/posters/
+    - deadline: '2027-01-21 23:59:59'
+      comment: Interactive Demos
+      track: Demo
+      url: https://chi2027.acm.org/authors/interactive-demos/
+    - deadline: '2027-01-21 23:59:59'
+      comment: Student Research Competition
+      track: SRC
+      url: https://chi2027.acm.org/authors/student-research-competition/
     - deadline: '2026-11-19 23:59:59'
       track: Panel
       url: https://chi2027.acm.org/authors/panels/
@@ -27,23 +38,16 @@
       track: Meet-Up
       url: https://chi2027.acm.org/authors/meet-ups/
     - deadline: '2026-12-04 23:59:59'
-      comment: Digital Experience Competition
+      comment: Digital Experience
       track: Competition
       url: https://chi2027.acm.org/digital-experience-competition/
-    - deadline: '2027-01-21 23:59:59'
-      track: Poster
-      url: https://chi2027.acm.org/authors/posters/
-    - deadline: '2027-01-21 23:59:59'
-      comment: Interactive Demos
-      track: Demo
-      url: https://chi2027.acm.org/authors/interactive-demos/
-    - deadline: '2027-01-21 23:59:59'
-      comment: Student Research Competition
-      track: SRC
-      url: https://chi2027.acm.org/authors/student-research-competition/
+    - deadline: '2027-02-11 23:59:59'
+      comment: Participant position papers
+      track: Workshop
+      url: https://chi2027.acm.org/authors/workshops/
     timezone: AoE
-    date: 2027-05-10 - 2027-05-14
-    place: Pittsburgh, PA, USA
+    date: May 10-14, 2027
+    place: Pittsburgh, USA
   isens:
     tier: 2
     tags:
