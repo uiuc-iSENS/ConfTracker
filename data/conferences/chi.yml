@@ -15,6 +15,21 @@
     - deadline: '2026-12-03 23:59:59'
       comment: Resubmission
       url: https://chi2027.acm.org/authors/papers/
+    - deadline: '2026-10-01 23:59:59'
+      comment: Organizer proposals
+      track: Workshop
+      url: https://chi2027.acm.org/authors/workshops/
+    - deadline: '2026-10-01 23:59:59'
+      comment: Organizer proposals
+      track: Meet-Up
+      url: https://chi2027.acm.org/authors/meet-ups/
+    - deadline: '2026-11-19 23:59:59'
+      track: Panel
+      url: https://chi2027.acm.org/authors/panels/
+    - deadline: '2026-12-04 23:59:59'
+      comment: Digital Experience
+      track: Competition
+      url: https://chi2027.acm.org/digital-experience-competition/
     - deadline: '2027-01-21 23:59:59'
       track: Poster
       url: https://chi2027.acm.org/authors/posters/
@@ -26,21 +41,6 @@
       comment: Student Research Competition
       track: SRC
       url: https://chi2027.acm.org/authors/student-research-competition/
-    - deadline: '2026-11-19 23:59:59'
-      track: Panel
-      url: https://chi2027.acm.org/authors/panels/
-    - deadline: '2026-10-01 23:59:59'
-      comment: Organizer proposals
-      track: Workshop
-      url: https://chi2027.acm.org/authors/workshops/
-    - deadline: '2026-10-01 23:59:59'
-      comment: Organizer proposals
-      track: Meet-Up
-      url: https://chi2027.acm.org/authors/meet-ups/
-    - deadline: '2026-12-04 23:59:59'
-      comment: Digital Experience
-      track: Competition
-      url: https://chi2027.acm.org/digital-experience-competition/
     - deadline: '2027-02-11 23:59:59'
       comment: Participant position papers
       track: Workshop

@@ -12,10 +12,10 @@
     timeline:
     - abstract_deadline: '2026-07-21 23:59:59'
       deadline: '2026-07-28 23:59:59'
-      comment: Main Technical Track
+      comment: Main technical track
       url: https://aaai.org/conference/aaai/aaai-27/main-technical-track-call/
     - deadline: '2026-11-20 23:59:59'
-      comment: Submissions to organizers
+      comment: Submissions due to organizers
       track: Workshop
       url: https://aaai.org/conference/aaai/aaai-27/workshops-call/
     timezone: UTC-12
