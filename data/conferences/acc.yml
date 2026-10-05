@@ -15,10 +15,10 @@
       url: https://css.paperplaza.net/conferences/scripts/start.pl
     - deadline: '2026-09-11 23:59:59'
       comment: Joint ACC + L-CSS
-      track: L-CSS
+      track: Joint ACC+L-CSS
       url: https://css.paperplaza.net/conferences/scripts/start.pl
     - deadline: '2026-09-30 23:59:59'
-      comment: Firm deadline
+      comment: Session proposals
       track: Invited Session
       url: https://css.paperplaza.net/conferences/scripts/start.pl
     - deadline: '2026-10-16 23:59:59'

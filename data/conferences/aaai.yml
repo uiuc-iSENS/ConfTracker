@@ -14,11 +14,11 @@
       deadline: '2026-07-28 23:59:59'
       url: https://aaai.org/conference/aaai/aaai-27/main-technical-track-call/
     - deadline: '2026-11-20 23:59:59'
-      comment: Submissions to organizers
+      comment: Workshop papers to organizers
       track: Workshop
       url: https://aaai.org/conference/aaai/aaai-27/workshops-call/
     timezone: AoE
-    date: 2027-02-16 - 2027-02-23
+    date: 2027-02-16 to 2027-02-23
     place: Montréal, Canada
   isens:
     tier: 3

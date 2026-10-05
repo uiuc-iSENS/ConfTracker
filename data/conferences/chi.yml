@@ -12,6 +12,9 @@
     timeline:
     - deadline: '2026-09-10 23:59:59'
       url: https://chi2027.acm.org/authors/papers/
+    - deadline: '2026-11-19 23:59:59'
+      track: Panel
+      url: https://chi2027.acm.org/authors/panels/
     - deadline: '2026-10-01 23:59:59'
       comment: Organizer proposals
       track: Workshop
@@ -20,9 +23,6 @@
       comment: Organizer proposals
       track: Meet-Up
       url: https://chi2027.acm.org/authors/meet-ups/
-    - deadline: '2026-11-19 23:59:59'
-      track: Panel
-      url: https://chi2027.acm.org/authors/panels/
     - deadline: '2026-12-04 23:59:59'
       comment: Digital Experience Competition
       track: Competition
@@ -38,13 +38,17 @@
       comment: Student Research Competition
       track: SRC
       url: https://chi2027.acm.org/authors/student-research-competition/
+    - deadline: '2027-01-21 23:59:59'
+      comment: SMP Dissertation Roundtable
+      track: Doctoral Forum
+      url: https://chi2027.acm.org/authors/student-mentoring-program-dissertation-research-roundtable/
     - deadline: '2027-02-11 23:59:59'
-      comment: Participant submissions (approx.)
+      comment: Participant position papers
       track: Workshop
       url: https://chi2027.acm.org/authors/workshops/
     timezone: AoE
-    date: 2027-05-10 to 2027-05-14
-    place: Pittsburgh, PA, USA (David L. Lawrence Convention Center)
+    date: May 10-14, 2027
+    place: Pittsburgh, USA
   isens:
     tier: 2
     tags:
