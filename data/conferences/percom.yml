@@ -8,11 +8,11 @@
   confs:
   - year: 2027
     id: percom27
-    link: https://percom.org/call-for-papers/
+    link: https://percom.org/
     timeline:
     - abstract_deadline: '2026-09-11 23:59:59'
       deadline: '2026-09-18 23:59:59'
-      comment: Extended
+      comment: Extended deadlines
       url: https://percom.org/call-for-papers/
     - deadline: '2026-11-17 23:59:59'
       track: Work-in-Progress
@@ -28,7 +28,7 @@
       track: Demo
       url: https://percom.org/call-for-demo-papers/
     timezone: AoE
-    date: TBD
+    date: March 8-12, 2027
     place: Goa, India
   isens:
     tier: 2

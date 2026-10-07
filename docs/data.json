@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-06T07:49:53+00:00",
+  "generated_at": "2026-10-07T07:45:26+00:00",
   "conferences": [
     {
       "title": "AAAI",
@@ -19,17 +19,24 @@
             {
               "abstract_deadline": "2026-07-21 23:59:59",
               "deadline": "2026-07-28 23:59:59",
+              "comment": "Main Technical Track",
               "url": "https://aaai.org/conference/aaai/aaai-27/main-technical-track-call/"
             },
             {
               "deadline": "2026-11-20 23:59:59",
-              "comment": "Workshop papers to organizers",
+              "comment": "Workshop papers",
               "track": "Workshop",
               "url": "https://aaai.org/conference/aaai/aaai-27/workshops-call/"
+            },
+            {
+              "deadline": "2026-08-28 23:59:59",
+              "comment": "Workshop proposals (closed)",
+              "track": "Workshop",
+              "url": "https://easychair.org/conferences/?conf=aaai27wp"
             }
           ],
           "timezone": "AoE",
-          "date": "2027-02-16 to 2027-02-23",
+          "date": "February 16-23, 2027",
           "place": "Montréal, Canada"
         }
       ],
@@ -61,38 +68,37 @@
           "timeline": [
             {
               "deadline": "2026-10-02 23:59:59",
-              "comment": "Firm deadline",
+              "comment": "ACC manuscript submission",
               "url": "https://css.paperplaza.net/conferences/scripts/start.pl"
             },
             {
               "deadline": "2026-09-11 23:59:59",
-              "comment": "Joint ACC + L-CSS submission",
-              "track": "L-CSS",
+              "comment": "Joint ACC + L-CSS",
               "url": "https://css.paperplaza.net/conferences/scripts/start.pl"
             },
             {
               "deadline": "2026-09-30 23:59:59",
               "comment": "Invited session proposals",
               "track": "Invited Session",
-              "url": "https://css.paperplaza.net/conferences/scripts/start.pl"
+              "url": "https://acc2027.a2c2.org/invited-sessions/"
             },
             {
               "deadline": "2026-10-16 23:59:59",
               "comment": "Special session proposals",
               "track": "Special Session",
-              "url": "https://css.paperplaza.net/conferences/scripts/start.pl"
+              "url": "https://acc2027.a2c2.org/special-sessions/"
             },
             {
               "deadline": "2026-10-16 23:59:59",
               "comment": "Workshop proposals",
               "track": "Workshop",
-              "url": "https://css.paperplaza.net/conferences/scripts/start.pl"
+              "url": "https://acc2027.a2c2.org/workshops-2/"
             },
             {
               "deadline": "2026-10-23 23:59:59",
               "comment": "Tutorial session proposals",
               "track": "Tutorial",
-              "url": "https://css.paperplaza.net/conferences/scripts/start.pl"
+              "url": "https://acc2027.a2c2.org/tutorial-sessions-2/"
             },
             {
               "deadline": "2027-01-29 23:59:59",
@@ -178,13 +184,13 @@
           "link": "https://cdc2027.ieeecss.org/",
           "timeline": [
             {
-              "deadline": "2027-03-31 23:59:59",
-              "comment": "CDC only",
+              "deadline": "2027-03-17 23:59:59",
+              "comment": "L-CSS + CDC",
               "url": "https://cdc2027.ieeecss.org/authors/call-for-papers"
             },
             {
-              "deadline": "2027-03-17 23:59:59",
-              "comment": "L-CSS + CDC",
+              "deadline": "2027-03-31 23:59:59",
+              "comment": "CDC only",
               "url": "https://cdc2027.ieeecss.org/authors/call-for-papers"
             },
             {
@@ -207,7 +213,7 @@
             }
           ],
           "timezone": "AoE",
-          "date": "December 14 - 17, 2027",
+          "date": "December 14-17, 2027",
           "place": "Lisboa, Portugal"
         }
       ],
@@ -242,6 +248,12 @@
           "timeline": [
             {
               "deadline": "2026-09-10 23:59:59",
+              "comment": "Papers",
+              "url": "https://chi2027.acm.org/authors/papers/"
+            },
+            {
+              "deadline": "2026-12-03 23:59:59",
+              "comment": "Papers resubmission",
               "url": "https://chi2027.acm.org/authors/papers/"
             },
             {
@@ -297,14 +309,14 @@
             },
             {
               "deadline": "2027-02-11 23:59:59",
-              "comment": "Participant position papers",
+              "comment": "Participant submissions",
               "track": "Workshop",
               "url": "https://chi2027.acm.org/authors/workshops/"
             }
           ],
           "timezone": "AoE",
-          "date": "2027-05-10",
-          "place": "Pittsburgh, Pennsylvania, USA"
+          "date": "May 10-14, 2027",
+          "place": "Pittsburgh, USA"
         }
       ],
       "isens": {
@@ -449,6 +461,28 @@
           "timezone": "AoE",
           "date": "December 7-10, 2026",
           "place": "Utrecht, The Netherlands"
+        },
+        {
+          "year": 2027,
+          "id": "conext27",
+          "link": "https://conferences.sigcomm.org/co-next/2027/",
+          "timeline": [
+            {
+              "abstract_deadline": "2026-11-27 23:59:59",
+              "deadline": "2026-12-04 23:59:59",
+              "comment": "December cycle",
+              "url": "https://conferences.sigcomm.org/co-next/2027/#!/cfp"
+            },
+            {
+              "abstract_deadline": "2027-05-28 23:59:59",
+              "deadline": "2027-06-04 23:59:59",
+              "comment": "June cycle",
+              "url": "https://conferences.sigcomm.org/co-next/2027/#!/cfp"
+            }
+          ],
+          "timezone": "AoE",
+          "date": "December 6-9, 2027",
+          "place": "Rio de Janeiro, Brazil"
         }
       ],
       "isens": {
@@ -477,11 +511,12 @@
         {
           "year": 2027,
           "id": "cvpr27",
-          "link": "https://cvpr.thecvf.com/Conferences/2027",
+          "link": "https://cvpr.thecvf.com/Conferences/2027/CallForPapers",
           "timeline": [
             {
               "abstract_deadline": "2026-11-10 23:59:59",
-              "deadline": "2026-11-16 23:59:59"
+              "deadline": "2026-11-16 23:59:59",
+              "url": "https://openreview.net/group?id=thecvf.com/CVPR/2027/Conference"
             },
             {
               "deadline": "2026-11-04 23:59:59",
@@ -560,7 +595,7 @@
             }
           ],
           "timezone": "AoE",
-          "date": "September 27-30, 2027",
+          "date": "2027-09-27",
           "place": "Thessaloniki, Greece"
         }
       ],
@@ -663,7 +698,7 @@
             }
           ],
           "timezone": "AoE",
-          "date": "February 24-25, 2027",
+          "date": "2027-02-24 - 2027-02-25",
           "place": "Tucson, AZ, USA"
         }
       ],
@@ -894,16 +929,15 @@
           "link": "https://2027.ieee-icra.org/",
           "timeline": [
             {
-              "deadline": "2026-09-15 23:59:00",
-              "url": "https://2027.ieee-icra.org/"
+              "deadline": "2026-09-15 23:59:59"
             },
             {
-              "deadline": "2026-09-01 23:59:00",
+              "deadline": "2026-09-01 23:59:59",
               "comment": "Pre-proposal",
               "track": "Workshop"
             },
             {
-              "deadline": "2026-11-01 23:59:00",
+              "deadline": "2026-11-01 23:59:59",
               "comment": "Full proposal",
               "track": "Workshop"
             },
@@ -932,7 +966,7 @@
               "url": "https://2027.ieee-icra.org/"
             }
           ],
-          "timezone": "UTC-8",
+          "timezone": "UTC-7",
           "date": "May 24-28, 2027",
           "place": "TBD"
         }
@@ -1557,12 +1591,12 @@
         {
           "year": 2027,
           "id": "percom27",
-          "link": "https://percom.org/call-for-papers/",
+          "link": "https://percom.org/",
           "timeline": [
             {
               "abstract_deadline": "2026-09-11 23:59:59",
               "deadline": "2026-09-18 23:59:59",
-              "comment": "Extended",
+              "comment": "Extended deadlines",
               "url": "https://percom.org/call-for-papers/"
             },
             {
@@ -1588,7 +1622,7 @@
             }
           ],
           "timezone": "AoE",
-          "date": "TBD",
+          "date": "March 8-12, 2027",
           "place": "Goa, India"
         }
       ],
@@ -1717,13 +1751,7 @@
               "abstract_deadline": "2026-10-29 23:59:59",
               "deadline": "2026-11-05 23:59:59",
               "comment": "2nd deadline",
-              "url": "https://sensys27.hotcrp.com/"
-            },
-            {
-              "abstract_deadline": "2026-05-29 23:59:59",
-              "deadline": "2026-06-05 23:59:59",
-              "comment": "1st deadline (passed)",
-              "url": "https://sensys27.hotcrp.com/"
+              "url": "https://sensys.acm.org/2027/cfp.html"
             }
           ],
           "timezone": "AoE",
@@ -1972,55 +2000,49 @@
           "link": "https://wcnc2027.ieee-wcnc.org/",
           "timeline": [
             {
-              "deadline": "2026-10-05 23:59:59",
-              "comment": "Deadline extended",
+              "deadline": "2026-10-26 23:59:59",
+              "comment": "Final deadline",
               "url": "https://wcnc2027.ieee-wcnc.org/authors/call-papers"
             },
             {
               "deadline": "2026-10-31 23:59:59",
-              "comment": "Tutorial proposals",
+              "comment": "Proposal deadline",
               "track": "Tutorial",
               "url": "https://wcnc2027.ieee-wcnc.org/authors/call-tutorial-proposals"
             },
             {
               "deadline": "2026-08-10 23:59:59",
-              "comment": "Workshop proposals",
+              "comment": "Proposal deadline",
               "track": "Workshop",
               "url": "https://wcnc2027.ieee-wcnc.org/authors/call-workshop-papers"
             },
             {
               "deadline": "2026-10-16 23:59:59",
-              "comment": "All workshops",
-              "track": "Workshop",
-              "url": "https://wcnc2027.ieee-wcnc.org/authors/call-workshop-papers"
-            },
-            {
-              "deadline": "2026-10-16 23:59:59",
-              "comment": "WS01 Fluid Antenna System (FAS) for 6G",
+              "comment": "WS01 FAS for 6G",
               "track": "Workshop",
               "url": "https://edas.info/newPaper.php?c=34673&track=140123"
             },
             {
               "deadline": "2026-10-16 23:59:59",
-              "comment": "WS02 AI, ML and Quantum for Sustainable Wireless",
+              "comment": "WS02 AI/ML & Quantum",
               "track": "Workshop",
               "url": "https://edas.info/newPaper.php?c=34673&track=140124"
             },
             {
               "deadline": "2026-10-16 23:59:59",
-              "comment": "WS03 Next-Evolution Waveforms (4th)",
+              "comment": "WS03 Next-Evolution Waveforms",
               "track": "Workshop",
               "url": "https://edas.info/newPaper.php?c=34673&track=140125"
             },
             {
               "deadline": "2026-10-16 23:59:59",
-              "comment": "WS04 TwinNetApp (5th)",
+              "comment": "WS04 TwinNetApp",
               "track": "Workshop",
               "url": "https://edas.info/newPaper.php?c=34673&track=140126"
             },
             {
               "deadline": "2026-10-16 23:59:59",
-              "comment": "WS05 6GArch (6th)",
+              "comment": "WS05 6GArch",
               "track": "Workshop",
               "url": "https://edas.info/newPaper.php?c=34673&track=140127"
             },
@@ -2032,7 +2054,7 @@
             },
             {
               "deadline": "2026-10-16 23:59:59",
-              "comment": "WS07 6G SAGA (6th)",
+              "comment": "WS07 6G SAGA",
               "track": "Workshop",
               "url": "https://edas.info/newPaper.php?c=34673&track=140129"
             },
@@ -2043,7 +2065,7 @@
             }
           ],
           "timezone": "AoE",
-          "date": "April 5-8, 2027",
+          "date": "5 - 8 April 2027",
           "place": "Panama City, Panama"
         }
       ],
@@ -2104,7 +2126,7 @@
             }
           ],
           "timezone": "AoE",
-          "date": "June 21-24, 2027",
+          "date": "Jun 21-24, 2027",
           "place": "Irvine, CA, USA"
         }
       ],

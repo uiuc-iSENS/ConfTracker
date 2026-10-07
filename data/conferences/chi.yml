@@ -11,6 +11,10 @@
     link: https://chi2027.acm.org/
     timeline:
     - deadline: '2026-09-10 23:59:59'
+      comment: Papers
+      url: https://chi2027.acm.org/authors/papers/
+    - deadline: '2026-12-03 23:59:59'
+      comment: Papers resubmission
       url: https://chi2027.acm.org/authors/papers/
     - deadline: '2026-10-01 23:59:59'
       comment: Organizer proposals
@@ -46,12 +50,12 @@
       track: Doctoral Forum
       url: https://chi2027.acm.org/authors/student-mentoring-program-dissertation-research-roundtable/
     - deadline: '2027-02-11 23:59:59'
-      comment: Participant position papers
+      comment: Participant submissions
       track: Workshop
       url: https://chi2027.acm.org/authors/workshops/
     timezone: AoE
-    date: '2027-05-10'
-    place: Pittsburgh, Pennsylvania, USA
+    date: May 10-14, 2027
+    place: Pittsburgh, USA
   isens:
     tier: 2
     tags:
