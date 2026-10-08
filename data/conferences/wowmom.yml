@@ -9,12 +9,12 @@
   confs:
   - year: 2027
     id: wowmom27
-    link: http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=203246&copyownerid=45859
+    link: http://www.wikicfp.com/cfp/servlet/tool.search?q=WoWMoM&year=f
     timeline:
     - deadline: '2026-12-01 23:59:59'
       url: http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=203246&copyownerid=45859
     timezone: AoE
-    date: Jun 21-24, 2027
+    date: Jun 21, 2027 - Jun 24, 2027
     place: Irvine, CA, USA
   isens:
     tier: 3
