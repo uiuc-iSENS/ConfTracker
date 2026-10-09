@@ -12,16 +12,12 @@
     timeline:
     - abstract_deadline: '2026-07-21 23:59:59'
       deadline: '2026-07-28 23:59:59'
-      comment: Main Technical Track
+      comment: Main technical track
       url: https://aaai.org/conference/aaai/aaai-27/main-technical-track-call/
     - deadline: '2026-11-20 23:59:59'
-      comment: Workshop papers
+      comment: Papers due to organizers
       track: Workshop
       url: https://aaai.org/conference/aaai/aaai-27/workshops-call/
-    - deadline: '2026-08-28 23:59:59'
-      comment: Workshop proposals (closed)
-      track: Workshop
-      url: https://easychair.org/conferences/?conf=aaai27wp
     timezone: AoE
     date: February 16-23, 2027
     place: Montréal, Canada

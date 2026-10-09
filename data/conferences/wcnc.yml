@@ -18,15 +18,11 @@
       track: Tutorial
       url: https://wcnc2027.ieee-wcnc.org/authors/call-tutorial-proposals
     - deadline: '2026-10-16 23:59:59'
-      comment: All workshops
-      track: Workshop
-      url: https://wcnc2027.ieee-wcnc.org/authors/call-workshop-papers
-    - deadline: '2026-10-16 23:59:59'
-      comment: WS01 Fluid Antenna System for 6G
+      comment: WS01 Fluid Antenna System
       track: Workshop
       url: https://edas.info/newPaper.php?c=34673&track=140123
     - deadline: '2026-10-16 23:59:59'
-      comment: WS02 AI, ML & Quantum
+      comment: WS02 AI/ML & Quantum
       track: Workshop
       url: https://edas.info/newPaper.php?c=34673&track=140124
     - deadline: '2026-10-16 23:59:59'
@@ -52,8 +48,12 @@
     - deadline: '2026-10-16 23:59:59'
       comment: WS08 SR-SAGSIN
       track: Workshop
+    - deadline: '2026-10-16 23:59:59'
+      comment: All workshops
+      track: Workshop
+      url: https://wcnc2027.ieee-wcnc.org/authors/call-workshop-papers
     timezone: AoE
-    date: April 5-8, 2027
+    date: '2027-04-05'
     place: Panama City, Panama
   isens:
     tier: 2

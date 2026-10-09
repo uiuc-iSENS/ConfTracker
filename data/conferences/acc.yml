@@ -11,31 +11,31 @@
     link: https://acc2027.a2c2.org/
     timeline:
     - deadline: '2026-10-02 23:59:59'
-      comment: Firm deadline
+      comment: ACC manuscripts
       url: https://css.paperplaza.net/conferences/scripts/start.pl
     - deadline: '2026-09-11 23:59:59'
       comment: Joint ACC + L-CSS
       url: https://css.paperplaza.net/conferences/scripts/start.pl
     - deadline: '2026-09-30 23:59:59'
-      comment: Proposals, firm deadline
+      comment: Invited session proposals
       track: Invited Session
-      url: https://acc2027.a2c2.org/invited-sessions/
+      url: https://css.paperplaza.net/conferences/scripts/start.pl
     - deadline: '2026-10-16 23:59:59'
-      comment: Proposals
+      comment: Special session proposals
       track: Special Session
-      url: https://acc2027.a2c2.org/special-sessions/
+      url: https://css.paperplaza.net/conferences/scripts/start.pl
     - deadline: '2026-10-16 23:59:59'
-      comment: Proposals
+      comment: Workshop proposals
       track: Workshop
-      url: https://acc2027.a2c2.org/workshops-2/
+      url: https://css.paperplaza.net/conferences/scripts/start.pl
     - deadline: '2026-10-23 23:59:59'
-      comment: Session proposals
+      comment: Tutorial session proposals
       track: Tutorial
-      url: https://acc2027.a2c2.org/tutorial-sessions-2/
+      url: https://css.paperplaza.net/conferences/scripts/start.pl
     - deadline: '2027-01-29 23:59:59'
       comment: Tutorial papers
       track: Tutorial
-      url: https://acc2027.a2c2.org/tutorial-sessions-2/
+      url: https://css.paperplaza.net/conferences/scripts/start.pl
     timezone: AoE
     date: July 7-9, 2027
     place: Philadelphia, PA, USA
