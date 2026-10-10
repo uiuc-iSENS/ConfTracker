@@ -10,7 +10,7 @@
   confs:
   - year: 2027
     id: sensys27
-    link: https://sensys.acm.org/2027/
+    link: https://sensys.acm.org/2027/index.html
     timeline:
     - abstract_deadline: '2026-10-29 23:59:59'
       deadline: '2026-11-05 23:59:59'

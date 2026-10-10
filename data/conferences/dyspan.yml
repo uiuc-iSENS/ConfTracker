@@ -5,11 +5,22 @@
     ccf: B
     core: N
   dblp: dyspan
-  confs: []
+  confs:
+  - year: 2027
+    id: dyspan27
+    link: https://ieee-dyspan.org/
+    timeline:
+    - deadline: '2026-12-07 23:59:59'
+      url: https://ieee-dyspan.org/call-papers
+    timezone: AoE
+    date: 17 - 20 May 2027
+    place: Ottawa, Canada
   isens:
     tier: 3
-    tags: [spectrum, wireless]
+    tags:
+    - spectrum
+    - wireless
     scrape:
       url: https://ieee-dyspan.org/
       templates:
-        - https://dyspan{year}.ieee-dyspan.org/
+      - https://dyspan{year}.ieee-dyspan.org/

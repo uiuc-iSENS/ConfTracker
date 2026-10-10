@@ -11,25 +11,25 @@
     link: https://acc2027.a2c2.org/
     timeline:
     - deadline: '2026-10-02 23:59:59'
-      comment: ACC manuscripts
+      comment: Firm, extended from Sep 25
       url: https://css.paperplaza.net/conferences/scripts/start.pl
     - deadline: '2026-09-11 23:59:59'
-      comment: Joint ACC + L-CSS
+      comment: Joint ACC + L-CSS round
       url: https://css.paperplaza.net/conferences/scripts/start.pl
     - deadline: '2026-09-30 23:59:59'
-      comment: Invited session proposals
+      comment: Firm, extended from Sep 23
       track: Invited Session
       url: https://css.paperplaza.net/conferences/scripts/start.pl
     - deadline: '2026-10-16 23:59:59'
-      comment: Special session proposals
+      comment: Proposals
       track: Special Session
       url: https://css.paperplaza.net/conferences/scripts/start.pl
     - deadline: '2026-10-16 23:59:59'
-      comment: Workshop proposals
+      comment: Proposals
       track: Workshop
       url: https://css.paperplaza.net/conferences/scripts/start.pl
     - deadline: '2026-10-23 23:59:59'
-      comment: Tutorial session proposals
+      comment: Session proposals
       track: Tutorial
       url: https://css.paperplaza.net/conferences/scripts/start.pl
     - deadline: '2027-01-29 23:59:59'
