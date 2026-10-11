@@ -8,13 +8,12 @@
   confs:
   - year: 2027
     id: nines27
-    link: https://nines-conference.org/
+    link: https://nines-conference.org/index.html
     timeline:
     - deadline: '2026-08-06 23:59:59'
-      url: https://nines-conference.org/cfp.html
     timezone: AoE
-    date: '2027-02-16'
-    place: TBD
+    date: February 16, 2027
+    place: Online
   isens:
     tier: 2
     tags:
