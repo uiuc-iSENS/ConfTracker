@@ -12,7 +12,6 @@
     timeline:
     - abstract_deadline: '2026-09-18 23:59:59'
       deadline: '2026-09-25 23:59:59'
-      url: https://iclr.cc/Conferences/2027/CallForPapers
     - deadline: '2027-02-01 23:59:59'
       comment: Suggested workshop papers
       track: Workshop
