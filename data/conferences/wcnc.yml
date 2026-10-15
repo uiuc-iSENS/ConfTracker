@@ -14,22 +14,15 @@
       comment: Final deadline
       url: https://wcnc2027.ieee-wcnc.org/authors/call-papers
     - deadline: '2026-10-31 23:59:59'
-      comment: Tutorial proposals
+      comment: Proposals
       track: Tutorial
       url: https://wcnc2027.ieee-wcnc.org/authors/call-tutorial-proposals
-    - deadline: '2026-08-10 23:59:59'
-      comment: Workshop proposals
-      track: Workshop
-      url: https://wcnc2027.ieee-wcnc.org/authors/call-workshop-papers
-    - deadline: '2026-10-16 23:59:59'
-      track: Workshop
-      url: https://wcnc2027.ieee-wcnc.org/authors/call-workshop-papers
     - deadline: '2026-10-16 23:59:59'
       comment: WS01 Fluid Antenna System (FAS) for 6G
       track: Workshop
       url: https://edas.info/newPaper.php?c=34673&track=140123
     - deadline: '2026-10-16 23:59:59'
-      comment: WS02 AI, ML, Quantum for Sustainable Wireless
+      comment: WS02 AI, ML & Quantum for Wireless
       track: Workshop
       url: https://edas.info/newPaper.php?c=34673&track=140124
     - deadline: '2026-10-16 23:59:59'
@@ -55,6 +48,9 @@
     - deadline: '2026-10-16 23:59:59'
       comment: WS08 SR-SAGSIN
       track: Workshop
+    - deadline: '2026-10-16 23:59:59'
+      track: Workshop
+      url: https://wcnc2027.ieee-wcnc.org/authors/call-workshop-papers
     timezone: AoE
     date: 5 - 8 April 2027
     place: Panama City, Panama

@@ -14,28 +14,25 @@
       deadline: '2026-09-18 23:59:59'
       comment: Extended deadlines
       url: https://percom.org/call-for-papers/
-    - deadline: '2026-06-14 23:59:59'
-      comment: Workshop proposals
+    - deadline: '2026-11-17 23:59:59'
+      comment: Workshop papers
       track: Workshop
-      url: https://percom.org/call-for-workshop-proposals/
+      url: https://percom.org/list-of-accepted-workshops/
+    - deadline: '2026-11-17 23:59:59'
+      comment: WiP papers
+      track: Work-in-Progress
+      url: https://percom.org/call-for-wip-papers/
+    - deadline: '2026-12-07 23:59:59'
+      comment: Extended abstracts
+      track: PhD Forum
+      url: https://percom.org/call-for-phd-forum-contributions/
     - deadline: '2026-12-08 23:59:59'
       comment: Demo papers
       track: Demo
       url: https://percom.org/call-for-demo-papers/
-    - deadline: '2026-11-17 23:59:59'
-      comment: Work-in-Progress papers
-      track: WiP
-      url: https://percom.org/call-for-wip-papers/
-    - deadline: '2026-12-07 23:59:59'
-      comment: PhD Forum contributions
-      track: PhD Forum
-      url: https://percom.org/call-for-phd-forum-contributions/
-    - deadline: '2026-11-17 23:59:59'
-      track: Work-in-Progress
-      url: https://percom.org/call-for-wip-papers/
     timezone: AoE
-    date: March 08-12, 2027
-    place: Goa, India
+    date: TBD
+    place: TBD
   isens:
     tier: 2
     tags:
