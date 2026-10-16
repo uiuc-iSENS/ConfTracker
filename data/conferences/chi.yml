@@ -15,6 +15,14 @@
     - deadline: '2026-12-03 23:59:59'
       comment: Resubmission round
       url: https://chi2027.acm.org/authors/papers/
+    - deadline: '2026-10-01 23:59:59'
+      comment: Organizer proposals
+      track: Workshop
+      url: https://chi2027.acm.org/authors/workshops/
+    - deadline: '2026-10-01 23:59:59'
+      comment: Organizer proposals
+      track: Meet-Up
+      url: https://chi2027.acm.org/authors/meet-ups/
     - deadline: '2026-11-19 23:59:59'
       track: Panel
       url: https://chi2027.acm.org/authors/panels/
@@ -40,14 +48,6 @@
       comment: SMP Dissertation Research Roundtable
       track: Doctoral Forum
       url: https://chi2027.acm.org/authors/student-mentoring-program-dissertation-research-roundtable/
-    - deadline: '2026-10-01 23:59:59'
-      comment: Organizer proposals
-      track: Workshop
-      url: https://chi2027.acm.org/authors/workshops/
-    - deadline: '2026-10-01 23:59:59'
-      comment: Organizer proposals
-      track: Meet-Up
-      url: https://chi2027.acm.org/authors/meet-ups/
     - deadline: '2027-02-11 23:59:59'
       comment: Participant submissions
       track: Workshop
