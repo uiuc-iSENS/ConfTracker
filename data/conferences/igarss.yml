@@ -17,16 +17,8 @@
     - deadline: '2027-01-11 23:59:59'
       comment: Student Paper Competition
       track: Student Paper
-    - deadline: '2026-10-15 23:59:59'
-      comment: Community-Contributed Themes
-      track: Session Proposal
-      url: https://2027.ieeeigarss.org/cct_proposal.php
-    - deadline: '2026-10-15 23:59:59'
-      comment: Community-Contributed Theme proposals
-      track: Special Session
-      url: https://2027.ieeeigarss.org/cct_proposal.php
     timezone: AoE
-    date: July 11-16, 2027
+    date: 11 - 16 July 2027
     place: Reykjavík, Iceland
   isens:
     tier: 3
