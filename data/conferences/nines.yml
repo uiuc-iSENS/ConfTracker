@@ -8,13 +8,12 @@
   confs:
   - year: 2027
     id: nines27
-    link: https://nines-conference.org/index.html
+    link: https://nines-conference.org/
     timeline:
     - deadline: '2026-08-06 23:59:59'
-      url: https://nines27.hotcrp.com/
     timezone: AoE
     date: February 16, 2027
-    place: Online
+    place: TBD
   isens:
     tier: 2
     tags:

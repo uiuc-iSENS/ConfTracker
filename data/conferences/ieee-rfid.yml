@@ -5,11 +5,29 @@
     ccf: N
     core: N
   dblp: rfid
-  confs: []
+  confs:
+  - year: 2027
+    id: ieee rfid27
+    link: https://2027.ieee-rfid.org
+    timeline:
+    - deadline: '2026-11-10 23:59:59'
+      comment: Proposal
+      track: Special Session
+      url: https://forms.gle/v5NaP4ppk8Eq6K6f7
+    - deadline: '2026-12-10 23:59:59'
+      comment: Proposal
+      track: Workshop
+      url: https://forms.gle/vG517GtpY2nAQPfC9
+    timezone: AoE
+    date: TBD
+    place: University of Memphis campus, Memphis, TN, USA
   isens:
     tier: 2
-    tags: [rfid, sensing, wireless]
+    tags:
+    - rfid
+    - sensing
+    - wireless
     scrape:
       url: https://www.ieee-rfid.org/
       templates:
-        - https://{year}.ieee-rfid.org/
+      - https://{year}.ieee-rfid.org/
