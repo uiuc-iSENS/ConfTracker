@@ -12,7 +12,10 @@
     timeline:
     - deadline: '2026-09-15 23:59:59'
     - deadline: '2026-09-01 23:59:59'
-      comment: Pre-proposal
+      comment: Workshop/tutorial pre-proposal
+      track: Workshop
+    - deadline: '2026-11-01 23:59:59'
+      comment: Workshop/tutorial full proposal
       track: Workshop
     - deadline: '2026-11-01 23:59:59'
       comment: Full proposal
@@ -20,9 +23,6 @@
     - deadline: '2026-11-01 23:59:59'
       comment: Full proposal
       track: Tutorial
-    - deadline: '2026-11-01 23:59:59'
-      comment: Full proposal
-      track: Workshop/Tutorial
     - abstract_deadline: '2026-09-01 23:59:59'
       deadline: '2026-11-01 23:59:59'
       comment: Pre-proposal / full proposal
