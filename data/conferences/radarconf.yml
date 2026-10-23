@@ -12,18 +12,14 @@
     timeline:
     - deadline: '2026-10-31 23:59:59'
       url: https://radarconf2027.org/call-for-papers/
-    - deadline: '2026-10-10 23:59:59'
-      comment: Special session proposals
-      track: Special Session
-      url: https://radarconf2027.org/call-for-special-sessions/
     - deadline: '2026-10-31 23:59:59'
-      comment: Workshop/tutorial proposals
-      track: Workshop/Tutorial
-      url: https://radarconf2027.org/call-for-workshop/
-    - deadline: '2026-10-31 23:59:59'
-      comment: Workshop proposal
+      comment: Workshop/Tutorial proposal
       track: Workshop
       url: https://radarconf2027.org/call-for-workshop/
+    - deadline: '2026-10-10 23:59:59'
+      comment: Special session proposal
+      track: Special Session
+      url: https://radarconf2027.org/call-for-special-sessions/
     - deadline: '2026-10-31 23:59:59'
       comment: Tutorial proposal
       track: Tutorial

@@ -12,6 +12,9 @@
     timeline:
     - deadline: '2026-09-10 23:59:59'
       url: https://chi2027.acm.org/authors/papers/
+    - deadline: '2026-12-03 23:59:59'
+      comment: Resubmission due
+      url: https://chi2027.acm.org/authors/papers/
     - deadline: '2026-11-19 23:59:59'
       track: Panel
       url: https://chi2027.acm.org/authors/panels/
@@ -51,7 +54,7 @@
       url: https://chi2027.acm.org/authors/workshops/
     timezone: AoE
     date: 2027-05-10 to 2027-05-14
-    place: Pittsburgh, PA, USA
+    place: Pittsburgh, Pennsylvania, USA
   isens:
     tier: 2
     tags:

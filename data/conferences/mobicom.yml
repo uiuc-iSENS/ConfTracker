@@ -14,9 +14,8 @@
     - abstract_deadline: '2026-08-26 23:59:59'
       deadline: '2026-09-02 23:59:59'
       comment: Summer deadlines
-      url: https://mobicom27.hotcrp.com/
     timezone: AoE
-    date: October 18-22, 2027
+    date: 2027-10-18 - 2027-10-22
     place: TBD
   isens:
     tier: 1
