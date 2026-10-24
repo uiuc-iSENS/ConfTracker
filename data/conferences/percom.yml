@@ -15,13 +15,13 @@
       comment: Extended deadlines
       url: https://percom.org/call-for-papers/
     - deadline: '2026-11-17 23:59:59'
-      comment: Work-in-Progress papers
-      track: WiP
-      url: https://percom.org/call-for-wip-papers/
-    - deadline: '2026-11-17 23:59:59'
       comment: Workshop papers
       track: Workshop
       url: https://percom.org/list-of-accepted-workshops/
+    - deadline: '2026-11-17 23:59:59'
+      comment: WiP papers
+      track: Work-in-Progress
+      url: https://percom.org/call-for-wip-papers/
     - deadline: '2026-12-07 23:59:59'
       comment: Extended abstracts
       track: PhD Forum
@@ -30,12 +30,9 @@
       comment: Demo papers
       track: Demo
       url: https://percom.org/call-for-demo-papers/
-    - deadline: '2026-11-17 23:59:59'
-      track: Work-in-Progress
-      url: https://percom.org/call-for-wip-papers/
     timezone: AoE
     date: TBD
-    place: TBD
+    place: Goa, India
   isens:
     tier: 2
     tags:
