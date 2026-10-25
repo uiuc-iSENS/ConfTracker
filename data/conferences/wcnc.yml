@@ -13,15 +13,16 @@
     - deadline: '2026-10-26 23:59:59'
       comment: Firm deadline
       url: https://wcnc2027.ieee-wcnc.org/authors/call-papers
-    - deadline: '2026-11-06 23:59:59'
-      track: Workshop
-      url: https://wcnc2027.ieee-wcnc.org/authors/call-workshop-papers
     - deadline: '2026-10-31 23:59:59'
       comment: Tutorial proposals
       track: Tutorial
       url: https://wcnc2027.ieee-wcnc.org/authors/call-tutorial-proposals
     - deadline: '2026-11-06 23:59:59'
-      comment: WS01 Fluid Antenna System (FAS) for 6G
+      comment: Workshop papers
+      track: Workshop
+      url: https://wcnc2027.ieee-wcnc.org/authors/call-workshop-papers
+    - deadline: '2026-11-06 23:59:59'
+      comment: WS01 Fluid Antenna System for 6G
       track: Workshop
       url: https://edas.info/newPaper.php?c=34673&track=140123
     - deadline: '2026-11-06 23:59:59'
