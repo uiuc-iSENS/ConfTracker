@@ -16,28 +16,28 @@
     - deadline: '2026-09-11 23:59:59'
       comment: Joint ACC + L-CSS
       url: https://css.paperplaza.net/conferences/scripts/start.pl
-    - deadline: '2026-09-30 23:59:59'
-      comment: Proposals
-      track: Invited Session
-      url: https://css.paperplaza.net/conferences/scripts/start.pl
-    - deadline: '2026-10-16 23:59:59'
-      comment: Proposals
-      track: Special Session
-      url: https://css.paperplaza.net/conferences/scripts/start.pl
-    - deadline: '2026-10-16 23:59:59'
-      comment: Proposals
-      track: Workshop
-      url: https://css.paperplaza.net/conferences/scripts/start.pl
-    - deadline: '2026-10-23 23:59:59'
-      comment: Session proposals
-      track: Tutorial
-      url: https://css.paperplaza.net/conferences/scripts/start.pl
     - deadline: '2027-01-29 23:59:59'
       comment: Tutorial papers
       track: Tutorial
       url: https://css.paperplaza.net/conferences/scripts/start.pl
+    - deadline: '2026-10-23 23:59:59'
+      comment: Tutorial session proposals
+      track: Tutorial
+      url: https://css.paperplaza.net/conferences/scripts/start.pl
+    - deadline: '2026-10-16 23:59:59'
+      comment: Workshop proposals
+      track: Workshop
+      url: https://css.paperplaza.net/conferences/scripts/start.pl
+    - deadline: '2026-10-16 23:59:59'
+      comment: Special session proposals
+      track: Special Session
+      url: https://css.paperplaza.net/conferences/scripts/start.pl
+    - deadline: '2026-09-30 23:59:59'
+      comment: Invited session proposals
+      track: Invited Session
+      url: https://css.paperplaza.net/conferences/scripts/start.pl
     timezone: AoE
-    date: 2027-07-07 to 2027-07-09
+    date: July 7-9, 2027
     place: Philadelphia, PA, USA
   isens:
     tier: 3

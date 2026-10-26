@@ -11,9 +11,14 @@
     link: https://www.hotmobile.org/2027
     timeline:
     - deadline: '2026-10-09 23:59:59'
+      comment: Paper submission
+      url: https://www.hotmobile.org/index.php?id=cfp
+    - deadline: '2027-01-11 23:59:59'
+      comment: Poster/demo submission
+      track: Poster
       url: https://www.hotmobile.org/index.php?id=cfp
     timezone: AoE
-    date: February 24-25, 2027
+    date: '2027-02-24'
     place: Tucson, AZ, USA
   isens:
     tier: 2
