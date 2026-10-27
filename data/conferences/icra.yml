@@ -11,9 +11,12 @@
     link: https://2027.ieee-icra.org/
     timeline:
     - deadline: '2026-09-15 23:59:59'
-    - deadline: '2026-09-01 23:59:59'
-      comment: Pre-proposal
+      url: https://2027.ieee-icra.org/
+    - abstract_deadline: '2026-09-01 23:59:59'
+      deadline: '2026-11-01 23:59:59'
+      comment: Workshop/Tutorial proposals
       track: Workshop
+      url: https://2027.ieee-icra.org/
     - deadline: '2026-11-01 23:59:59'
       comment: Full proposal
       track: Workshop
@@ -26,15 +29,10 @@
     - abstract_deadline: '2026-09-01 23:59:59'
       deadline: '2026-11-01 23:59:59'
       comment: Pre-proposal / full proposal
-      track: Workshop
-      url: https://2027.ieee-icra.org/
-    - abstract_deadline: '2026-09-01 23:59:59'
-      deadline: '2026-11-01 23:59:59'
-      comment: Pre-proposal / full proposal
       track: Tutorial
       url: https://2027.ieee-icra.org/
     timezone: UTC-8
-    date: May 24-28, 2027
+    date: 24 – 28 May, 2027
     place: TBD
   isens:
     tier: 3

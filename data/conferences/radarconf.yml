@@ -13,17 +13,17 @@
     - deadline: '2026-10-31 23:59:59'
       url: https://radarconf2027.org/call-for-papers/
     - deadline: '2026-10-31 23:59:59'
-      comment: Workshop/Tutorial proposals
+      comment: Workshop proposals
       track: Workshop
       url: https://radarconf2027.org/call-for-workshop/
-    - deadline: '2026-10-10 23:59:59'
-      comment: Special session proposals
-      track: Special Session
-      url: https://radarconf2027.org/call-for-special-sessions/
     - deadline: '2026-10-31 23:59:59'
       comment: Tutorial proposals
       track: Tutorial
       url: https://radarconf2027.org/call-for-tutorials/
+    - deadline: '2026-10-10 23:59:59'
+      comment: Special session proposals
+      track: Special Session
+      url: https://radarconf2027.org/call-for-special-sessions/
     timezone: AoE
     date: May 1-6, 2027
     place: Bangalore, India
