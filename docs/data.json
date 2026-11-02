@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-01T08:02:12+00:00",
+  "generated_at": "2026-11-02T07:02:30+00:00",
   "conferences": [
     {
       "title": "AAAI",
@@ -1915,10 +1915,6 @@
               "comment": "IMWUT videos due",
               "track": "Video Teaser",
               "url": "https://www.ubicomp.org/ubicomp-iswc-2026/video-teasers-cfv/"
-            },
-            {
-              "deadline": "2026-11-01 23:59:59",
-              "comment": "IMWUT new submissions"
             }
           ],
           "timezone": "AoE",
